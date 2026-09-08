@@ -158,7 +158,10 @@ export default function Hero() {
   }, [mode, assembled]);
 
   const showFallback = scene === "unavailable";
-  const showPoster = posterOk && !showFallback;
+  /* The poster is captured from the assembled pose. In full mode the scene
+     opens exploded, so the poster would spoil the reconstruction — serve it
+     only where the pose matches (short / static). DECISIONS #21. */
+  const showPoster = posterOk && !showFallback && mode !== "full";
 
   return (
     <div ref={wrapRef} className="hero-wrap" id="top">

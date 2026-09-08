@@ -1,4 +1,6 @@
 export const site = {
+  /* Canonical origin for metadata, sitemap, OG. Override with NEXT_PUBLIC_SITE_URL. */
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://farnsworthmotors.com",
   name: "Farnsworth Motors",
   tagline: "Built again.",
   legalName: "Oceans Auto LLC",

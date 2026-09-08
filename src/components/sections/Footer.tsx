@@ -9,8 +9,11 @@ const SITE_LINKS = [
   { href: "/about", label: "About" },
 ] as const;
 
-/** Legal pages ship later — rendered inert until they exist. */
-const LEGAL = ["Privacy", "Terms", "Title Disclosure"] as const;
+const LEGAL = [
+  { href: "/legal/privacy", label: "Privacy" },
+  { href: "/legal/terms", label: "Terms" },
+  { href: "/legal/title-disclosure", label: "Title Disclosure" },
+] as const;
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -55,8 +58,10 @@ export function Footer() {
           <p className="font-mono text-[10.5px] tracking-[0.3em] text-muted uppercase">Legal</p>
           <ul className="mt-5 space-y-3">
             {LEGAL.map((l) => (
-              <li key={l} className="text-sm text-muted/60">
-                {l}
+              <li key={l.href}>
+                <Link href={l.href} className="text-sm text-muted transition-colors hover:text-ink">
+                  {l.label}
+                </Link>
               </li>
             ))}
           </ul>

@@ -2,7 +2,7 @@
 
 (Do not change this. Both the page build and the 3D build depend on it.)
 
-File owned by the 3D build (Codex):
+File owned by the 3D build:
 
 ```
 src/components/hero/three/HeroScene3D.tsx        default export: React.FC<HeroSceneProps>
@@ -18,7 +18,7 @@ src/components/hero/Hero.tsx                      orchestrator: chooses 3D vs fa
 src/components/hero/HeroFallback.tsx              non-WebGL hero (SVG exploded-view assembly + static poster)
 src/components/hero/HeroCopy.tsx
 src/components/hero/types.ts                      the types below
-src/components/hero/three/HeroScene3D.tsx         SHIPS AS A STUB that immediately calls onUnavailable(). Codex replaces it.
+src/components/hero/three/HeroScene3D.tsx         SHIPS AS A STUB that immediately calls onUnavailable(). The 3D build replaces it.
 ```
 
 ```ts

@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
   title: {
     default: "Farnsworth Motors — Built Again.",
     template: "%s — Farnsworth Motors",
