@@ -2,6 +2,8 @@ import {
   maskVin,
   type Vehicle,
 } from "@/lib/vehicles/types";
+import { OperationTag } from "./OperationTag";
+import type { DivisionKey } from "@/lib/brand";
 
 interface RecordCardProps {
   vehicle: Vehicle;
@@ -14,7 +16,7 @@ interface RecordCardProps {
  */
 export function RecordCard({ vehicle, className }: RecordCardProps) {
   const r = vehicle.record;
-  const rows: Array<[string, React.ReactNode]> = [];
+  const rows: Array<[string, React.ReactNode, DivisionKey[]?]> = [];
 
   rows.push(["VIN", maskVin(vehicle.vin)]);
   rows.push(["Title status", `${vehicle.titleStatus === "rebuilt" ? "Rebuilt" : "Clean"} — Utah`]);
@@ -24,7 +26,7 @@ export function RecordCard({ vehicle, className }: RecordCardProps) {
     "Structure / mechanical",
     `${r.structuralAffected ? "Structural repair" : "No structural involvement"} · ${r.mechanicalAffected ? "mechanical repair" : "no mechanical repair"}`,
   ]);
-  if (r.repairSummary) rows.push(["Repair summary", r.repairSummary]);
+  if (r.repairSummary) rows.push(["Repair summary", r.repairSummary, ["collision"]]);
   if (r.partsReplaced.length)
     rows.push([
       "Parts replaced",
@@ -38,7 +40,7 @@ export function RecordCard({ vehicle, className }: RecordCardProps) {
         ))}
       </span>,
     ]);
-  if (r.inspectionStatus) rows.push(["Inspection status", r.inspectionStatus]);
+  if (r.inspectionStatus) rows.push(["Inspection status", r.inspectionStatus, ["service"]]);
   const ba = vehicle.media.before.length + vehicle.media.after.length;
   rows.push([
     "Before / after",
@@ -47,7 +49,11 @@ export function RecordCard({ vehicle, className }: RecordCardProps) {
       : "Photo sets attached to the record",
   ]);
   if (r.documentation.length)
-    rows.push(["Documentation on file", r.documentation.map((d) => d.label).join(" · ")]);
+    rows.push([
+      "Documentation on file",
+      r.documentation.map((d) => d.label).join(" · "),
+      ["motors"],
+    ]);
 
   return (
     <div className={`rec${className ? ` ${className}` : ""}`}>
@@ -56,9 +62,12 @@ export function RecordCard({ vehicle, className }: RecordCardProps) {
         <span>{vehicle.id}</span>
       </div>
       <div>
-        {rows.map(([key, val]) => (
+        {rows.map(([key, val, tags]) => (
           <div className="rec-row" key={key}>
-            <span className="rec-key">{key}</span>
+            <span className="rec-key">
+              {key}
+              {tags && <OperationTag divisions={tags} className="mt-1.5 flex" />}
+            </span>
             <span className="rec-val">{val}</span>
           </div>
         ))}

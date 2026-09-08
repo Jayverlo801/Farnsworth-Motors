@@ -43,9 +43,9 @@ const VEHICLES: Vehicle[] = [
       repairSummary:
         "Fascia, right fender, and right headlamp assembly replaced with OEM parts. Hood refinished. Suspension inspected; alignment set to factory specification.",
       partsReplaced: [
-        { name: "Front fascia", oem: true },
-        { name: "Right front fender", oem: true },
-        { name: "Right headlamp assembly", oem: true },
+        { name: "Front fascia", oem: true, partId: "front_bumper" },
+        { name: "Right front fender", oem: true, partId: "hood" },
+        { name: "Right headlamp assembly", oem: true, partId: "headlight" },
         { name: "Right fender liner", oem: true },
       ],
       inspectionStatus: "Utah rebuilt-title inspection — passed",
@@ -91,8 +91,8 @@ const VEHICLES: Vehicle[] = [
       repairSummary:
         "Quarter panel repaired and refinished; bumper cover and taillamp replaced with OEM parts. Rebuilt-title inspection completed.",
       partsReplaced: [
-        { name: "Rear bumper cover", oem: true },
-        { name: "Left taillamp assembly", oem: true },
+        { name: "Rear bumper cover", oem: true, partId: "rear_bumper" },
+        { name: "Left taillamp assembly", oem: true, partId: "taillight" },
       ],
       inspectionStatus: "Utah rebuilt-title inspection — passed",
       documentation: [
@@ -136,9 +136,9 @@ const VEHICLES: Vehicle[] = [
       repairSummary:
         "Fascia, grille, and hood replaced with OEM components and refinished. Cooling system pressure-tested.",
       partsReplaced: [
-        { name: "Front fascia", oem: true },
-        { name: "Grille", oem: true },
-        { name: "Hood", oem: true },
+        { name: "Front fascia", oem: true, partId: "front_bumper" },
+        { name: "Grille", oem: true, partId: "front_bumper" },
+        { name: "Hood", oem: true, partId: "hood" },
       ],
       inspectionStatus: "Utah rebuilt-title inspection — passed",
       documentation: [

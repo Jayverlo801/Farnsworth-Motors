@@ -39,16 +39,18 @@ function decideQuality(): HeroQuality {
 }
 
 /**
- * Hero orchestrator. Owns mode/quality decisions, the poster (LCP), the
- * dynamic 3D scene behind the shared contract, the SVG fallback, the
- * wordmark reveal, and the scroll handoff into the brand statement.
- * The 3D scene itself is owned by the 3D build — see docs/HERO-CONTRACT.md.
+ * Hero orchestrator. v3 composition: the drawing owns the lower band of the
+ * viewport (ground line at ~82svh), the wordmark owns the upper band —
+ * separate territory, no collision (see public/3d/reference/
+ * hero-composition.json for the exact boxes the 3D scene must match).
+ * The 3D scene itself is owned by the 3D build — docs/HERO-CONTRACT.md.
  */
 export default function Hero() {
   const [mode, setMode] = useState<HeroMode | null>(null);
   const [quality, setQuality] = useState<HeroQuality>("medium");
   const [scene, setScene] = useState<SceneState>("loading");
   const [force3DOff, setForce3DOff] = useState(false);
+  const [frozen, setFrozen] = useState(false);
   const [assembled, setAssembled] = useState(false);
   const [posterOk, setPosterOk] = useState(true);
   const fallbackRef = useRef<HeroFallbackHandle>(null);
@@ -60,8 +62,10 @@ export default function Hero() {
     target: wrapRef,
     offset: ["start start", "end start"],
   });
-  const visualScale = useTransform(scrollYProgress, [0, 1], [1, 1.085]);
-  const visualOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
+  /* Part 1.7: one motion — the drawing scales 1→1.18, drops 8vh, fades out */
+  const carScale = useTransform(scrollYProgress, [0, 1], [1, 1.18]);
+  const carY = useTransform(scrollYProgress, [0, 1], ["0svh", "8svh"]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
   const copyY = useTransform(scrollYProgress, [0, 1], [0, -48]);
 
   /* paused when tab hidden or hero offscreen */
@@ -80,10 +84,8 @@ export default function Hero() {
     const params = new URLSearchParams(window.location.search);
     const q = params.get("hero");
     // QA switch for integration: ?3d=off exercises the fallback path.
-    if (params.get("3d") === "off") {
-      setForce3DOff(true);
-      setScene("unavailable");
-    }
+    const force3D = params.get("3d") === "on";
+    const disable3D = params.get("3d") === "off" || q === "exploded";
     const prm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let m: HeroMode = "full";
     try {
@@ -95,11 +97,22 @@ export default function Hero() {
     if (q === "skip") m = "short";
     if (q === "static") m = "static";
     if (prm) m = "static";
+    // Design/reference state: the exploded drawing, frozen, labels on.
+    if (q === "exploded") m = "static";
     let cancelled = false;
     queueMicrotask(() => {
       if (cancelled) return;
+      const quality = decideQuality();
+      // Page-side policy: low-end devices never pay the WebGL boot cost —
+      // they get the designed fallback (docs/DECISIONS.md). ?3d=on overrides
+      // for testing the scene on small viewports.
+      if (disable3D || (quality === "low" && !force3D)) {
+        setForce3DOff(true);
+        setScene("unavailable");
+      }
+      if (q === "exploded") setFrozen(true);
       setMode(m);
-      setQuality(decideQuality());
+      setQuality(quality);
     });
     return () => { cancelled = true; };
   }, []);
@@ -154,14 +167,9 @@ export default function Hero() {
         className="hero-pin"
         aria-label="Farnsworth Motors — a vehicle rebuilding itself from engineered parts"
       >
-        <motion.div
-          className="hero-inner"
-          style={assembled ? { opacity: visualOpacity } : undefined}
-        >
-          <motion.div
-            className={`hero-visual${mode ? " is-mounted" : ""}${assembled ? " is-brand" : ""}`}
-            style={assembled ? { scale: visualScale } : undefined}
-          >
+        <motion.div className="hero-inner" style={{ opacity: heroOpacity }}>
+          {/* ---- lower band: the vehicle ---- */}
+          <div className={`hero-visual${mode ? " is-mounted" : ""}${assembled ? " is-brand" : ""}`}>
             {/* Poster — LCP element; produced by the 3D build. Hidden if absent. */}
             {showPoster && (
               <Image
@@ -180,33 +188,34 @@ export default function Hero() {
             {/* Both layers stay mounted through the poster-to-canvas crossfade. */}
             {mode && scene !== "unavailable" && !force3DOff && (
               <div className={`hero-canvas${scene === "ready" ? " is-ready" : ""}`}>
-              <HeroScene3D
-                mode={mode}
-                quality={quality}
-                scrollProgress={scrollYProgress}
-                paused={paused}
-                onReady={() => setScene("ready")}
-                onAssembled={handleAssembled}
-                onUnavailable={() => setScene("unavailable")}
-              />
+                <HeroScene3D
+                  mode={mode}
+                  quality={quality}
+                  scrollProgress={scrollYProgress}
+                  paused={paused}
+                  onReady={() => setScene("ready")}
+                  onAssembled={handleAssembled}
+                  onUnavailable={() => setScene("unavailable")}
+                />
               </div>
             )}
 
-            {/* Designed non-WebGL experience */}
+            {/* Designed non-WebGL experience, anchored to the ground line */}
             {mode && showFallback && (
-              <HeroFallback
-                ref={fallbackRef}
-                mode={mode}
-                onAssembled={handleAssembled}
-              />
+              <motion.div className="hero-car-slot" style={{ scale: carScale, y: carY }}>
+                <HeroFallback
+                  ref={fallbackRef}
+                  mode={mode}
+                  frozen={frozen}
+                  onAssembled={handleAssembled}
+                />
+              </motion.div>
             )}
-          </motion.div>
+          </div>
 
-          <motion.div
-            style={{ y: copyY }}
-            className="hero-copy-track"
-          >
-            <HeroCopy visible={assembled} />
+          {/* ---- upper band: the wordmark ---- */}
+          <motion.div style={{ y: copyY }} className="hero-band">
+            <HeroCopy visible={assembled} fast={mode !== "full"} />
           </motion.div>
 
           {mode === "full" && !assembled && showFallback && (
@@ -218,10 +227,6 @@ export default function Hero() {
               Skip
             </button>
           )}
-
-          <div className={`hero-cue${assembled ? " is-visible" : ""}`} aria-hidden="true">
-            <span />
-          </div>
 
           <p className="sr-only" role="status">
             {assembled ? "Vehicle assembly complete." : "Vehicle assembling."}

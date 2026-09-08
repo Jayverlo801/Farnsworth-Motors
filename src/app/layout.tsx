@@ -25,6 +25,7 @@ export const metadata: Metadata = {
     siteName: "Farnsworth Motors",
     locale: "en_US",
     type: "website",
+    images: [{ url: "/brand/og.png", width: 1200, height: 630 }],
   },
 };
 

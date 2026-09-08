@@ -7,6 +7,8 @@ export interface PartReplaced {
   name: string;
   oem: boolean;
   partNumber?: string;
+  /** Contract part id (docs/HERO-CONTRACT.md) — lights the record diagram. */
+  partId?: string;
 }
 
 export interface DocumentationItem {

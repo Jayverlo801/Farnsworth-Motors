@@ -5,6 +5,7 @@ import { Navigation } from "@/components/navigation/Navigation";
 import { Footer } from "@/components/sections/Footer";
 import { PhotoFrame } from "@/components/ui/PhotoFrame";
 import { RecordCard } from "@/components/ui/RecordCard";
+import { RecordDiagram } from "@/components/ui/RecordDiagram";
 import { Reveal } from "@/components/ui/Reveal";
 import { getAllVehicles, getVehicleBySlug } from "@/lib/vehicles/source";
 import { titleLabel, vehicleName } from "@/lib/vehicles/types";
@@ -60,6 +61,7 @@ export default async function VehicleRecordPage({
 
           <Reveal delay={120}>
             <div className="mt-14">
+              <RecordDiagram vehicle={v} className="mb-8" />
               <RecordCard vehicle={v} />
             </div>
           </Reveal>

@@ -19,14 +19,16 @@ interface HeroFallbackProps {
   mode: HeroMode;
   /** Assembly complete — the page starts the wordmark reveal. */
   onAssembled: () => void;
+  /** QA/reference: hold the exploded state, labels on, no timeline. */
+  frozen?: boolean;
 }
 
 /** ms offsets for "full": structure, interior, body, identity. */
 const FULL_TIMES = [950, 1850, 2750, 3850];
 const FULL_COMPLETE = 5350;
 /** "short" starts ~80% assembled (body on) and finishes fast. */
-const SHORT_FINAL = 350;
-const SHORT_COMPLETE = 1000;
+const SHORT_FINAL = 250;
+const SHORT_COMPLETE = 700;
 
 /**
  * The non-WebGL hero: an exploded engineering drawing that assembles itself
@@ -34,7 +36,7 @@ const SHORT_COMPLETE = 1000;
  * the brand must read completely even where WebGL never runs.
  */
 export const HeroFallback = forwardRef<HeroFallbackHandle, HeroFallbackProps>(
-  function HeroFallback({ mode, onAssembled }, ref) {
+  function HeroFallback({ mode, onAssembled, frozen = false }, ref) {
     const [stage, setStage] = useState(mode === "static" ? 5 : mode === "short" ? 3 : 0);
     const [instant, setInstant] = useState(mode !== "full");
     const timers = useRef<number[]>([]);
@@ -56,6 +58,7 @@ export const HeroFallback = forwardRef<HeroFallbackHandle, HeroFallbackProps>(
 
     /* Timeline per mode */
     useEffect(() => {
+      if (frozen) return;
       if (mode === "static") {
         finish();
         return;
@@ -77,7 +80,7 @@ export const HeroFallback = forwardRef<HeroFallbackHandle, HeroFallbackProps>(
         timers.current = [];
       };
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [mode]);
+    }, [mode, frozen]);
 
     /* ≤2° pointer parallax after assembly — fine pointers only */
     useEffect(() => {
@@ -113,10 +116,10 @@ export const HeroFallback = forwardRef<HeroFallbackHandle, HeroFallbackProps>(
         >
           <CarArt
             idPrefix="hero"
-            assembledStage={stage}
+            assembledStage={frozen ? 0 : stage}
             sweep
             showLabels
-            labelsDimmed={mode === "static"}
+            labelsDimmed={!frozen && mode === "static"}
           />
         </svg>
       </div>

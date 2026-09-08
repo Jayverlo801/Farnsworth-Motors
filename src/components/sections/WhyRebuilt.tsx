@@ -26,14 +26,16 @@ export function WhyRebuilt() {
           </Reveal>
           <ul className="mt-8 max-w-xl">
             {CONDITIONS.map((c, i) => (
-              <Reveal key={c} delay={i * 100}>
-                <li className="flex items-baseline gap-5 border-t border-line py-4">
-                  <span className="font-mono text-[11px] tracking-[0.3em] text-muted">
-                    0{i + 1}
+              <li key={c} className="border-t border-line">
+                <Reveal delay={i * 100}>
+                  <span className="flex items-baseline gap-5 py-4">
+                    <span className="font-mono text-[11px] tracking-[0.3em] text-muted">
+                      0{i + 1}
+                    </span>
+                    <span className="text-[15px] text-ink">{c}</span>
                   </span>
-                  <span className="text-[15px] text-ink">{c}</span>
-                </li>
-              </Reveal>
+                </Reveal>
+              </li>
             ))}
           </ul>
           <Reveal delay={200}>
@@ -64,7 +66,7 @@ export function WhyRebuilt() {
                 </div>
               </div>
             </div>
-            <p className="mt-6 text-xs leading-relaxed text-muted/70">
+            <p className="mt-6 text-xs leading-relaxed text-muted">
               Illustrative — every car is priced on its own damage, repair, and
               history. We put the numbers on the record, not in the marketing.
             </p>

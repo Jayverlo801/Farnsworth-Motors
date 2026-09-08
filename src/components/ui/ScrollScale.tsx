@@ -21,12 +21,11 @@ export function ScrollScale({ children, from = 1, to = 1.06, className }: Scroll
   });
   const scale = useTransform(scrollYProgress, [0, 1], [from, to]);
 
-  if (reduced) {
-    return <div className={className}>{children}</div>;
-  }
+  // Keep identical markup during SSR and hydration, and keep useScroll's target
+  // attached even when the user's motion preference disables the transform.
   return (
     <div ref={ref} className={`overflow-hidden${className ? ` ${className}` : ""}`}>
-      <motion.div style={{ scale }}>{children}</motion.div>
+      <motion.div style={{ scale: reduced ? 1 : scale }}>{children}</motion.div>
     </div>
   );
 }

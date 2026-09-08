@@ -8,7 +8,7 @@ import { FinalCTA } from "@/components/sections/FinalCTA";
 import { Footer } from "@/components/sections/Footer";
 import { InventoryPreview } from "@/components/sections/InventoryPreview";
 import { RestorationProcess } from "@/components/sections/RestorationProcess";
-import { VehicleRecordSection } from "@/components/sections/VehicleRecordSection";
+import { VehicleRecord } from "@/components/sections/VehicleRecord";
 import { WhyRebuilt } from "@/components/sections/WhyRebuilt";
 
 export default function Home() {
@@ -20,7 +20,7 @@ export default function Home() {
         <BrandStatement />
         <FeaturedVehicle />
         <RestorationProcess />
-        <VehicleRecordSection />
+        <VehicleRecord />
         <BeforeAfter />
         <InventoryPreview />
         <WhyRebuilt />

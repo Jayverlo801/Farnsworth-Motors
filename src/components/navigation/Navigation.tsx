@@ -55,7 +55,7 @@ export function Navigation() {
           </a>
           <Link
             href="/#available"
-            className="btn btn-ghost !h-9 !px-5 !text-[11px]"
+            className="btn nav-cta !h-9 !px-5 !text-[11px]"
           >
             View Vehicles
           </Link>

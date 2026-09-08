@@ -61,7 +61,7 @@ export async function FeaturedVehicle() {
               sizes="(max-width: 1024px) 92vw, 58vw"
             />
           </ScrollScale>
-          <p className="mt-4 text-right font-mono text-[10.5px] tracking-[0.24em] text-muted/70 uppercase">
+          <p className="mt-4 text-right font-mono text-[10.5px] tracking-[0.24em] text-muted uppercase">
             {v.id} · {vehicleName(v)}
           </p>
         </Reveal>
