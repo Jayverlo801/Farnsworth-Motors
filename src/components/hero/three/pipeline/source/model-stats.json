@@ -1,0 +1,62 @@
+{
+  "parts": [
+    "quarter_RL",
+    "door_RL",
+    "door_FL",
+    "quarter_FL",
+    "quarter_RR",
+    "door_RR",
+    "door_FR",
+    "quarter_FR",
+    "hood",
+    "trunk",
+    "roof",
+    "glass_windshield",
+    "glass_rear",
+    "glass_L",
+    "glass_R",
+    "front_bumper",
+    "trim_F",
+    "headlight_L",
+    "headlight_R",
+    "rear_bumper",
+    "trim_R",
+    "taillight_L",
+    "taillight_R",
+    "chassis",
+    "subframe_F",
+    "suspension_FL",
+    "brake_FL",
+    "wheel_FL",
+    "suspension_FR",
+    "brake_FR",
+    "wheel_FR",
+    "subframe_R",
+    "suspension_RL",
+    "brake_RL",
+    "wheel_RL",
+    "suspension_RR",
+    "brake_RR",
+    "wheel_RR",
+    "seat_driver",
+    "seat_passenger",
+    "dashboard",
+    "steering_wheel",
+    "mirror_L",
+    "mirror_R"
+  ],
+  "lods": {
+    "high": {
+      "triangles": 85560,
+      "parts": 44
+    },
+    "medium": {
+      "triangles": 44442,
+      "parts": 44
+    },
+    "low": {
+      "triangles": 20486,
+      "parts": 44
+    }
+  }
+}

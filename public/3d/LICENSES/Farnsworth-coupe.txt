@@ -1,0 +1,17 @@
+Farnsworth coupe — original project asset, September 2026
+
+The mesh, UV layout, occlusion bake, scene lighting and poster were created
+for this project using the reproducible Blender script in
+src/components/hero/three/pipeline/build_coupe.py.
+
+No third-party vehicle mesh, scanned vehicle, branded CAD source, badge,
+stock photograph or purchased asset was used. No model attribution or
+asset subscription is required. These original project assets are provided
+under the repository's MIT license; see /LICENSE.
+
+Blender and glTF Transform were production tools, not incorporated assets.
+The studio environment is constructed at runtime from geometric softboxes;
+no third-party HDRI is downloaded or bundled.
+
+The study is a fictional brand illustration. It is not a repair record,
+structural inspection or depiction of an actual inventory vehicle.

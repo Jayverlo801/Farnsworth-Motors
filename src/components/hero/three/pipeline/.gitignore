@@ -1,0 +1,4 @@
+verification/
+*.blend1
+__pycache__/
+source/*-raw.glb
