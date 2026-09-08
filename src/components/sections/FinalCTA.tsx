@@ -22,7 +22,7 @@ export function FinalCTA() {
           <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
             <Button href="/inventory">Explore Inventory</Button>
             <Button
-              href={`mailto:${site.email}?subject=Sell%20%2F%20Trade%20a%20Vehicle`}
+              href="/sell"
               variant="ghost"
             >
               Sell / Trade a Vehicle

@@ -1,5 +1,5 @@
+import { AnimatedText } from "@/components/ui/AnimatedText";
 import { Reveal } from "@/components/ui/Reveal";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 
 const PRINCIPLES = [
   "Source intelligently.",
@@ -12,18 +12,16 @@ export function BrandStatement() {
   return (
     <section id="statement" className="sect">
       <div className="wrap">
-        <SectionHeading
-          index="01"
-          label="Philosophy"
-          title={
-            <>
-              SOME CARS ARE FINISHED.
-              <br />
-              OTHERS ARE WAITING TO BE
-              <br />
-              FINISHED AGAIN.
-            </>
-          }
+        <Reveal>
+          <p className="eyebrow mb-7">01 / Philosophy</p>
+        </Reveal>
+        <AnimatedText
+          className="display"
+          lines={[
+            "SOME CARS ARE FINISHED.",
+            "OTHERS ARE WAITING TO BE",
+            "FINISHED AGAIN.",
+          ]}
         />
         <Reveal delay={120}>
           <p className="mt-10 max-w-xl text-lg leading-relaxed text-muted">

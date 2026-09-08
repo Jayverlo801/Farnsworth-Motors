@@ -9,7 +9,11 @@ interface RevealProps {
   className?: string;
 }
 
-/** Scroll-into-view reveal. CSS handles prefers-reduced-motion. */
+/**
+ * Scroll-into-view reveal. Deliberately CSS-driven: under
+ * prefers-reduced-motion the stylesheet renders everything visible with no
+ * transition, so content visibility never depends on script heuristics.
+ */
 export function Reveal({ children, delay = 0, className }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);

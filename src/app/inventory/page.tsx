@@ -3,7 +3,7 @@ import { Navigation } from "@/components/navigation/Navigation";
 import { Footer } from "@/components/sections/Footer";
 import { Reveal } from "@/components/ui/Reveal";
 import { VehicleCard } from "@/components/ui/VehicleCard";
-import { getAvailable } from "@/data/vehicles";
+import { getAvailableVehicles } from "@/lib/vehicles/source";
 
 export const metadata: Metadata = {
   title: "Inventory",
@@ -11,8 +11,8 @@ export const metadata: Metadata = {
     "Available rebuilt vehicles from Farnsworth Motors — each with a documented history.",
 };
 
-export default function InventoryPage() {
-  const inventory = getAvailable();
+export default async function InventoryPage() {
+  const inventory = await getAvailableVehicles();
 
   return (
     <>

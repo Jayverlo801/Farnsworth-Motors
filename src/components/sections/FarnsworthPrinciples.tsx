@@ -1,3 +1,4 @@
+import { PhotoFrame } from "@/components/ui/PhotoFrame";
 import { Reveal } from "@/components/ui/Reveal";
 
 const STATEMENTS = [
@@ -18,12 +19,21 @@ export function FarnsworthPrinciples() {
         <div>
           {STATEMENTS.map((s, i) => (
             <Reveal key={s} delay={80}>
-              <p className="flex flex-wrap items-baseline gap-x-8 gap-y-2 border-t border-line py-9 last:border-b">
-                <span className="font-mono text-[11px] tracking-[0.3em] text-muted">
-                  0{i + 1}
-                </span>
-                <span className="display-sm !font-semibold">{s}</span>
-              </p>
+              <div className="grid items-center gap-x-12 gap-y-6 border-t border-line py-9 last:border-b md:grid-cols-[1fr_200px]">
+                <p className="flex flex-wrap items-baseline gap-x-8 gap-y-2">
+                  <span className="font-mono text-[11px] tracking-[0.3em] text-muted">
+                    0{i + 1}
+                  </span>
+                  <span className="display-sm !font-semibold">{s}</span>
+                </p>
+                <PhotoFrame
+                  slot={`S8-0${i + 1}`}
+                  ratio="4 / 3"
+                  silhouette={false}
+                  className="hidden md:block"
+                  sizes="200px"
+                />
+              </div>
             </Reveal>
           ))}
         </div>

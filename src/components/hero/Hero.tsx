@@ -48,6 +48,7 @@ export default function Hero() {
   const [mode, setMode] = useState<HeroMode | null>(null);
   const [quality, setQuality] = useState<HeroQuality>("medium");
   const [scene, setScene] = useState<SceneState>("loading");
+  const [force3DOff, setForce3DOff] = useState(false);
   const [assembled, setAssembled] = useState(false);
   const [posterOk, setPosterOk] = useState(true);
   const fallbackRef = useRef<HeroFallbackHandle>(null);
@@ -64,7 +65,7 @@ export default function Hero() {
   const copyY = useTransform(scrollYProgress, [0, 1], [0, -48]);
 
   /* paused when tab hidden or hero offscreen */
-  const inView = useInView(wrapRef, { amount: 0.05 });
+  const inView = useInView(pinRef, { amount: 0.05 });
   const [hidden, setHidden] = useState(false);
   useEffect(() => {
     const onVis = () => setHidden(document.hidden);
@@ -76,7 +77,13 @@ export default function Hero() {
 
   /* Mode + quality resolution (client-only decisions live here, never in the scene) */
   useEffect(() => {
-    const q = new URLSearchParams(window.location.search).get("hero");
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get("hero");
+    // QA switch for integration: ?3d=off exercises the fallback path.
+    if (params.get("3d") === "off") {
+      setForce3DOff(true);
+      setScene("unavailable");
+    }
     const prm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let m: HeroMode = "full";
     try {
@@ -84,23 +91,28 @@ export default function Hero() {
     } catch {
       /* private mode */
     }
-    if (prm) m = "static";
     if (q === "full") m = "full";
     if (q === "skip") m = "short";
     if (q === "static") m = "static";
-    setMode(m);
-    setQuality(decideQuality());
+    if (prm) m = "static";
+    let cancelled = false;
+    queueMicrotask(() => {
+      if (cancelled) return;
+      setMode(m);
+      setQuality(decideQuality());
+    });
+    return () => { cancelled = true; };
   }, []);
 
   /* If the scene never reports ready, treat it as unavailable */
   useEffect(() => {
-    if (scene !== "loading") return;
+    if (scene !== "loading" || !mode || paused) return;
     const t = window.setTimeout(
       () => setScene((s) => (s === "loading" ? "unavailable" : s)),
       READY_TIMEOUT_MS
     );
     return () => window.clearTimeout(t);
-  }, [scene]);
+  }, [scene, mode, paused]);
 
   const markSeen = () => {
     try {
@@ -133,7 +145,7 @@ export default function Hero() {
   }, [mode, assembled]);
 
   const showFallback = scene === "unavailable";
-  const showPoster = posterOk && scene !== "ready" && !showFallback;
+  const showPoster = posterOk && !showFallback;
 
   return (
     <div ref={wrapRef} className="hero-wrap" id="top">
@@ -160,12 +172,14 @@ export default function Hero() {
                 priority
                 unoptimized
                 className="hero-poster"
+                style={{ opacity: scene === "ready" ? 0 : 1 }}
                 onError={() => setPosterOk(false)}
               />
             )}
 
-            {/* 3D scene (contract-owned). The stub reports unavailable immediately. */}
-            {mode && scene !== "unavailable" && (
+            {/* Both layers stay mounted through the poster-to-canvas crossfade. */}
+            {mode && scene !== "unavailable" && !force3DOff && (
+              <div className={`hero-canvas${scene === "ready" ? " is-ready" : ""}`}>
               <HeroScene3D
                 mode={mode}
                 quality={quality}
@@ -175,6 +189,7 @@ export default function Hero() {
                 onAssembled={handleAssembled}
                 onUnavailable={() => setScene("unavailable")}
               />
+              </div>
             )}
 
             {/* Designed non-WebGL experience */}

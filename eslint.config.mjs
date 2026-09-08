@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Codex-owned 3D asset pipeline (Blender/Node tooling, not app code).
+    "src/components/hero/three/pipeline/**",
+    // Codex's working clone of this repository.
+    "repo/**",
   ]),
 ]);
 

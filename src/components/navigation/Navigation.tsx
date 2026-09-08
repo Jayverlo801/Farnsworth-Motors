@@ -6,8 +6,8 @@ import { site } from "@/lib/site";
 
 const LINKS = [
   { href: "/inventory", label: "Inventory" },
-  { href: "/#process", label: "Our Process" },
-  { href: "/#records", label: "Records" },
+  { href: "/process", label: "Our Process" },
+  { href: "/about", label: "About" },
 ] as const;
 
 export function Navigation() {
@@ -50,7 +50,7 @@ export function Navigation() {
               {l.label}
             </Link>
           ))}
-          <a href={`mailto:${site.email}`} className="nav-link">
+          <a href="/contact" className="nav-link">
             Contact
           </a>
           <Link
@@ -99,7 +99,7 @@ export function Navigation() {
               </Link>
             ))}
             <a
-              href={`mailto:${site.email}`}
+              href="/contact"
               className="mnav-link"
               onClick={() => setOpen(false)}
             >

@@ -1,9 +1,9 @@
-import { getFeatured } from "@/data/vehicles";
+import { getFeaturedVehicle } from "@/lib/vehicles/source";
 import { RecordCard } from "@/components/ui/RecordCard";
 import { Reveal } from "@/components/ui/Reveal";
 
-export function VehicleRecordSection() {
-  const v = getFeatured();
+export async function VehicleRecordSection() {
+  const v = await getFeaturedVehicle();
 
   return (
     <section id="records" className="sect">

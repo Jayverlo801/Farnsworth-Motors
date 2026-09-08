@@ -4,20 +4,20 @@ import { notFound } from "next/navigation";
 import { Navigation } from "@/components/navigation/Navigation";
 import { Footer } from "@/components/sections/Footer";
 import { Button } from "@/components/ui/Button";
+import { PhotoFrame } from "@/components/ui/PhotoFrame";
 import { RecordCard } from "@/components/ui/RecordCard";
 import { Reveal } from "@/components/ui/Reveal";
-import { StudioCar } from "@/components/ui/StudioCar";
-import { getVehicle, vehicles } from "@/data/vehicles";
 import { fmtMiles, fmtPrice } from "@/lib/format";
 import { site } from "@/lib/site";
-import { vehicleName } from "@/types/vehicle";
+import { getAllVehicles, getVehicleBySlug } from "@/lib/vehicles/source";
+import { titleLabel, vehicleName } from "@/lib/vehicles/types";
 
 interface Params {
   slug: string;
 }
 
-export function generateStaticParams(): Params[] {
-  return vehicles.map((v) => ({ slug: v.slug }));
+export async function generateStaticParams(): Promise<Params[]> {
+  return (await getAllVehicles()).map((v) => ({ slug: v.slug }));
 }
 
 export async function generateMetadata({
@@ -26,10 +26,11 @@ export async function generateMetadata({
   params: Promise<Params>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const v = getVehicle(slug);
+  const v = await getVehicleBySlug(slug);
   if (!v) return {};
   return {
-    title: vehicleName(v),
+    // Rebuilt title stated plainly in every listing title — the Standard.
+    title: `${vehicleName(v)} — ${titleLabel(v)}`,
     description: v.description,
   };
 }
@@ -40,14 +41,13 @@ export default async function VehiclePage({
   params: Promise<Params>;
 }) {
   const { slug } = await params;
-  const v = getVehicle(slug);
+  const v = await getVehicleBySlug(slug);
   if (!v) notFound();
 
   const specs: Array<[string, string]> = [
     ["Mileage", fmtMiles(v.mileage)],
     ["Drivetrain", v.drivetrain],
     ["Engine", v.engine],
-    ...(v.transmission ? ([["Transmission", v.transmission]] as Array<[string, string]>) : []),
     ["Exterior", v.exteriorColor],
     ["Interior", v.interiorColor],
     ["Location", v.location],
@@ -73,15 +73,15 @@ export default async function VehiclePage({
                 <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
                   <span className="text-2xl font-semibold text-ink">{fmtPrice(v.price)}</span>
                   <span
-                    className={`badge ${v.titleStatus === "Rebuilt" ? "badge-rebuilt" : "badge-neutral"}`}
+                    className={`badge ${v.titleStatus === "rebuilt" ? "badge-rebuilt" : "badge-neutral"}`}
                   >
-                    {v.titleStatus} title
+                    {titleLabel(v)}
                   </span>
-                  <span className="badge badge-neutral">{v.recordNo}</span>
+                  <span className="badge badge-neutral">{v.id}</span>
                 </div>
               </div>
               <Button
-                href={`mailto:${site.email}?subject=${encodeURIComponent(`Inquiry — ${vehicleName(v)} (${v.recordNo})`)}`}
+                href={`mailto:${site.email}?subject=${encodeURIComponent(`Inquiry — ${vehicleName(v)} (${v.id})`)}`}
               >
                 Inquire
               </Button>
@@ -90,7 +90,12 @@ export default async function VehiclePage({
 
           <Reveal delay={140}>
             <div className="mt-16">
-              <StudioCar idPrefix={`v-${v.slug}`} />
+              <PhotoFrame
+                slot={`VEHICLE-${v.id}-HERO`}
+                ratio="21 / 9"
+                src={v.media.hero}
+                alt={vehicleName(v)}
+              />
             </div>
           </Reveal>
 
@@ -116,9 +121,9 @@ export default async function VehiclePage({
                 <Reveal delay={160}>
                   <p className="eyebrow mt-14 mb-6">Equipment</p>
                   <ul className="grid max-w-xl grid-cols-1 gap-3 sm:grid-cols-2">
-                    {v.features.map((f) => (
-                      <li key={f} className="border-t border-line pt-3 text-sm text-muted">
-                        {f}
+                    {v.features.map((feat) => (
+                      <li key={feat} className="border-t border-line pt-3 text-sm text-muted">
+                        {feat}
                       </li>
                     ))}
                   </ul>
@@ -128,6 +133,12 @@ export default async function VehiclePage({
 
             <Reveal delay={200}>
               <RecordCard vehicle={v} />
+              <Link
+                href={`/vehicle/${v.slug}/record`}
+                className="hero-cta !mt-8"
+              >
+                Full record<span aria-hidden="true">→</span>
+              </Link>
             </Reveal>
           </div>
         </div>

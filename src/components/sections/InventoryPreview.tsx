@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { getAvailable } from "@/data/vehicles";
+import { getAvailableVehicles } from "@/lib/vehicles/source";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { VehicleCard } from "@/components/ui/VehicleCard";
 
-export function InventoryPreview() {
-  const inventory = getAvailable().slice(0, 3);
+export async function InventoryPreview() {
+  const inventory = (await getAvailableVehicles()).slice(0, 3);
 
   return (
     <section id="available" className="sect bg-bg2/40">

@@ -4,8 +4,8 @@ import { site } from "@/lib/site";
 const SITE_LINKS = [
   { href: "/inventory", label: "Inventory" },
   { href: "/#records", label: "Vehicle Records" },
-  { href: "/#process", label: "Our Process" },
-  { href: "/#statement", label: "About" },
+  { href: "/process", label: "Our Process" },
+  { href: "/about", label: "About" },
 ] as const;
 
 /** Legal pages ship later — rendered inert until they exist. */
@@ -43,12 +43,9 @@ export function Footer() {
               </li>
             ))}
             <li>
-              <a
-                href={`mailto:${site.email}`}
-                className="text-sm text-muted transition-colors hover:text-ink"
-              >
+              <Link href="/contact" className="text-sm text-muted transition-colors hover:text-ink">
                 Contact
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>

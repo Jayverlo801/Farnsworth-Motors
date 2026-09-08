@@ -7,8 +7,9 @@ Utah used vehicle dealership specializing in rebuilt / branded-title vehicles.
 ## Stack
 
 - [Next.js](https://nextjs.org) (App Router) + TypeScript
-- Tailwind CSS
-- ESLint
+- Tailwind CSS v4 · Framer Motion · Geist
+- Data layer with swappable sources (static JSON today, Supabase adapter ready — supabase/schema.sql)
+- Cloudflare Workers deploy via @opennextjs/cloudflare (docs/DEPLOY.md)
 
 ## Getting Started
 
@@ -38,11 +39,19 @@ assets/brand/       # Brand guidelines, logos, color specs
 .github/workflows/  # CI/CD
 ```
 
+## Hero & 3D handoff
+
+The hero is orchestrated by src/components/hero/Hero.tsx against the shared
+contract in docs/HERO-CONTRACT.md. The 3D build (Codex) owns
+src/components/hero/three/** and public/3d/**; everything else is the page
+build. The SVG fallback (HeroFallback.tsx) is a permanent deliverable, not a
+placeholder. Decisions log: docs/DECISIONS.md.
+
 ## Brand
 
-- **Accent:** Oxide Red `#B33A26`
-- **Type stack:** Bitter (display) / Archivo (UI) / IBM Plex Mono (data)
-- Full guidelines live in `assets/brand/`
+- **Palette:** graphite `#0B0B0C` ground, muted metallic silver accent `#B8BCC4`, warm sweep `#CFC6B8` (v2 direction — supersedes the earlier oxide-red brand book)
+- **Type:** Geist + Geist Mono — anything in mono is a fact
+- Reference docs live at the repo root (Farnsworth-Homepage-Prompts-v2.md)
 
 ## Environment Variables
 

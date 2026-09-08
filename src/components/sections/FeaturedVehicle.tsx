@@ -1,16 +1,17 @@
 import Link from "next/link";
-import { getFeatured } from "@/data/vehicles";
 import { fmtMiles, fmtPrice } from "@/lib/format";
+import { getFeaturedVehicle } from "@/lib/vehicles/source";
+import { titleLabel, vehicleName } from "@/lib/vehicles/types";
+import { PhotoFrame } from "@/components/ui/PhotoFrame";
 import { Reveal } from "@/components/ui/Reveal";
-import { StudioCar } from "@/components/ui/StudioCar";
-import { vehicleName } from "@/types/vehicle";
+import { ScrollScale } from "@/components/ui/ScrollScale";
 
-export function FeaturedVehicle() {
-  const v = getFeatured();
+export async function FeaturedVehicle() {
+  const v = await getFeaturedVehicle();
 
   const meta: Array<[string, string]> = [
     ["Mileage", fmtMiles(v.mileage)],
-    ["Title", v.titleStatus],
+    ["Title", titleLabel(v)],
     ["Drivetrain", v.drivetrain],
     ["Location", v.location],
   ];
@@ -30,14 +31,11 @@ export function FeaturedVehicle() {
           <Reveal delay={120}>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
               <span className="text-2xl font-semibold text-ink">{fmtPrice(v.price)}</span>
-              <span className={`badge ${v.titleStatus === "Rebuilt" ? "badge-rebuilt" : "badge-neutral"}`}>
-                {v.titleStatus} title
+              <span className={`badge ${v.titleStatus === "rebuilt" ? "badge-rebuilt" : "badge-neutral"}`}>
+                {titleLabel(v)}
               </span>
             </div>
-            <Link
-              href={`/vehicle/${v.slug}`}
-              className="hero-cta !mt-9"
-            >
+            <Link href={`/vehicle/${v.slug}`} className="hero-cta !mt-9">
               View Vehicle<span aria-hidden="true">→</span>
             </Link>
           </Reveal>
@@ -54,9 +52,17 @@ export function FeaturedVehicle() {
         </div>
 
         <Reveal delay={150}>
-          <StudioCar idPrefix="featured" />
+          <ScrollScale className="rounded-[18px]">
+            <PhotoFrame
+              slot="S2-FEATURED"
+              ratio="16 / 10"
+              src={v.media.hero}
+              alt={vehicleName(v)}
+              sizes="(max-width: 1024px) 92vw, 58vw"
+            />
+          </ScrollScale>
           <p className="mt-4 text-right font-mono text-[10.5px] tracking-[0.24em] text-muted/70 uppercase">
-            {v.recordNo} · {vehicleName(v)}
+            {v.id} · {vehicleName(v)}
           </p>
         </Reveal>
       </div>

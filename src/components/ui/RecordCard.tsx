@@ -1,4 +1,7 @@
-import type { Vehicle } from "@/types/vehicle";
+import {
+  maskVin,
+  type Vehicle,
+} from "@/lib/vehicles/types";
 
 interface RecordCardProps {
   vehicle: Vehicle;
@@ -11,23 +14,46 @@ interface RecordCardProps {
  */
 export function RecordCard({ vehicle, className }: RecordCardProps) {
   const r = vehicle.record;
-  const rows: Array<[string, string]> = [];
+  const rows: Array<[string, React.ReactNode]> = [];
 
-  rows.push(["VIN", vehicle.vinMasked]);
-  rows.push(["Title", `${vehicle.titleStatus} — Utah`]);
-  if (r.acquisitionRecord) rows.push(["Acquired", r.acquisitionRecord]);
-  if (r.damageClassification) rows.push(["Classification", r.damageClassification]);
-  if (r.damageSummary) rows.push(["Damage", r.damageSummary]);
-  if (r.repairSummary) rows.push(["Repair", r.repairSummary]);
-  if (r.partsReplaced?.length) rows.push(["Parts replaced", r.partsReplaced.join(" · ")]);
-  if (r.inspectionStatus) rows.push(["Inspection", r.inspectionStatus]);
-  if (r.documentation?.length) rows.push(["On file", r.documentation.join(" · ")]);
+  rows.push(["VIN", maskVin(vehicle.vin)]);
+  rows.push(["Title status", `${vehicle.titleStatus === "rebuilt" ? "Rebuilt" : "Clean"} — Utah`]);
+  if (r.acquisition) rows.push(["Acquisition", r.acquisition]);
+  if (r.damageClassification) rows.push(["Damage classification", r.damageClassification]);
+  rows.push([
+    "Structure / mechanical",
+    `${r.structuralAffected ? "Structural repair" : "No structural involvement"} · ${r.mechanicalAffected ? "mechanical repair" : "no mechanical repair"}`,
+  ]);
+  if (r.repairSummary) rows.push(["Repair summary", r.repairSummary]);
+  if (r.partsReplaced.length)
+    rows.push([
+      "Parts replaced",
+      <span key="parts">
+        {r.partsReplaced.map((p, i) => (
+          <span key={p.name}>
+            {i > 0 && " · "}
+            {p.name}
+            {p.oem && <span className="rec-oem"> OEM</span>}
+          </span>
+        ))}
+      </span>,
+    ]);
+  if (r.inspectionStatus) rows.push(["Inspection status", r.inspectionStatus]);
+  const ba = vehicle.media.before.length + vehicle.media.after.length;
+  rows.push([
+    "Before / after",
+    ba > 0
+      ? `${vehicle.media.before.length} intake · ${vehicle.media.after.length} delivery photos`
+      : "Photo sets attached to the record",
+  ]);
+  if (r.documentation.length)
+    rows.push(["Documentation on file", r.documentation.map((d) => d.label).join(" · ")]);
 
   return (
     <div className={`rec${className ? ` ${className}` : ""}`}>
       <div className="rec-head">
         <span>Vehicle Record</span>
-        <span>{vehicle.recordNo}</span>
+        <span>{vehicle.id}</span>
       </div>
       <div>
         {rows.map(([key, val]) => (
