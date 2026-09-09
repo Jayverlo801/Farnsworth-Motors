@@ -14,7 +14,7 @@ Active direction: [queue/porsche-gt3-rs-direction.md](queue/porsche-gt3-rs-direc
 
 Status: Jay chose original Blender modeling. A custom GT3 RS-inspired model now
 exists at `assets/3d/source/gt3rs-study/gt3rs-study.blend`, with 58 animated
-components, 2400 × 1500 inspection renders, and three verified web LODs under
+components, 3000 × 1875 inspection renders, and three verified web LODs under
 `public/3d/gt3rs-study/`. See that source folder's README and verification report.
 
 The active homepage still loads the earlier coupe. Next is hero integration:

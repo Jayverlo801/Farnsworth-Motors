@@ -3,16 +3,16 @@
   "decoder": "Three.js GLTFLoader + MeshoptDecoder",
   "lods": {
     "high": {
-      "sha256": "eebef51a0af3d92cd649de45242c60bf477a9e919f05550fa4d8d4c290a71dd0",
+      "sha256": "82179678069f5c170af7176fc2496cd9f420a068523068a737af10f6622d4d2a",
       "parts": 58,
-      "drawMeshes": 130,
-      "triangles": 117072,
+      "drawMeshes": 134,
+      "triangles": 117126,
       "maxHomeErrorMeters": 0,
-      "compressionBoundsErrorMeters": 0.00007693908128148387,
-      "maxPartBoundsErrorMeters": 0.00007668683588609883,
+      "compressionBoundsErrorMeters": 0.00004020566240624956,
+      "maxPartBoundsErrorMeters": 0.00007844992531055614,
       "sizeMeters": [
-        4.814347636890403,
-        1.587271037451016,
+        4.789357014308743,
+        1.5062873227293885,
         2.173938145426221
       ],
       "materials": [
@@ -32,16 +32,16 @@
       ]
     },
     "medium": {
-      "sha256": "c5d56bf81df3b11e9899ee98fa9a0e3e078f95c4acdf68c936d582e63a07b53f",
+      "sha256": "3d9de43b7fc007b910ad7c1047ed1ab9d894af728e4a0121acf0e1d4b3a4cdd2",
       "parts": 58,
-      "drawMeshes": 130,
-      "triangles": 57574,
+      "drawMeshes": 134,
+      "triangles": 57584,
       "maxHomeErrorMeters": 0,
-      "compressionBoundsErrorMeters": 0.000053628483624749754,
-      "maxPartBoundsErrorMeters": 0.00008414531117760255,
+      "compressionBoundsErrorMeters": 0.000012974939202114675,
+      "maxPartBoundsErrorMeters": 0.00007492088711265988,
       "sizeMeters": [
-        4.814492297605888,
-        1.5872791522889478,
+        4.7895666890019815,
+        1.5063169676277637,
         2.1746705642420423
       ],
       "materials": [
@@ -61,17 +61,17 @@
       ]
     },
     "low": {
-      "sha256": "4353e2ddcf39c4af0a14f13aec9a20120018e2fb540bbccf2776b6c65de5e715",
+      "sha256": "40a309a5f13356329d2e869ac742dc3355463e5134a46f56b1a62bb53ec525b4",
       "parts": 58,
-      "drawMeshes": 130,
-      "triangles": 27580,
+      "drawMeshes": 134,
+      "triangles": 27563,
       "maxHomeErrorMeters": 0,
-      "compressionBoundsErrorMeters": 0.00003714998800670968,
-      "maxPartBoundsErrorMeters": 0.000060240966773072383,
+      "compressionBoundsErrorMeters": 0.00002044638789368273,
+      "maxPartBoundsErrorMeters": 0.0000753635430680701,
       "sizeMeters": [
-        4.817635459079986,
-        1.593725774512793,
-        2.173866677423443
+        4.791357413212845,
+        1.511446811323028,
+        2.1738569245343133
       ],
       "materials": [
         "aluminum",

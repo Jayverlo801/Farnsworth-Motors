@@ -42,11 +42,24 @@ assert materials['wing_main']==['carbon']
 assert 'headlamp lens' in materials['headlight_R']
 assert 'rubber' in materials['wheel_FR'] and 'aluminum' in materials['wheel_FR']
 assert 'rear lamp' in materials['taillight_R']
-assert scene.render.resolution_x==2400 and scene.render.resolution_y==1500
+assert scene.render.resolution_x==3000 and scene.render.resolution_y==1875
+assert 'STUDIO / cove' in bpy.data.objects, 'Missing seamless studio backdrop'
+assert bpy.data.materials['glass'].node_tree.nodes.get('Principled BSDF').inputs['Transmission Weight'].default_value>.95
+# Rays into the two hood ducts must hit the modeled floor below the paint surface.
+hood=bpy.data.objects['hood'];inverse=hood.matrix_world.inverted();duct_depths=[]
+for sign in [-1,1]:
+    heights=[]
+    for y in [.11,.32]:
+        hit,point,normal,index=hood.ray_cast(inverse@Vector((1.40,sign*y,2.0)),Vector((0,0,-1)))
+        assert hit, 'Missing hood skin or duct floor'
+        heights.append((hood.matrix_world@point).z)
+    depth=heights[0]-heights[1]
+    assert .025<depth<.10,f'Hood duct is not recessed: {depth}'
+    duct_depths.append(depth)
 report={'passed':True,'sourceSha256':hashlib.sha256((OUT/'gt3rs-study.blend').read_bytes()).hexdigest(),'sourceTriangles':triangles,'separateParts':len(parts),
         'assemblyErrorMeters':errors,'cameraBoundsNormalized':bounds,
-        'renderSize':[2400,1500],'nativeAnimation':{'fps':30,'frames':270,'durationSeconds':9},
-        'checks':['finite geometry','58 unique animated parts','no invented rear doors','exact exploded/assembled transforms','hero camera contains model at sampled frames','carbon/rubber/lens/lamp material assignments'],
+        'renderSize':[3000,1875],'hoodDuctDepthMeters':duct_depths,'nativeAnimation':{'fps':30,'frames':270,'durationSeconds':9},
+        'checks':['finite geometry','58 unique animated parts','no invented rear doors','exact exploded/assembled transforms','hero camera contains model at sampled frames','carbon/rubber/lens/lamp material assignments','transmissive glazing','ray-verified recessed hood ducts','seamless studio cove'],
         'limitations':['Artistic similarity, not factory dimensional accuracy.','No claim of photorealism from automated checks.','Website integration and physical-device performance are separate acceptance steps.']}
 (OUT/'verification.json').write_text(json.dumps(report,indent=2))
 print('GT3_VERIFIED',json.dumps(report),flush=True)

@@ -37,9 +37,9 @@ for(const [lod,trisMax,bytesMax]of [['high',120000,2500000],['medium',60000,1500
 (async()=>{
   for(const name of ['hero','rear','side','exploded']){
     const src=path.join(source,name+'.png');const metadata=await sharp(src).metadata();
-    assert.equal(metadata.width,2400);assert.equal(metadata.height,1500);
+    assert.equal(metadata.width,3000);assert.equal(metadata.height,1875);
     const file=path.join(output,name+'.webp');
-    await sharp(src).webp({quality:94,effort:6}).toFile(file);
+    await sharp(src).resize(2400,1500).webp({quality:94,effort:6}).toFile(file);
     manifest.renders[name]={url:`/3d/gt3rs-study/${name}.webp`,width:2400,height:1500,bytes:fs.statSync(file).size};
   }
   fs.writeFileSync(path.join(output,'manifest.json'),JSON.stringify(manifest,null,2));

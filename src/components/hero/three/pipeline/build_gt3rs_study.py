@@ -1,6 +1,7 @@
 """Original GT3 RS-inspired modeling study. No imported meshes or photo textures.
 
-Blender 4.5: --background --python build_gt3rs_study.py [-- --draft]
+Blender 4.5: --background --python build_gt3rs_study.py [-- --draft | --preview]
+--preview writes only to ignored verification output; production source is untouched.
 X = nose, Y = vehicle left, Z = up. Dimensions are artistic estimates, not CAD.
 """
 import bpy, math, json, sys
@@ -9,13 +10,15 @@ from mathutils import Vector
 
 PIPE = Path(__file__).resolve().parent
 ROOT = PIPE.parents[4]
-OUT = ROOT / 'assets/3d/source/gt3rs-study'
+PREVIEW = '--preview' in sys.argv
+OUT = PIPE/'verification/gt3rs-refinement' if PREVIEW else ROOT/'assets/3d/source/gt3rs-study'
 OUT.mkdir(parents=True, exist_ok=True)
-DRAFT = '--draft' in sys.argv
+DRAFT = '--draft' in sys.argv or PREVIEW
 bpy.ops.object.select_all(action='SELECT')
 bpy.ops.object.delete(use_global=False)
 for block in list(bpy.data.materials): bpy.data.materials.remove(block)
 PARTS = {}
+CUTS = {}
 
 def linear(h):
     rgb = [int(h[i:i+2], 16)/255 for i in (0,2,4)]
@@ -29,16 +32,16 @@ def material(name, color, rough=.4, metal=0, coat=0):
     p.inputs['Coat Weight'].default_value=coat;p.inputs['Coat Roughness'].default_value=.085
     return m
 
-paint=material('paint','858D95',.30,.60,.8)
-carbon=material('carbon','141619',.47,0,.12)
+paint=material('paint','A7AAAD',.265,.44,.65)
+carbon=material('carbon','141619',.34,0,.22)
 carbon.node_tree.nodes.get('Principled BSDF').inputs['Specular IOR Level'].default_value=.25
 rubber=material('rubber','161719',.88)
-alloy=material('aluminum','363D46',.30,.78,.15)
+alloy=material('aluminum','303238',.26,.72,.22)
 bright=material('polished alloy','C2C5C9',.22,.93)
 black=material('intake shadow','08090B',.84)
 interior=material('interior','222326',.87)
-glass=material('glass','596268',.075,0,.65)
-glass.node_tree.nodes.get('Principled BSDF').inputs['Transmission Weight'].default_value=.65
+glass=material('glass','C8D4D5',.035,0,0)
+glass.node_tree.nodes.get('Principled BSDF').inputs['Transmission Weight'].default_value=1
 glass.node_tree.nodes.get('Principled BSDF').inputs['IOR'].default_value=1.46
 lamp=material('lamp reflector','B8BCC4',.15,.95)
 led=material('light','F4F4F2',.2,.2)
@@ -49,7 +52,7 @@ red.node_tree.nodes.get('Principled BSDF').inputs['Emission Strength'].default_v
 clear_lens=material('headlamp lens','C0C8CC',.025,0,.2)
 clear_lens.node_tree.nodes.get('Principled BSDF').inputs['Transmission Weight'].default_value=1
 clear_lens.node_tree.nodes.get('Principled BSDF').inputs['IOR'].default_value=1.46
-caliper=material('caliper','B4A38B',.38,.65)
+caliper=material('caliper','A99860',.36,.50)
 # Fine original carbon weave, using surface-generated coordinates, saved in source.
 n=carbon.node_tree.nodes;l=carbon.node_tree.links
 tex=n.new('ShaderNodeTexCoord');mapn=n.new('ShaderNodeMapping')
@@ -57,6 +60,31 @@ mapn.inputs['Rotation'].default_value[2]=math.pi/4;l.new(tex.outputs['Generated'
 weave=n.new('ShaderNodeTexChecker');weave.inputs['Scale'].default_value=155
 weave.inputs['Color1'].default_value=(*linear('0D0F11'),1);weave.inputs['Color2'].default_value=(*linear('17191B'),1)
 l.new(mapn.outputs[0],weave.inputs['Vector']);l.new(weave.outputs['Color'],n.get('Principled BSDF').inputs['Base Color'])
+
+def cut_prism(o,outline,axis,lo,hi):
+    """Cut a true duct through a closed panel, retaining the authored surface."""
+    verts=[]
+    for depth in [lo,hi]:
+        for a,b in outline:
+            verts.append((a,b,depth) if axis=='Z' else ((depth,a,b) if axis=='X' else (a,depth,b)))
+    count=len(outline)
+    faces=[tuple(reversed(range(count))),tuple(range(count,count*2))]
+    faces += [(i,(i+1)%count,(i+1)%count+count,i+count) for i in range(count)]
+    data=bpy.data.meshes.new('temporary duct cutter');data.from_pydata(verts,[],faces);data.update()
+    cutter=bpy.data.objects.new('temporary duct cutter',data);bpy.context.collection.objects.link(cutter)
+    bpy.ops.object.select_all(action='DESELECT');cutter.select_set(True);bpy.context.view_layer.objects.active=cutter
+    bpy.ops.object.mode_set(mode='EDIT');bpy.ops.mesh.select_all(action='SELECT');bpy.ops.mesh.normals_make_consistent(inside=False);bpy.ops.object.mode_set(mode='OBJECT')
+    bpy.context.view_layer.objects.active=o
+    normal_source=o.copy();normal_source.data=o.data.copy();normal_source.name='temporary surface normals'
+    bpy.context.collection.objects.link(normal_source);normal_source.hide_render=True
+    mod=o.modifiers.new('Recessed air duct','BOOLEAN');mod.operation='DIFFERENCE';mod.solver='EXACT';mod.object=cutter
+    bpy.ops.object.modifier_apply(modifier=mod.name)
+    # Preserve the smooth designed paint field across topology introduced by cuts.
+    normals=o.modifiers.new('Continuous paint normals','DATA_TRANSFER');normals.object=normal_source
+    normals.use_loop_data=True;normals.data_types_loops={'CUSTOM_NORMAL'};normals.loop_mapping='POLYINTERP_NEAREST'
+    bpy.ops.object.modifier_apply(modifier=normals.name)
+    bpy.data.objects.remove(cutter,do_unlink=True)
+    bpy.data.objects.remove(normal_source,do_unlink=True)
 
 def collect(name,o,mat):
     # Mesh operators may inherit the active object's material. Replace that slot;
@@ -128,10 +156,11 @@ def interp(x,keys):
 
 def smooth(t):return max(0,min(1,t))**2*(3-2*max(0,min(1,t)))
 def width(x):return interp(x,[(-2.24,.90),(-1.72,1.025),(-1.30,1.015),(-.72,.92),(0,.887),(.59,.923),(1.24,.965),(1.75,.937),(2.31,.91)])
-def centerz(x):return interp(x,[(-2.24,.775),(-1.75,.89),(-1.35,.89),(-.65,.80),(.52,.83),(1.12,.755),(1.72,.70),(2.31,.605)])
-def shoulder(x):return interp(x,[(-2.24,.76),(-1.72,.925),(-1.30,.942),(-.72,.835),(0,.817),(.59,.86),(1.24,.94),(1.75,.845),(2.31,.635)])
-def crown(x):return interp(x,[(-2.24,.79),(-1.7,1.005),(-1.3,1.01),(-.7,.886),(0,.86),(.6,.90),(1.23,1.02),(1.70,.928),(2.31,.651)])
+def centerz(x):return interp(x,[(-2.24,.775),(-1.75,.89),(-1.35,.88),(-.65,.81),(.52,.835),(1.12,.807),(1.72,.727),(2.31,.605)])
+def shoulder(x):return interp(x,[(-2.24,.76),(-1.72,.902),(-1.30,.922),(-.72,.84),(0,.832),(.59,.86),(1.24,.880),(1.75,.785),(2.31,.635)])
+def crown(x):return interp(x,[(-2.24,.79),(-1.7,.970),(-1.3,.978),(-.7,.875),(0,.862),(.6,.89),(1.23,.930),(1.70,.840),(2.31,.651)])
 def wrapx(x,q):return x-(.13+.23*q*q)*smooth((x-1.85)/.46)+.13*q*q*smooth((-x-1.9)/.34)
+def hood_edge(x):return .667-.070*smooth((x-.70)/1.50) if x>.56 else .667
 def upper(x,q):
     q=max(0,min(1,q))
     # C1 crown, then a rolled shoulder with near-vertical tangent at the flank.
@@ -139,9 +168,9 @@ def upper(x,q):
     elif q<=.82:z=centerz(x)+.008+(crown(x)-centerz(x)-.008)*smooth((q-.5)/.32)
     else:z=shoulder(x)+(crown(x)-shoulder(x))*math.sqrt(max(0,1-((q-.82)/.18)**2))
     xp,yp=wrapx(x,q),q*width(x)*.988
-    d=math.sqrt(((xp-1.805)/.252)**2+((yp-.735)/.158)**2)
-    flatten=smooth((1.6-d)/.60)
-    lens_plane=.840-.50*(xp-1.805)-.12*(yp-.735)
+    d=math.sqrt(((xp-1.805)/.240)**2+((yp-.735)/.172)**2)
+    flatten=.72*smooth((1.6-d)/.60)
+    lens_plane=.783-.66*(xp-1.805)-.10*(yp-.735)
     z=z*(1-flatten)+lens_plane*flatten
     return (xp,yp,z)
 def arch(x):
@@ -153,6 +182,8 @@ def arch(x):
 def sidepoint(x,t,sign):
     bottom=arch(x);top=upper(x,1)[2];z=bottom+(top-bottom)*t
     y=width(x)*.988+.012*math.sin(math.pi*t)-.065*(1-t)**4
+    waist=smooth((x+1.10)/.35)*(1-smooth((x-.40)/.30))
+    y-=.022*math.exp(-((z-.43)/.17)**2)*waist*math.sin(math.pi*t)**2
     v=max(0,min(1,(z-.145)/(upper(2.31,1)[2]-.145)))
     xw=wrapx(x,1)+(.15*math.sin(math.pi*v)+.06*(1-v))*smooth((x-1.85)/.46)
     rv=max(0,min(1,(z-.18)/(upper(-2.24,1)[2]-.18)))
@@ -161,50 +192,64 @@ def sidepoint(x,t,sign):
 
 # Three separable panels each side, two real doors. Dense surface sampling keeps
 # the rolled arch openings and shoulder reflections continuous without Subsurf.
+def door_seam(x,t):
+    if -.77<x<-.74:return x-.055*math.sin(math.pi*t)+.12*(1-t)**4
+    if .54<x<.58:return x+.015*math.sin(math.pi*t)-.060*(1-t)**2
+    return x
 for sign,side in [(1,'L'),(-1,'R')]:
     for stem,a,b in [('quarter_R',-2.24,-.756),('door_F',-.750,.555),('quarter_F',.561,2.31)]:
         name=stem+side
-        patch(name,lambda u,v,a=a,b=b,s=sign:sidepoint(a+(b-a)*u,v,s),128,20,paint)
+        patch(name,lambda u,v,a=a,b=b,s=sign:sidepoint(door_seam(a,v)+(door_seam(b,v)-door_seam(a,v))*u,v,s),128,28,paint)
         # Shoulder strip bridges to the cabin or hood without flattening fenders.
-        patch(name,lambda u,v,a=a,b=b,s=sign:(lambda p:(p[0],p[1]*s,p[2]))(upper(a+(b-a)*u,.67+.33*v)),128,24,paint)
+        patch(name,lambda u,v,a=a,b=b,s=sign:(lambda x:(lambda p:(p[0],p[1]*s,p[2]))(upper(x,hood_edge(x)+(1-hood_edge(x))*v)))(a+(b-a)*u),128,24,paint)
     # Rocker has a raised outer winglet at the front wheel's trailing edge.
     patch('side_skirt_'+side,lambda u,v,s=sign:(-.85+1.55*u,s*(.89+.035*math.sin(v*math.pi)),.13+.085*v),35,6,carbon,.014)
-    box('door_F'+side,(-.40,sign*.925,.735),(.18,.026,.027),alloy,.012)
+    # Body-color recessed handle and the small horizontal shadow below its pull.
+    box('door_F'+side,(-.40,sign*.929,.733),(.205,.009,.046),black,.020)
+    box('door_F'+side,(-.40,sign*.938,.742),(.181,.020,.027),paint,.012)
     # Rear brake-cooling opening: an inlaid taper, shaped along the quarter.
     def vent(u,v,s=sign):
-        x=-.83-.10*v+.12*(u-.5)*math.sin(math.pi*v)**.55
+        x=-.86-.065*v+.17*(u-.5)*math.sin(math.pi*v)**.55
         z=.55+.285*v;t=(z-arch(x))/(upper(x,1)[2]-arch(x));p=sidepoint(x,t,s)
-        return (p[0],p[1]+s*.006,z)
-    patch('rear_vent_'+side,vent,18,32,black,.003)
-    contour=[vent(0,i/64) for i in range(65)]+[vent(1,1-i/64) for i in range(65)]
-    tube('rear_vent_'+side,contour,.0035,paint,True)
+        return (p[0],p[1],z)
+    patch('rear_vent_'+side,lambda u,v,s=sign:(lambda p:(p[0],p[1]-s*.062,p[2]))(vent(u,v,s)),18,32,black,.003)
+    contour=[vent(0,.02+.96*i/40) for i in range(41)]+[vent(1,.98-.96*i/40) for i in range(41)]
+    CUTS['quarter_R'+side]=[([(p[0],p[2]) for p in contour],'Y',sign*.92-.20,sign*.92+.20)]
+    tube('rear_vent_'+side,contour,.003,paint,True)
+    mesh('rear_vent_'+side,contour+[(p[0],p[1]-sign*.060,p[2]) for p in contour],[(i,(i+1)%len(contour),(i+1)%len(contour)+len(contour),i+len(contour)) for i in range(len(contour))],carbon)
     # Arch louvers follow the front fender crown.
-    patch('fender_louver_'+side,lambda u,v,s=sign:(lambda p:(p[0],s*p[1],p[2]+.004))(upper(.89+.44*u,.74+.20*v)),24,14,black,.002)
+    patch('fender_louver_'+side,lambda u,v,s=sign:(lambda p:(p[0],s*p[1],p[2]-.036))(upper(.97+.43*u,.775+.17*v)),24,14,black,.002)
+    corners=[upper(x,q) for x,q in [(.98,.78),(1.39,.78),(1.39,.94),(.98,.94)]]
+    CUTS['quarter_F'+side]=[([(p[0],p[1]*sign) for p in corners],'Z',.70,1.10)]
     for k in range(3):
-        x=.91+k*.135
-        patch('fender_louver_'+side,lambda u,v,x=x,s=sign:(lambda p:(p[0],s*p[1],p[2]+.005+.017*(1-u)))(upper(x+.08*u,.745+.19*v)),6,18,carbon,.003)
+        x=1.01+k*.13
+        patch('fender_louver_'+side,lambda u,v,x=x,s=sign:(lambda p:(p[0],s*p[1],p[2]-.016+.019*u))(upper(x+.07*u,.778+.165*v)),6,18,carbon,.0025)
     # Vertical outer aero blade, behind the front wheel.
-    points=[(.71,sign*1.005,.17),(.71,sign*1.005,.64),(.62,sign*1.005,.66),(.59,sign*1.005,.17)]
-    mesh('arch_blade_'+side,points,[(0,1,2,3)],carbon,.012)
+    points=[(.71,sign*.970,.16),(.66,sign*.977,.64),(.605,sign*.975,.66),(.57,sign*.963,.16)]
+    mesh('arch_blade_'+side,points,[(0,1,2,3)],carbon,.008)
 
 def deck_patch(name,a,b):
     # Hood/deck bounded by longitudinal seams against shoulder strips.
     def fn(u,v):
-        x=a+(b-a)*u;q=(v*2-1)*.667;p=upper(x,abs(q))
+        x=a+(b-a)*u;q=(v*2-1)*(hood_edge(x)-.003);p=upper(x,abs(q))
         return (p[0],p[1]*(1 if q>=0 else -1),p[2])
     return patch(name,fn,64,52,paint,.006)
-deck_patch('hood',.572,2.306)
+hood_shell=deck_patch('hood',.572,2.306)
 deck_patch('trunk',-2.237,-1.358)
 
-# Hood extraction openings and raised rear lips: modeled, not photo decals.
+# Deep radiator-extraction ducts, with thin molded lips and internal vanes.
 for sign in [-1,1]:
+    outline=[(.96,sign*.16),(1.63,sign*.225),(1.63,sign*.435),(.96,sign*.405)]
+    cut_prism(hood_shell,outline,'Z',.50,1.20)
     def hoodvent(u,v,s=sign):
-        x=1.13+.58*u;y=s*(.22+.19*v+.05*(1-u));q=abs(y)/(width(x)*.988);p=upper(x,q)
-        return (p[0],y,p[2]+.009)
-    patch('hood',hoodvent,22,12,black,.004)
-    patch('hood',lambda u,v,s=sign:(lambda p:(p[0]-.008,p[1],p[2]+.048*(1-u)))(hoodvent(.025+.24*u,v,s)),12,18,paint,.006)
-    for k in range(3):
-        patch('hood',lambda u,v,k=k,s=sign:(lambda p:(p[0],p[1],p[2]+.003))(hoodvent(.32+k*.21+.018*u,v,s)),2,12,carbon,.003)
+        x=.955+.68*u;y=s*(.16+.065*u+(.245-.035*u)*v);q=abs(y)/(width(x)*.988);p=upper(x,q)
+        return (p[0],y,p[2])
+    patch('hood',lambda u,v,s=sign:(lambda p:(p[0],p[1],p[2]-.052))(hoodvent(u,v,s)),24,12,black,.003)
+    edges=[hoodvent(i/36,0,sign) for i in range(37)]+[hoodvent(1,i/16,sign) for i in range(1,17)]+[hoodvent(1-i/36,1,sign) for i in range(1,37)]+[hoodvent(0,1-i/16,sign) for i in range(1,16)]
+    mesh('hood',edges+[(p[0],p[1],p[2]-.055) for p in edges],[(i,(i+1)%len(edges),(i+1)%len(edges)+len(edges),i+len(edges)) for i in range(len(edges))],carbon)
+    patch('hood',lambda u,v,s=sign:(lambda p:(p[0],p[1],p[2]+.025*math.sin(u*math.pi/2)))(hoodvent(.005+.235*u,v,s)),12,18,paint,.004)
+    for v in [.34,.68]:
+        patch('hood',lambda u,w,v=v,s=sign:(lambda p:(p[0],p[1],p[2]-.05+.041*w))(hoodvent(.22+.765*u,v,s)),24,2,carbon,.002)
 
 # Dome and glazing. Three-dimensional, rounded 911-like greenhouse.
 RZ=[(-1.47,.875),(-1.18,1.085),(-.85,1.245),(-.48,1.322),(-.13,1.305),(.08,1.233),(.38,1.02),(.57,.848)]
@@ -213,13 +258,21 @@ def canopy(x,q):return (x,q*interp(x,RW),interp(x,RZ)-.058*q*q)
 patch('roof',lambda u,v:canopy(-.87+.948*u,v*2-1),44,44,paint,.008)
 patch('glass_windshield',lambda u,v:canopy(.087+.479*u,(v*2-1)*.975),30,40,glass,.003)
 patch('glass_rear',lambda u,v:canopy(-1.455+.576*u,(v*2-1)*.954),32,36,glass,.003)
+# Ceramic frit/seals give the glazing an actual manufactured edge.
+for name,a,b,qmax in [('glass_windshield',.087,.566,.975),('glass_rear',-1.455,-.879,.954)]:
+    border=[canopy(a+(b-a)*i/60,-qmax) for i in range(61)]+[canopy(b,-qmax+2*qmax*i/60) for i in range(1,61)]+[canopy(b-(b-a)*i/60,qmax) for i in range(1,61)]+[canopy(a,qmax-2*qmax*i/60) for i in range(1,60)]
+    tube(name,[(p[0],p[1],p[2]+.0015) for p in border],.0075,black,True)
+for sign in [-1,1]:
+    tube('glass_windshield',[(lambda p:(p[0],p[1],p[2]+.009))(canopy(.529-.027*math.sin(i*math.pi/32),sign*(.03+.66*i/32))) for i in range(33)],.005,black)
+    # Two restrained roof guides; no decorative fins or extra animated names.
+    patch('roof',lambda u,v,s=sign:(lambda p:(p[0],p[1],p[2]+.023*math.sin(math.pi*u)*v))(canopy(-.73+.53*u,s*.67)),30,2,carbon,.003)
 for sign,side in [(1,'L'),(-1,'R')]:
     def window(x,t,s=sign):
         bottom=.827+.013*math.cos(x*2);top=interp(x,RZ)-.06
         return (x,s*((width(x)*.84)*(1-t)+interp(x,RW)*t),bottom+(top-bottom)*t)
     patch('glass_'+side,lambda u,v:window(-1.275+1.77*u,v),70,14,glass,.003)
     # B-pillar separates rear quarter glass from the actual front door glass.
-    patch('roof',lambda u,v,s=sign:(lambda p:(p[0],p[1]+s*.004,p[2]))(window(-.56+.044*u,v,s)),4,14,black,.006)
+    patch('roof',lambda u,v,s=sign:(lambda p:(p[0],p[1]+s*.004,p[2]))(window(-.774+.044*u,v,s)),4,14,black,.006)
     # Broad rear pillar and slender front pillar join the roof to the shoulders.
     for a,b in [(-1.47,-1.28),(.50,.57)]:
         patch('roof',lambda u,v,a=a,b=b:window(a+(b-a)*u,v),18,14,paint,.008)
@@ -264,7 +317,11 @@ def hole(u,v):
     middle=y<.64 and .205<z<.465 and ((y/.64)**8+((z-.335)/.135)**8)<1
     side=.713<y<.858 and .236<z<.396
     return middle or side
-patch('front_bumper',front,100,38,paint,.012,hole)
+fascia=patch('front_bumper',front,100,38,paint,.012)
+def aperture(y,z,ry,rz):
+    return [(y+ry*math.copysign(abs(math.cos(t*math.tau/96))**.33,math.cos(t*math.tau/96)),z+rz*math.copysign(abs(math.sin(t*math.tau/96))**.5,math.sin(t*math.tau/96))) for t in range(96)]
+cut_prism(fascia,aperture(0,.330,.644,.129),'X',1.85,2.60)
+for sign in [-1,1]:cut_prism(fascia,aperture(sign*.787,.323,.071,.084),'X',1.82,2.60)
 patch('front_bumper',lambda u,v:(2.265-.18*((u*2-1)*.70/.91)**2,(u*2-1)*.70,.20+.28*v),62,16,black)
 for k in range(81):
     y=-.61+k*1.22/80
@@ -274,10 +331,10 @@ for z in [.23+i*.018 for i in range(12)]:
 for sign in [-1,1]:
     patch('front_bumper',lambda u,v,s=sign:(2.302-.23*((.64+.19*u)/.91)**2,s*(.64+.19*u),.36+.072*v),14,5,black,.004)
     patch('front_bumper',lambda u,v,s=sign:(2.252-.23*((.70+.17*u)/.91)**2,s*(.70+.17*u),.23+.19*v),14,8,black)
-    tube('front_bumper',[(2.32-.23*(y/.91)**2,y,.43) for y in [sign*(.66+i*.17/12) for i in range(13)]],.008,led)
+    tube('front_bumper',[(2.32-.23*(y/.91)**2,y,.43) for y in [sign*(.66+i*.17/12) for i in range(13)]],.004,led)
 patch('splitter',lambda u,v:(2.19+.19*v-.25*(u*2-1)**2,(u*2-1)*.947,.13+.018*math.sin(v*math.pi)),80,6,carbon,.018)
 for sign,side in [(1,'L'),(-1,'R')]:
-    mesh('splitter',[(2.06,sign*.93,.14),(2.20,sign*.95,.20),(2.04,sign*.96,.40),(1.94,sign*.96,.43)],[(0,1,2,3)],carbon,.008)
+    mesh('splitter',[(2.17,sign*.95,.145),(2.19,sign*.946,.20),(2.05,sign*.942,.38),(2.00,sign*.940,.385)],[(0,1,2,3)],carbon,.005)
 
 def rear(u,v):
     q=u*2-1;y=q*.90*.988;top=upper(-2.24,abs(q))[2]
@@ -295,9 +352,9 @@ for endpoint,fn,bottom in [(2.31,front,.145),(-2.24,rear,.18)]:
 assert seam_error<.00001, f'Open fascia seam: {seam_error}m'
 patch('rear_bumper',lambda u,v:(lambda p:(p[0]-.009,p[1],p[2]))(rear(.045+.91*u,.05+.34*v)),64,12,black,.005)
 patch('rear_bumper',lambda u,v:(lambda p:(p[0]-.007,p[1],p[2]))(rear(.33+.34*u,.53+.16*v)),24,8,carbon,.004)
-patch('diffuser',lambda u,v:(-2.29+.15*(u*2-1)**2+.22*v,(u*2-1)*.895,.13+.21*v),64,10,carbon,.016)
+patch('diffuser',lambda u,v:(-2.28+.15*(u*2-1)**2+.22*v,(u*2-1)*.895,.13+.14*v),64,10,carbon,.012)
 for y in [-.70,-.45,-.16,.16,.45,.70]:
-    mesh('diffuser',[(-2.28,y,.10),(-1.96,y,.13),(-1.96,y,.31),(-2.28,y,.28)],[(0,1,2,3)],carbon,.010)
+    mesh('diffuser',[(-2.28,y,.105),(-1.96,y,.14),(-1.96,y,.25),(-2.28,y,.185)],[(0,1,2,3)],carbon,.006)
 for sign,side in [(1,'L'),(-1,'R')]:
     pts=[]
     for y in [sign*(.015+i*.82/60) for i in range(61)]:
@@ -305,8 +362,9 @@ for sign,side in [(1,'L'),(-1,'R')]:
         p=rear(u,(.715-.18)/(top-.18));pts.append((p[0]-.012,y,.715))
     tube('taillight_'+side,pts,.019,black)
     tube('taillight_'+side,[(p[0]-.022,p[1],p[2]+.001) for p in pts],.007,red)
-    cylinder('exhaust',( -2.18,sign*.135,.235),(-2.33,sign*.135,.235),.065,bright,48)
-    cylinder('exhaust',( -2.331,sign*.135,.235),(-2.334,sign*.135,.235),.052,black,48)
+    cylinder('exhaust',( -2.18,sign*.112,.235),(-2.30,sign*.112,.235),.052,bright,64)
+    cylinder('exhaust',( -2.301,sign*.112,.235),(-2.304,sign*.112,.235),.045,black,64)
+    ellipse('exhaust',(-2.305,sign*.112,.235),(0,1,0),(0,0,1),.050,.050,.0025,bright)
 for i in range(14):
     y=-.57+i*.088
     tube('trunk',[(lambda p:(p[0],y,p[2]+.004))(upper(x,abs(y)/(width(x)*.988))) for x in [-2.11+j*.34/20 for j in range(21)]],.0045,carbon)
@@ -320,16 +378,32 @@ def airfoil(name,x0,chord,z0,span):
         z=z0-.055*math.sin(t*math.pi)+.045*t+thickness
         return (x,y,z)
     return patch(name,foil,64,30,carbon)
-airfoil('wing_main',-2.30,.42,1.442,1.055)
-airfoil('wing_flap',-2.415,.14,1.490,1.055)
+airfoil('wing_main',-2.28,.40,1.392,1.005)
+airfoil('wing_flap',-2.385,.14,1.440,1.005)
 for sign,side in [(1,'L'),(-1,'R')]:
-    profile=[(-2.40,1.405),(-2.43,1.575),(-2.30,1.60),(-1.85,1.535),(-1.82,1.445),(-2.02,1.402)]
-    mesh('wing_endplate_'+side,[(x,sign*1.065,z) for x,z in profile],[tuple(range(len(profile)))],carbon,.015)
+    profile=[(-2.38,1.356),(-2.405,1.484),(-2.32,1.519),(-1.91,1.472),(-1.85,1.399),(-2.01,1.361)]
+    mesh('wing_endplate_'+side,[(x,sign*1.014,z) for x,z in profile],[tuple(range(len(profile)))],carbon,.008)
 for sign in [-1,1]:
-    profile=[(-1.61,.949),(-1.73,1.397),(-1.89,1.541),(-2.20,1.555),(-2.21,1.514),(-1.93,1.497),(-1.84,1.368),(-1.76,.946)]
-    mesh('wing_supports',[(x,sign*.51,z) for x,z in profile],[tuple(range(len(profile)))],carbon,.038)
-    for x in [-2.05,-1.94]:
-        cylinder('wing_supports',(x,sign*.51,1.506),(x,sign*.51,1.525),.011,bright,12)
+    # Smooth, thin swan-neck ribbons support the upper surface of the airfoil.
+    xkeys=[(0,-1.72),(.35,-1.80),(.64,-1.92),(.84,-2.14),(1,-2.22)]
+    zkeys=[(0,.935),(.35,1.24),(.64,1.464),(.84,1.463),(1,1.435)]
+    verts=[]
+    for i in range(49):
+        t=i/48;x=interp(t,xkeys);z=interp(t,zkeys)
+        dx=interp(min(1,t+.002),xkeys)-interp(max(0,t-.002),xkeys)
+        dz=interp(min(1,t+.002),zkeys)-interp(max(0,t-.002),zkeys)
+        length=math.hypot(dx,dz);nx,nz=-dz/length,dx/length
+        half=.033-.005*t
+        for edge,depth in [(-1,-.010),(1,-.010),(1,.010),(-1,.010)]:
+            verts.append((x+nx*half*edge,sign*.51+depth,z+nz*half*edge))
+    faces=[(0,3,2,1),(192,193,194,195)]
+    for i in range(48):
+        for j in range(4):faces.append((i*4+j,i*4+(j+1)%4,(i+1)*4+(j+1)%4,(i+1)*4+j))
+    support=mesh('wing_supports',verts,faces,carbon)
+    for face in support.data.polygons:face.use_smooth=False
+    box('wing_supports',(-1.72,sign*.51,.940),(.14,.082,.021),carbon,.01)
+    for x in [-2.15,-2.08]:
+        cylinder('wing_supports',(x,sign*.51,1.454),(x,sign*.51,1.47),.007,bright,12)
 
 # Rolling assemblies: profiled tire carcass, forged Y-spokes, center lock, rotor.
 for cx,axle,rad,ww,wy in [(-1.31,'R',.362,.30,.864),(1.16,'F',.350,.268,.841)]:
@@ -358,8 +432,8 @@ for cx,axle,rad,ww,wy in [(-1.31,'R',.362,.30,.864),(1.16,'F',.350,.268,.841)]:
                 verts=[]
                 for j in range(6):
                     t=j/5;r=.052+.21*t;a=angle+branch*.105*smooth((t-.20)/.8)+.065*t
-                    half=.010*(1-.30*t);depth=.013
-                    y=facey-sign*(.028*math.sin(t*math.pi))
+                    half=.014*(1-.43*t);depth=.010
+                    y=facey-sign*(.045*math.sin(t*math.pi))
                     for off,dep in [(-half,-depth),(half,-depth),(half,depth),(-half,depth)]:
                         verts.append((cx+math.sin(a)*r+math.cos(a)*off,y+dep,cz+math.cos(a)*r-math.sin(a)*off))
                 faces=[(0,3,2,1),(20,21,22,23)]
@@ -408,7 +482,9 @@ objects=[]
 for name,components in PARTS.items():
     bpy.ops.object.select_all(action='DESELECT')
     for o in components:o.select_set(True)
-    bpy.context.view_layer.objects.active=components[0];bpy.ops.object.join();o=bpy.context.object;o.name=name
+    bpy.context.view_layer.objects.active=components[0]
+    if len(components)>1:bpy.ops.object.join()
+    o=bpy.context.object;o.name=name
     bpy.ops.object.transform_apply(location=False,rotation=True,scale=True)
     bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY',center='BOUNDS')
     # Recalculate consistent normals per disconnected closed surface.
@@ -418,17 +494,18 @@ for name,components in PARTS.items():
     if name.startswith(('quarter_','door_F')):
         mod=o.modifiers.new('continuous panel thickness','SOLIDIFY');mod.thickness=.004
         bpy.ops.object.modifier_apply(modifier=mod.name)
+    for outline,axis,lo,hi in CUTS.get(name,[]):cut_prism(o,outline,axis,lo,hi)
     objects.append(o)
 
 scene=bpy.context.scene;scene.unit_settings.system='METRIC'
-scene.render.engine='CYCLES';scene.cycles.samples=40 if DRAFT else 96;scene.cycles.use_denoising=True
+scene.render.engine='CYCLES';scene.cycles.samples=40 if DRAFT else 160;scene.cycles.use_denoising=True
 try:
     prefs=bpy.context.preferences.addons['cycles'].preferences;prefs.compute_device_type='OPTIX';prefs.get_devices()
     for d in prefs.devices:d.use=d.type!='CPU'
     if any(d.use for d in prefs.devices):scene.cycles.device='GPU'
 except Exception:pass
-scene.view_settings.view_transform='AgX';scene.view_settings.look='AgX - Medium High Contrast';scene.view_settings.exposure=-.55
-scene.render.resolution_x=1600 if DRAFT else 2400;scene.render.resolution_y=1000 if DRAFT else 1500;scene.render.resolution_percentage=70 if DRAFT else 100
+scene.view_settings.view_transform='AgX';scene.view_settings.look='AgX - Medium High Contrast';scene.view_settings.exposure=-.75
+scene.render.resolution_x=1400 if DRAFT else 3000;scene.render.resolution_y=875 if DRAFT else 1875;scene.render.resolution_percentage=100
 scene.render.image_settings.file_format='PNG';scene.render.image_settings.color_mode='RGB'
 world=bpy.data.worlds.new('Graphite studio');world.use_nodes=True;scene.world=world
 world.node_tree.nodes.get('Background').inputs['Color'].default_value=(*linear('B8BCC4'),1)
@@ -442,19 +519,32 @@ ray=wn.new('ShaderNodeLightPath');mix=wn.new('ShaderNodeMixShader')
 wl.new(ray.outputs['Is Camera Ray'],mix.inputs[0]);wl.new(wn.get('Background').outputs[0],mix.inputs[1])
 wl.new(flat.outputs[0],mix.inputs[2]);wl.new(mix.outputs[0],wn.get('World Output').inputs['Surface'])
 floor_mat=material('studio floor','1A1C20',.73)
-bpy.ops.mesh.primitive_plane_add(size=2000,location=(0,0,.012));floor=bpy.context.object;floor.name='STUDIO / floor';floor.data.materials.append(floor_mat)
+bpy.ops.mesh.primitive_plane_add(size=140,location=(0,0,.012));floor=bpy.context.object;floor.name='STUDIO / floor';floor.data.materials.append(floor_mat)
+# A real curved infinity cove removes the finite-floor/world horizon in wide views.
+cove_verts=[]
+for j in range(34):
+    theta=min(j,32)/32*math.pi/2
+    radius=35+22*math.sin(theta);z=.012+22*(1-math.cos(theta)) if j<=32 else 100
+    for i in range(192):cove_verts.append((radius*math.cos(i*math.tau/192),radius*math.sin(i*math.tau/192),z))
+cove_faces=[]
+for j in range(33):
+    for i in range(192):
+        a=j*192+i;b=j*192+(i+1)%192;cove_faces.append((a,a+192,b+192,b))
+data=bpy.data.meshes.new('Studio infinity cove');data.from_pydata(cove_verts,[],cove_faces);data.update()
+cove=bpy.data.objects.new('STUDIO / cove',data);bpy.context.collection.objects.link(cove);data.materials.append(floor_mat)
+for face in data.polygons:face.use_smooth=True
 def area(name,pos,energy,size,size_y,target):
     d=bpy.data.lights.new(name,'AREA');d.energy=energy;d.shape='RECTANGLE';d.size=size;d.size_y=size_y
     o=bpy.data.objects.new(name,d);scene.collection.objects.link(o);o.location=pos;o.rotation_euler=(Vector(target)-o.location).to_track_quat('-Z','Y').to_euler();return o
-area('STUDIO / key',(1.2,-3.0,5.0),950,6,2.8,(0,0,.5))
-area('STUDIO / edge',(-2.4,2.5,3.2),1100,5,.65,(-.4,0,.8))
-area('STUDIO / front strip',(4.8,.3,2.4),500,3,.6,(.9,0,.6))
-area('STUDIO / side card',(-1.5,-4.3,.75),180,4,1.0,(-.5,0,.45))
+area('STUDIO / key',(1.0,-3.5,5.5),1300,7,3.0,(0,0,.5))
+area('STUDIO / edge',(-2.4,2.5,3.2),1350,5,1.0,(-.4,0,.8))
+area('STUDIO / front strip',(4.8,.3,2.7),600,4,1.2,(.9,0,.6))
+area('STUDIO / side card',(-1.5,-4.3,1.5),260,5,1.7,(-.5,0,.65))
 def camera(name,pos,target,lens):
     d=bpy.data.cameras.new(name);o=bpy.data.objects.new(name,d);scene.collection.objects.link(o);o.location=pos
     o.rotation_euler=(Vector(target)-o.location).to_track_quat('-Z','Y').to_euler();d.lens=lens
     d.clip_start=.03;d.clip_end=300;return o
-hero=camera('CAMERA / hero',(6.8,-8.3,2.8),(0,0,.77),65)
+hero=camera('CAMERA / hero',(6.8,-8.3,3.3),(0,0,.77),65)
 rear_cam=camera('CAMERA / rear',(-6.8,-8.2,3.0),(-.1,0,.81),58)
 side_cam=camera('CAMERA / side',(0,-9,1.05),(0,0,.80),58)
 side_cam.data.type='ORTHO';side_cam.data.ortho_scale=5.65
@@ -509,12 +599,14 @@ bpy.context.view_layer.objects.active=objects[0]
 source_meshes={o.name:o.data for o in objects}
 stats={}
 total=sum(p['triangles'] for p in manifest)
-for lod,budget in [('high',118000),('medium',58000),('low',28000)]:
+for lod,budget in ([] if PREVIEW else [('high',118000),('medium',58000),('low',28000)]):
     ratio=min(1,budget/max(1,total));tris=0
     for o in objects:
         o.data=source_meshes[o.name].copy();bpy.context.view_layer.objects.active=o
         if ratio<1:
             m=o.modifiers.new('web LOD','DECIMATE');m.ratio=ratio;bpy.ops.object.modifier_apply(modifier=m.name)
+        # Clean decimation artifacts before measuring or handing data to glTF.
+        o.data.validate();o.data.update()
         o.data.calc_loop_triangles();tris+=len(o.data.loop_triangles)
     # The glTF exporter otherwise evaluates frame 0 even with animations disabled.
     scene.frame_set(270)
@@ -533,11 +625,13 @@ for name,cam,frame in [('hero',hero,270),('rear',rear_cam,270),('side',side_cam,
     # An orthographic inspection view needs a clean background; its bottom
     # primary rays begin below the floor and would reveal a hard floor cutoff.
     floor.hide_render=name=='side'
+    cove.hide_render=name=='side'
     if name=='exploded':cam.data.lens=43
     scene.render.filepath=str(OUT/(name+'.png'));bpy.ops.render.render(write_still=True)
     print('GT3_RENDER_DONE',name,flush=True)
     if name=='exploded':cam.data.lens=65
 scene.camera=hero;scene.frame_set(270)
 floor.hide_render=False
+cove.hide_render=False
 bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'gt3rs-study.blend'),compress=True)
 print('GT3_STUDY_COMPLETE',json.dumps({'parts':len(objects),'sourceTriangles':total,'lods':stats}),flush=True)

@@ -7,22 +7,29 @@ cinematic luxury presentation. See [the active brief](queue/porsche-gt3-rs-direc
 Jay chose original Blender modeling instead of acquiring a marketplace model.
 
 The new editable source is at `assets/3d/source/gt3rs-study/gt3rs-study.blend`:
-58 separate animated components, 477,834 source triangles, a nine-second native
-assembly, and 2400 × 1500 studio renders. Geometry is an artistic interpretation,
+58 separate animated components, 514,368 source triangles, a nine-second native
+assembly, and 3000 × 1875 studio renders. Geometry is an artistic interpretation,
 not factory CAD. New web assets and their manifest are in `public/3d/gt3rs-study/`.
 
 | New study LOD | Triangles | Bytes |
 | --- | ---: | ---: |
-| High | 117,072 | 728,348 |
-| Medium | 57,574 | 460,908 |
-| Low | 27,580 | 313,504 |
+| High | 117,126 | 744,324 |
+| Medium | 57,584 | 473,052 |
+| Low | 27,563 | 321,856 |
 
 All 58 part names survive compression as stable-pivot parent groups; each LOD
-has 130 material draw meshes. Native geometry/animation, packaged asset checks,
+has 134 material draw meshes. Native geometry/animation, packaged asset checks,
 and actual Three.js/meshopt decoding pass. **The homepage has not switched to these assets yet.** Its
 current GLBs/poster and older v3 draft stills remain the fictional coupe. New
 model binding, web lighting/AO, fallback/poster parity, and runtime/device tests
 are separate integration work. The generic-coupe alignment task remains paused.
+
+The refinement pass reshapes the hood/fender relationship, tapers the hood,
+curves the door seams, cuts real air openings with recessed duct geometry,
+slims the wing/diffuser, and adds transmissive glazing and seals. The studio
+now has a curved infinity cove. The higher-resolution motion preview is
+1280 × 800 at 30 fps. These visual changes are inspected in the actual Blender
+renders; automated checks are not treated as proof of photorealism.
 
 The measurements and implementation notes below describe the committed **v2
 checkpoint**, not completed Porsche work or acceptance of the local v3 changes.

@@ -1,7 +1,7 @@
 {
   "passed": true,
-  "sourceSha256": "82ca106da974242d048510c69cd1c1aaf702a0a2091cfa948510348bd1f20666",
-  "sourceTriangles": 477834,
+  "sourceSha256": "caec407dcbb85951c9c92ba35d24762b07514f9101853fb0192e75224305f1f1",
+  "sourceTriangles": 514368,
   "separateParts": 58,
   "assemblyErrorMeters": {
     "1": 0,
@@ -10,39 +10,43 @@
   },
   "cameraBoundsNormalized": {
     "1": {
-      "left": 0.20926693081855774,
-      "right": 0.8311198949813843,
-      "bottom": 0.26618659496307373,
-      "top": 0.7753855586051941
+      "left": 0.21709254384040833,
+      "right": 0.8253555297851562,
+      "bottom": 0.25335392355918884,
+      "top": 0.7766068577766418
     },
     "90": {
-      "left": 0.20926693081855774,
-      "right": 0.8311198949813843,
-      "bottom": 0.26618659496307373,
-      "top": 0.7753855586051941
+      "left": 0.21709254384040833,
+      "right": 0.8253555297851562,
+      "bottom": 0.25335392355918884,
+      "top": 0.7766068577766418
     },
     "150": {
-      "left": 0.20926693081855774,
-      "right": 0.7717496156692505,
-      "bottom": 0.26618659496307373,
-      "top": 0.7753855586051941
+      "left": 0.21709254384040833,
+      "right": 0.7688935995101929,
+      "bottom": 0.25335392355918884,
+      "top": 0.7766068577766418
     },
     "210": {
-      "left": 0.1273442953824997,
-      "right": 0.8702533841133118,
-      "bottom": 0.19874390959739685,
-      "top": 0.7541070580482483
+      "left": 0.13901126384735107,
+      "right": 0.8636890053749084,
+      "bottom": 0.17897029221057892,
+      "top": 0.754723072052002
     },
     "270": {
-      "left": 0.09628964215517044,
-      "right": 0.9011078476905823,
-      "bottom": 0.1736392378807068,
-      "top": 0.7752826809883118
+      "left": 0.1089288517832756,
+      "right": 0.8939964771270752,
+      "bottom": 0.152217835187912,
+      "top": 0.775950014591217
     }
   },
   "renderSize": [
-    2400,
-    1500
+    3000,
+    1875
+  ],
+  "hoodDuctDepthMeters": [
+    0.04576826095581055,
+    0.04879462718963623
   ],
   "nativeAnimation": {
     "fps": 30,
@@ -55,7 +59,10 @@
     "no invented rear doors",
     "exact exploded/assembled transforms",
     "hero camera contains model at sampled frames",
-    "carbon/rubber/lens/lamp material assignments"
+    "carbon/rubber/lens/lamp material assignments",
+    "transmissive glazing",
+    "ray-verified recessed hood ducts",
+    "seamless studio cove"
   ],
   "limitations": [
     "Artistic similarity, not factory dimensional accuracy.",

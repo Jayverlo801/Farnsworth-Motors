@@ -6,7 +6,7 @@ part transforms, assembly timing, and render paths.
 
 The files load assembled. Each named component is a stable-pivot parent group;
 animate that group and retain its children's dequantization transforms. Each
-LOD has 130 material draw meshes. `web-verification.json` in the source folder
+LOD has 134 material draw meshes. `web-verification.json` in the source folder
 records real Three.js decoding, geometry, pivot, and compression-bound checks.
 
 These are new assets, not replacements for the active `coupe-*.glb` URLs yet.
