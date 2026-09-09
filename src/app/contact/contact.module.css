@@ -1,256 +1,330 @@
 .page {
-  padding-block: clamp(8rem, 14vw, 11rem) clamp(5rem, 9vw, 8rem);
+  padding-block: clamp(8rem, 11vw, 10rem) 6rem;
 }
 
-.header {
+.layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: end;
-  gap: 2rem;
-  margin-bottom: 3.5rem;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.65fr);
+  align-items: start;
+  gap: clamp(3rem, 6vw, 6rem);
 }
 
 .eyebrow,
-.division,
-.index,
-.detailLabel {
+.directoryLabel,
+.department {
   font-family: var(--font-mono);
+  font-size: 0.75rem;
   font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .eyebrow {
-  margin-bottom: 1.25rem;
-  color: var(--color-muted);
-  font-size: 0.875rem;
-  letter-spacing: 0.2em;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-ink);
+}
+
+.eyebrow > span {
+  width: 0.375rem;
+  height: 0.375rem;
+  background: var(--color-accent);
 }
 
 .title {
-  font-size: clamp(3rem, 6.5vw, 6rem);
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -0.045em;
+  margin-top: 2rem;
+  font-size: clamp(5rem, 8.6vw, 8rem);
+  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: -0.07em;
+}
+
+.title > span {
+  color: var(--color-accent);
 }
 
 .intro {
-  max-width: 26rem;
-  justify-self: end;
-  color: var(--color-silver);
-  font-size: 1rem;
-  line-height: 1.75;
-}
-
-.intro span {
-  display: block;
+  max-width: 20rem;
+  margin-top: 2rem;
   color: var(--color-muted);
-}
-
-.contacts {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  border: 1px solid var(--color-line-strong);
-  background: var(--color-bg2);
-}
-
-.card {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  padding: clamp(1.5rem, 2.5vw, 2.25rem);
-  scroll-margin-top: 6rem;
-}
-
-.card + .card {
-  border-left: 1px solid var(--color-line-strong);
-}
-
-.cardHeader {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 2.75rem;
-}
-
-.division {
-  color: var(--color-silver);
-  font-size: 0.75rem;
-  line-height: 1.6;
-  letter-spacing: 0.1em;
-}
-
-.index {
-  color: var(--color-muted);
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-}
-
-.overview {
-  flex: 1;
-}
-
-.cardTitle {
-  font-size: clamp(2rem, 3vw, 2.75rem);
-  font-weight: 500;
-  line-height: 1.15;
-  letter-spacing: -0.035em;
-}
-
-.description {
-  margin-top: 1.25rem;
-  color: var(--color-muted);
-  font-size: 1rem;
-  line-height: 1.75;
-}
-
-.topics {
-  display: grid;
-  gap: 0.625rem;
-  margin-block: 1.75rem 2.5rem;
-  color: var(--color-silver);
-  font-size: 0.875rem;
-  line-height: 1.5;
-}
-
-.topics li {
-  display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
-}
-
-.topics li::before {
-  content: "";
-  position: relative;
-  top: -0.2em;
-  width: 0.3rem;
-  height: 0.3rem;
-  flex-shrink: 0;
-  background: var(--color-muted);
-}
-
-.details {
-  border-top: 1px solid var(--color-line-strong);
-  padding-top: 1.5rem;
-}
-
-.detailLabel {
-  margin-bottom: 0.75rem;
-  color: var(--color-muted);
-  font-size: 0.875rem;
-  line-height: 1.6;
-  letter-spacing: 0.04em;
-}
-
-.phone,
-.email,
-.emailButton {
-  display: flex;
-  min-height: 2.75rem;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  overflow-wrap: anywhere;
-}
-
-.phone {
-  font-size: 1.375rem;
-  letter-spacing: -0.02em;
-}
-
-.email {
-  color: var(--color-silver);
-  font-size: 0.875rem;
-}
-
-.phone:hover,
-.email:hover {
-  color: var(--color-ink);
-  text-decoration: underline;
-  text-underline-offset: 0.25em;
-}
-
-.details svg {
-  flex-shrink: 0;
-}
-
-.emailButton {
-  min-height: 3.125rem;
-  margin-top: 1.5rem;
-  padding: 0.75rem 1.25rem;
-  border: 1px solid var(--color-line-strong);
-  border-radius: 999px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
-}
-
-.emailButton:hover {
-  border-color: var(--color-ink);
-  background: var(--color-ink);
-  color: var(--color-bg);
-}
-
-.preparation {
-  margin-top: 1.5rem;
-  color: var(--color-muted);
-  font-size: 0.875rem;
+  font-size: 1.0625rem;
   line-height: 1.7;
+  letter-spacing: -0.015em;
 }
 
 .location {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 0.75rem 2rem;
-  padding-top: 1.5rem;
-  color: var(--color-muted);
+  display: grid;
+  gap: 0.4rem;
+  margin-top: 4rem;
   font-size: 0.875rem;
   line-height: 1.6;
 }
 
-.location span[aria-hidden] {
-  margin-inline: 0.625rem;
-  color: var(--color-line-strong);
+.location p + p {
+  color: var(--color-muted);
+}
+
+.directory {
+  min-width: 0;
+}
+
+.directoryLabel {
+  margin-bottom: 2rem;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+}
+
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  align-items: center;
+  gap: 2rem;
+  padding-block: 2rem;
+  border-top: 1px solid var(--color-line-strong);
+  scroll-margin-top: 6rem;
+}
+
+.contact:last-child {
+  border-bottom: 1px solid var(--color-line-strong);
+}
+
+.department {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.1rem;
+  color: var(--color-muted);
+  letter-spacing: 0.06em;
+}
+
+.index {
+  color: var(--color-silver);
+  font-variant-numeric: tabular-nums;
+}
+
+.business {
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1.1;
+}
+
+.brandName {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+}
+
+.methods {
+  min-width: 0;
+  padding-top: 1.25rem;
+  font-style: normal;
+}
+
+.phone,
+.email {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 2.75rem;
+}
+
+.phone {
+  color: var(--color-ink);
+  font-size: clamp(1.25rem, 1.9vw, 1.75rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+}
+
+.phone > span:first-child {
+  white-space: nowrap;
+}
+
+.callIcon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--color-accent);
+  border-radius: 50%;
+  color: var(--color-accent);
+  transition: color 200ms ease, background-color 200ms ease, transform 200ms ease;
+}
+
+.phone:hover .callIcon,
+.phone:focus-visible .callIcon {
+  color: var(--color-bg);
+  background: var(--color-accent);
+  transform: rotate(-12deg);
+}
+
+.email {
+  margin-top: 0.5rem;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  transition: color 200ms ease;
+}
+
+.email > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.email svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  transition: transform 200ms ease;
+}
+
+.email:hover,
+.email:focus-visible {
+  color: var(--color-accent);
+}
+
+.email:hover > span,
+.email:focus-visible > span {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+.email:hover svg {
+  transform: translate(2px, -2px);
 }
 
 @media (max-width: 63.99rem) {
-  .header {
+  .layout {
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+    gap: 3rem;
+  }
+
+  .title {
+    font-size: clamp(4.5rem, 9vw, 6rem);
+  }
+
+  .contact {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-bottom: 2.5rem;
+    gap: 1.25rem;
+    padding-block: 1.75rem;
   }
 
-  .intro {
-    justify-self: start;
+  .business {
+    font-size: 2.25rem;
   }
 
-  .contacts {
-    grid-template-columns: 1fr;
+  .brandName {
+    display: inline;
+    font-size: inherit;
+    font-weight: 400;
+    letter-spacing: inherit;
   }
 
-  .card {
-    padding: 2rem;
+  .department {
+    margin-bottom: 0.75rem;
   }
 
-  .card + .card {
-    border-top: 1px solid var(--color-line-strong);
-    border-left: 0;
+  .methods {
+    padding-top: 0;
   }
 
-  .cardHeader {
-    margin-bottom: 1.75rem;
+  .phone {
+    font-size: 1.5rem;
   }
 }
 
-@media (max-width: 25rem) {
-  .card {
-    padding: 1.5rem;
+@media (max-width: 47.99rem) {
+  .page {
+    padding-block: 7rem 4rem;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .page .layout {
+    width: calc(100% - 3rem);
+  }
+
+  .header {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    column-gap: 1.5rem;
+  }
+
+  .eyebrow,
+  .intro {
+    grid-column: 1 / -1;
+  }
+
+  .title {
+    margin-top: 1.5rem;
+    font-size: clamp(4rem, 19vw, 5rem);
+  }
+
+  .intro {
+    max-width: 23rem;
+    margin-top: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .desktopBreak {
+    display: none;
+  }
+
+  .location {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: end;
+    gap: 0.5rem;
+    margin-top: 0;
+    padding-bottom: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .directoryLabel {
+    margin-bottom: 1.25rem;
+  }
+
+  .contact {
+    padding-block: 1.75rem;
+  }
+
+  .business {
+    font-size: clamp(1.75rem, 7.5vw, 2.25rem);
+  }
+
+  .email {
+    font-size: 0.9375rem;
+  }
+}
+
+@media (max-width: 22rem) {
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .location {
+    grid-column: 1;
+    grid-row: auto;
+    margin-top: 1.5rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .emailButton {
+  .callIcon,
+  .email,
+  .email svg {
     transition: none;
   }
 }

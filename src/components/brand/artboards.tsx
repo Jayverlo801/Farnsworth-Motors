@@ -47,7 +47,7 @@ export async function WindowSticker() {
         <p className="mt-1 text-[1.35rem] leading-tight font-semibold tracking-[-0.02em] text-ink">
           {v.make} {v.model} {v.trim}
         </p>
-        <p className="mt-2 t-data text-[0.75rem] text-accent-soft" style={{ color: "#8b0000" }}>
+        <p className="mt-2 t-data text-[0.75rem] text-accent-soft" style={{ color: "#4361ee" }}>
           REBUILT TITLE — STATED PLAINLY, DOCUMENTED FULLY
         </p>
         <p className="mt-5 t-data text-[1.6rem] text-ink">{fmtPrice(v.price)}</p>
@@ -60,7 +60,7 @@ export async function WindowSticker() {
           <QRPlaceholder seed={v.vin} size={72} />
           <p className="mt-2 t-data text-[0.6rem] text-muted">SCAN — VEHICLE RECORD</p>
         </div>
-        <p className="t-data text-right text-[0.6rem] leading-relaxed text-text3" style={{ color: "#8a775e" }}>
+        <p className="t-data text-right text-[0.6rem] leading-relaxed text-text3" style={{ color: "#98989d" }}>
           {DIVISION_LINE}
         </p>
       </div>
@@ -94,12 +94,12 @@ export async function RecordCoverSheet() {
       <div className="mt-8 border-t border-line">
         {rows.map(([k, val]) => (
           <div key={k} className="grid grid-cols-[88px_1fr] gap-3 border-b border-line py-2.5">
-            <span className="t-data text-[0.6rem] text-text3 uppercase" style={{ color: "#8a775e" }}>{k}</span>
+            <span className="t-data text-[0.6rem] text-text3 uppercase" style={{ color: "#98989d" }}>{k}</span>
             <span className="t-data text-[0.68rem] text-ink">{val}</span>
           </div>
         ))}
       </div>
-      <p className="mt-auto t-data text-[0.58rem] leading-relaxed text-text3" style={{ color: "#8a775e" }}>
+      <p className="mt-auto t-data text-[0.58rem] leading-relaxed text-text3" style={{ color: "#98989d" }}>
         {DIVISION_LINE}
       </p>
     </div>
@@ -110,7 +110,7 @@ export async function RecordCoverSheet() {
 export function PlateFrame() {
   return (
     <div
-      className="relative mx-auto rounded-[10px] border-[6px] border-[#d3c9a2] bg-transparent"
+      className="relative mx-auto rounded-[10px] border-[6px] border-[#d2d2d7] bg-transparent"
       style={{ aspectRatio: "12 / 6.4", maxWidth: 420 }}
     >
       <div className="absolute inset-x-0 top-0 flex justify-center">
@@ -124,7 +124,7 @@ export function PlateFrame() {
         </span>
       </div>
       <div className="absolute inset-[10px] grid place-items-center rounded border border-line/50">
-        <span className="t-data text-[0.6rem] text-text3" style={{ color: "#8a775e" }}>PLATE</span>
+        <span className="t-data text-[0.6rem] text-text3" style={{ color: "#98989d" }}>PLATE</span>
       </div>
     </div>
   );
@@ -133,7 +133,7 @@ export function PlateFrame() {
 /* d) Shop sign lockups — wide format */
 export function ShopSign({ division }: { division: DivisionKey }) {
   return (
-    <div className="flex items-center justify-center gap-5 border border-line bg-[#f4efda] px-10 py-12">
+    <div className="flex items-center justify-center gap-5 border border-line bg-[#ffffff] px-10 py-12">
       <Mark size={34} className="text-ink" optical="large" />
       <span className="inline-flex items-baseline gap-[0.45em] text-[1.6rem] tracking-[-0.02em] whitespace-nowrap">
         <span className="font-semibold text-ink">FARNSWORTH</span>
@@ -147,7 +147,7 @@ export function ShopSign({ division }: { division: DivisionKey }) {
 export function SocialSet() {
   return (
     <div className="grid grid-cols-[96px_1fr] items-start gap-6">
-      <div className="grid aspect-square w-24 place-items-center rounded-full bg-[#f4efda] outline outline-1 outline-line">
+      <div className="grid aspect-square w-24 place-items-center rounded-full bg-[#ffffff] outline outline-1 outline-line">
         <Mark size={40} className="text-ink" optical="small" />
       </div>
       <div className="sheet !p-8" style={{ aspectRatio: "1 / 1" }}>
@@ -181,7 +181,7 @@ export function BusinessCards() {
           <br />
           SE HABLA ESPAÑOL
         </p>
-        <p className="t-data text-[0.58rem] leading-relaxed text-text3" style={{ color: "#8a775e" }}>
+        <p className="t-data text-[0.58rem] leading-relaxed text-text3" style={{ color: "#98989d" }}>
           MOTORS · COLLISION · SERVICE
         </p>
       </div>

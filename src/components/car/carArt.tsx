@@ -27,14 +27,14 @@ import type { ReactNode } from "react";
 export const CAR_VIEWBOX = "0 0 1200 500";
 
 /** Engineering ink on parchment — outer silhouette and panel edges. */
-const OUTER = "#3a2412";
+const OUTER = "#3a3a3c";
 /** Soft ink — structure, cut lines, detail. */
-const STRUCT = "#8a775e";
-const FAINT = "rgba(58, 36, 18, 0.2)";
+const STRUCT = "#98989d";
+const FAINT = "rgba(29, 29, 31, 0.16)";
 /** Body gradient endpoints — warm paper tones. */
-const BODY_TOP = "#f1ebd1";
-const BODY_BOTTOM = "#e7e0be";
-const GLASS = "rgba(32, 14, 1, 0.06)";
+const BODY_TOP = "#ffffff";
+const BODY_BOTTOM = "#eeeef1";
+const GLASS = "rgba(29, 29, 31, 0.05)";
 const W = 1.2;
 
 const SILHOUETTE = [
@@ -82,9 +82,9 @@ function Wheel({ cx }: { cx: number }) {
   const cy = 400;
   return (
     <g>
-      <circle cx={cx} cy={cy} r="52" fill="#2e1c0e" stroke={OUTER} strokeWidth={W} />
-      <circle cx={cx} cy={cy} r="30" fill="none" stroke="#c9b98d" strokeWidth={W} />
-      <circle cx={cx} cy={cy} r="4.5" fill="none" stroke="#c9b98d" strokeWidth={W} />
+      <circle cx={cx} cy={cy} r="52" fill="#1d1d1f" stroke={OUTER} strokeWidth={W} />
+      <circle cx={cx} cy={cy} r="30" fill="none" stroke="#c7c7cc" strokeWidth={W} />
+      <circle cx={cx} cy={cy} r="4.5" fill="none" stroke="#c7c7cc" strokeWidth={W} />
       {[0, 72, 144, 216, 288].map((a) => (
         <line
           key={a}
@@ -92,7 +92,7 @@ function Wheel({ cx }: { cx: number }) {
           y1={cy - 8}
           x2={cx}
           y2={cy - 26}
-          stroke="#c9b98d"
+          stroke="#c7c7cc"
           strokeWidth={W}
           transform={`rotate(${a} ${cx} ${cy})`}
         />
@@ -380,9 +380,9 @@ export function CarArt({
         </radialGradient>
         {sweep && (
           <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stopColor="#5b0202" stopOpacity="0" />
-            <stop offset="0.5" stopColor="#5b0202" stopOpacity="0.08" />
-            <stop offset="1" stopColor="#5b0202" stopOpacity="0" />
+            <stop offset="0" stopColor="#4361ee" stopOpacity="0" />
+            <stop offset="0.5" stopColor="#4361ee" stopOpacity="0.08" />
+            <stop offset="1" stopColor="#4361ee" stopOpacity="0" />
           </linearGradient>
         )}
       </defs>
@@ -454,7 +454,7 @@ export function CarArt({
                     y1={L.ly - 4}
                     x2={L.tx}
                     y2={L.ty}
-                    stroke="rgba(138, 119, 94, 0.55)"
+                    stroke="rgba(152, 152, 157, 0.6)"
                     strokeWidth="1"
                   />
                   <text x={L.lx} y={L.ly} fill={STRUCT} textAnchor={L.tx > L.lx ? "start" : "end"}>
@@ -468,18 +468,18 @@ export function CarArt({
 
       {damaged && (
         <g aria-hidden="true">
-          <g fill="none" stroke="var(--accent-replaced, #8a4a3e)" strokeWidth="1.2">
+          <g fill="none" stroke="var(--accent-replaced, #c62828)" strokeWidth="1.2">
             <circle cx="1010" cy="352" r="16" />
             <circle cx="1010" cy="352" r="24" strokeDasharray="3 5" opacity="0.7" />
             <path d="M 1010 330 L 1010 344 M 1010 360 L 1010 374 M 988 352 L 1002 352 M 1018 352 L 1032 352" />
             <circle cx="930" cy="286" r="12" />
             <circle cx="930" cy="286" r="19" strokeDasharray="3 5" opacity="0.7" />
           </g>
-          <g fontFamily="var(--font-mono)" fontSize="12.5" letterSpacing="1.5" fill="var(--accent-replaced, #8a4a3e)">
+          <g fontFamily="var(--font-mono)" fontSize="12.5" letterSpacing="1.5" fill="var(--accent-replaced, #c62828)">
             <text x="46" y="60">01 · RF IMPACT — FASCIA / FENDER / LAMP</text>
             <text x="46" y="84" fill={STRUCT}>02 · HOOD REFINISHED</text>
           </g>
-          <text x="1010" y="322" fontFamily="var(--font-mono)" fontSize="11.5" fill="var(--accent-replaced, #8a4a3e)" textAnchor="middle">01</text>
+          <text x="1010" y="322" fontFamily="var(--font-mono)" fontSize="11.5" fill="var(--accent-replaced, #c62828)" textAnchor="middle">01</text>
           <text x="930" y="262" fontFamily="var(--font-mono)" fontSize="11.5" fill={STRUCT} textAnchor="middle">02</text>
         </g>
       )}

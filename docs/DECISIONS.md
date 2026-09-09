@@ -133,3 +133,14 @@ performance requirements were not overridden anywhere.
     drawing became engineering ink on paper. Fonts stay @theme inline
     (next/font runtime vars); colors moved to plain @theme so utilities
     reference var() and bands can invert descendants.
+
+27. **Frost & Monolith, per Jay (replaces Golden Luxe — "i hate gold theme").**
+    Studio frost #F5F5F7 base held solid per the 60-30-10 rule (decorative
+    radials behind panels removed); white cards + Apple-gray hairlines as
+    the structural 30%; electric slate #4361EE strictly surgical — primary
+    CTAs, the scrolled nav pill, the hero cue, focus, selection. Spec
+    badges, tags, and progress feedback are structural charcoal, not
+    accent. Punch bands (umbrella, footer) are monolith #1D1D1F via the
+    same .band-dark scoped tokens. Record diagram: replaced = #C62828,
+    intact = green — semantic, record-only. The drawing is charcoal ink
+    on white with dark tires.
