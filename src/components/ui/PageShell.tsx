@@ -21,7 +21,7 @@ export function PageShell({ eyebrow, title, intro, children, afterWrap }: PageSh
         <div className="wrap">
           <Reveal>
             <p className="eyebrow mb-7">{eyebrow}</p>
-            <h1 className="display">{title}</h1>
+            <h1 className="t-headline">{title}</h1>
             {intro && (
               <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted">{intro}</p>
             )}

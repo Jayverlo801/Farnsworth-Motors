@@ -33,9 +33,9 @@ export default function PrivacyPage() {
       eyebrow="Privacy"
       title={
         <>
-          WE DOCUMENT CARS,
+          We document cars,
           <br />
-          NOT VISITORS.
+          not visitors.
         </>
       }
     >

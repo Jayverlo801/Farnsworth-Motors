@@ -16,9 +16,9 @@ export default function SellPage() {
       eyebrow="Sell"
       title={
         <>
-          SELL US
+          Sell us
           <br />
-          YOUR VEHICLE.
+          your car.
         </>
       }
       intro="Damaged, running, or somewhere in between — if the economics make sense, we buy it. Send the basics and we respond with a real number."

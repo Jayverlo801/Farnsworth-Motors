@@ -62,9 +62,9 @@ export default function TermsPage() {
       eyebrow="Terms"
       title={
         <>
-          PLAIN TERMS,
+          Plain terms,
           <br />
-          PLAINLY STATED.
+          plainly stated.
         </>
       }
     >

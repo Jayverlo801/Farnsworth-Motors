@@ -69,7 +69,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-line">
-        <div className="wrap flex flex-wrap items-center justify-between gap-3 py-6 font-mono text-[10.5px] tracking-[0.22em] text-muted/70 uppercase">
+        <div className="wrap flex flex-wrap items-center justify-between gap-3 py-6 font-mono text-[10.5px] tracking-[0.22em] text-muted uppercase">
           <span className="flex flex-col gap-1">
             <span>© {year} {site.legalName} · {site.dba}</span>
             <span className="normal-case tracking-[0.14em]">{DIVISION_LINE}</span>

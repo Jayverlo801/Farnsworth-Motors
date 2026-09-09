@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Navigation } from "@/components/navigation/Navigation";
 import { Footer } from "@/components/sections/Footer";
 import { Button } from "@/components/ui/Button";
-import { PhotoFrame } from "@/components/ui/PhotoFrame";
+import { StudioCar } from "@/components/ui/StudioCar";
 import { RecordCard } from "@/components/ui/RecordCard";
 import { Reveal } from "@/components/ui/Reveal";
 import { fmtMiles, fmtPrice } from "@/lib/format";
@@ -90,12 +90,10 @@ export default async function VehiclePage({
 
           <Reveal delay={140}>
             <div className="mt-16">
-              <PhotoFrame
-                slot={`VEHICLE-${v.id}-HERO`}
-                ratio="21 / 9"
-                src={v.media.hero}
-                alt={vehicleName(v)}
-              />
+              <StudioCar idPrefix={`v-${v.slug}`} />
+              <p className="t-data mt-4 text-[10.5px] text-muted">
+                Illustration — studio photography of this car is in progress.
+              </p>
             </div>
           </Reveal>
 

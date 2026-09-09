@@ -418,7 +418,7 @@ body {
 .car-dmg-shift2 { transform: translate(15px, 7px) rotate(2.6deg); }
 .car-dmg-missing { opacity: 0.3; }
 .car-dmg-missing :is(path, rect, line, circle) { stroke-dasharray: 5 6; }
-.car-dmg-tint :is(path, rect, line, circle) { stroke: rgba(184, 188, 196, 0.85); }
+.car-dmg-tint :is(path, rect, line, circle) { stroke: var(--accent-replaced); }
 
 /* ---------- studio panel ---------- */
 
@@ -777,7 +777,7 @@ body {
   inset: 12% 6% 0;
   display: grid;
   align-items: end;
-  opacity: 0.5;
+  opacity: 0.9;
 }
 .photo-frame-tag {
   position: absolute;

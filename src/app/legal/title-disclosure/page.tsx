@@ -57,9 +57,9 @@ export default function TitleDisclosurePage() {
       eyebrow="Title Disclosure"
       title={
         <>
-          A REBUILT TITLE SHOULD
+          A rebuilt title should
           <br />
-          NEVER BE A SURPRISE.
+          never be a surprise.
         </>
       }
       intro="This page describes what a rebuilt title means and how we disclose it. It is informational, not legal or insurance advice."

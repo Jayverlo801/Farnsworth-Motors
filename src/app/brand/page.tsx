@@ -67,9 +67,9 @@ export default function BrandPage() {
           <Reveal>
             <p className="eyebrow mb-7">Identity System</p>
             <h1 className="t-headline">
-              ONE SOURCE.
+              One source.
               <br />
-              EVERY SURFACE.
+              Every surface.
             </h1>
             <p className="t-lede mt-8 max-w-xl">
               The Farnsworth identity as code. Every future page, ad, and
@@ -82,7 +82,7 @@ export default function BrandPage() {
           </Reveal>
 
           {/* ---- Mark ---- */}
-          <Section label="Mark" title="THE PANEL GAP F.">
+          <Section label="Mark" title="The panel-gap F.">
             <p className="t-body max-w-[52ch] text-muted">
               An F built from two pieces separated by a hairline — a hood shut
               line. Two parts that fit precisely. The gap widens as the mark
@@ -97,7 +97,7 @@ export default function BrandPage() {
           </Section>
 
           {/* ---- Lockups ---- */}
-          <Section label="Lockups" title="ONE NAME, THREE WORDS.">
+          <Section label="Lockups" title="One name, three words.">
             <div className="grid gap-10 rounded-2xl border border-line bg-[#ffffff] p-10">
               <Lockup size={1.4} />
               <Lockup layout="stacked" size={1.15} className="justify-self-start" />
@@ -110,7 +110,7 @@ export default function BrandPage() {
           </Section>
 
           {/* ---- Color ---- */}
-          <Section label="Color" title="GRAPHITE, THEN FACTS.">
+          <Section label="Color" title="Frost, then facts.">
             <div className="overflow-hidden rounded-2xl border border-line">
               {COLORS.map(([token, hex, rule]) => (
                 <div
@@ -131,7 +131,7 @@ export default function BrandPage() {
           </Section>
 
           {/* ---- Type ---- */}
-          <Section label="Type" title="SEVEN STYLES. ONE JOB EACH.">
+          <Section label="Type" title="Seven styles. One job each.">
             <div className="grid gap-0 overflow-hidden rounded-2xl border border-line">
               {TYPE_STYLES.map(([cls, rule, sample]) => (
                 <div key={cls} className="border-t border-line/60 bg-[#ffffff] px-7 py-7 first:border-t-0">
@@ -148,12 +148,12 @@ export default function BrandPage() {
           </Section>
 
           {/* ---- Motion ---- */}
-          <Section label="Motion" title="SEAT · SWEEP · SETTLE.">
+          <Section label="Motion" title="Seat · sweep · settle.">
             <MotionDemos />
           </Section>
 
           {/* ---- Voice ---- */}
-          <Section label="Voice" title="A PRECISE ENGINEER, PROUD OF THE WORK.">
+          <Section label="Voice" title="A precise engineer, proud of the work.">
             <div className="grid gap-10 rounded-2xl border border-line bg-[#ffffff] p-9 lg:grid-cols-3">
               <div>
                 <p className="t-label mb-5">Rules</p>
@@ -184,7 +184,7 @@ export default function BrandPage() {
           </Section>
 
           {/* ---- Applications ---- */}
-          <Section label="Applications" title="OFF-SCREEN, SAME RESTRAINT.">
+          <Section label="Applications" title="Off-screen, same restraint.">
             <div className="grid gap-x-10 gap-y-14 md:grid-cols-2">
               <Artboard title="Window sticker · 8.5×11" note="QR is a placeholder pattern until record URLs are live">
                 <WindowSticker />
@@ -213,7 +213,7 @@ export default function BrandPage() {
           </Section>
 
           {/* ---- Rules ---- */}
-          <Section label="Rules" title="THE NEVER LIST.">
+          <Section label="Rules" title="The never list.">
             <ol className="max-w-3xl">
               {RULES.map((r, i) => (
                 <li key={r} className="flex gap-6 border-t border-line py-5 last:border-b">

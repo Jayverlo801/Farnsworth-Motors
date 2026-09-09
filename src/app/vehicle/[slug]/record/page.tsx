@@ -51,9 +51,7 @@ export default async function VehicleRecordPage({
               <span aria-hidden="true">←</span>
               {vehicleName(v)}
             </Link>
-            <h1 className="display-sm mt-10">
-              VEHICLE RECORD
-            </h1>
+            <h1 className="display-sm mt-10">Vehicle Record</h1>
             <p className="mt-4 font-mono text-[12px] tracking-[0.3em] text-muted uppercase">
               {v.id} · {vehicleName(v)} · {titleLabel(v)}
             </p>

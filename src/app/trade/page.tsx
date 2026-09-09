@@ -16,9 +16,9 @@ export default function TradePage() {
       eyebrow="Trade"
       title={
         <>
-          TRADE TOWARD
+          Trade toward
           <br />
-          YOUR NEXT CAR.
+          your next car.
         </>
       }
       intro="Put your current vehicle toward any car in our inventory. Tell us what you drive and which vehicle you are considering."

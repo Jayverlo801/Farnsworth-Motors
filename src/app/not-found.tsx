@@ -11,9 +11,9 @@ export default function NotFound() {
       <main id="main" className="flex min-h-screen flex-col items-center justify-center px-6 pt-32 pb-24 text-center">
         <p className="eyebrow mb-6">404</p>
         <h1 className="t-headline">
-          THIS ONE ISN&rsquo;T
+          This one isn&rsquo;t
           <br />
-          ON THE LOT.
+          on the lot.
         </h1>
         <p className="t-lede mt-6 max-w-md">
           The page you&rsquo;re looking for was moved, sold, or never existed.

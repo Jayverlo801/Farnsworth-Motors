@@ -17,11 +17,9 @@ export default function AboutPage() {
       eyebrow="About"
       title={
         <>
-          A SERIOUS AUTOMOTIVE COMPANY
+          We sell the cars
           <br />
-          THAT HAPPENS TO SELL
-          <br />
-          REBUILT VEHICLES.
+          we rebuild.
         </>
       }
       intro={site.description}

@@ -13,7 +13,7 @@ export function WhyRebuilt() {
     <section id="why-rebuilt" className="sect">
       <div className="wrap grid gap-16 lg:grid-cols-[6fr_5fr] lg:gap-24">
         <div>
-          <SectionHeading index="07" label="The Economics" title="WHY CONSIDER REBUILT?" />
+          <SectionHeading index="07" label="The Economics" title="Why consider rebuilt?" />
           <Reveal delay={120}>
             <p className="mt-10 max-w-xl text-lg leading-relaxed text-muted">
               A rebuilt vehicle can offer substantially more car for the money
