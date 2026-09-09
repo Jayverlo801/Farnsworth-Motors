@@ -1,5 +1,18 @@
 # Farnsworth reconstruction scene
 
+## Current direction — Porsche 911 GT3 RS
+
+The hero vehicle is now a **Porsche 911 GT3 RS**, with a larger, cinematic luxury
+presentation. See [the active brief](queue/porsche-gt3-rs-direction.md).
+The Porsche model has **not** been acquired or integrated yet. Existing GLBs,
+posters, and local v3 draft stills are the original fictional coupe, not Porsche
+assets. The generic-coupe alignment requirements are paused.
+
+The measurements and implementation notes below describe the committed **v2
+checkpoint**, not completed Porsche work or acceptance of the local v3 changes.
+
+## V2 checkpoint
+
 Local v2 implementation against the unchanged `HeroSceneProps` in `../types.ts`.
 `HeroScene3D.tsx` is the default-exported, client-only drop-in. The page continues
 to own copy, visit/accessibility decisions, quality selection, and fallback UI.
