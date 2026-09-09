@@ -23,10 +23,12 @@ The full-detail source and native movie are ready for review. The smallest web
 LOD remains a draft because of visible surface degradation; selective retopology
 is required before homepage use.
 
-The active homepage still loads the earlier coupe. Hero integration follows
-model review: bind its actual part manifest, match lighting/poster/
-fallback, map record IDs, and retest runtime behavior. Neither the prototype nor
-the existing homepage is an exact Porsche replica or completed replacement.
+Update, 2026-09-09: Jay explicitly approved connecting the Porsche to the page
+and starting the local server. The homepage now loads the reference-led GT3 RS,
+animates its actual 58-part manifest, retains authored materials, and uses a
+matching WebGL-captured still for fallback. The low LOD stays out of production.
+See `qa/gt3rs-local.mjs` for repeatable homepage verification. This is not factory
+CAD or a verified exact replica; final visual approval remains with Jay.
 
 ## Paused: v3 generic-coupe alignment and stills
 
@@ -38,5 +40,5 @@ render time polishing the generic car. Process stills and record diagrams must
 be revisited after the Porsche asset is selected if they are to depict the same
 vehicle. The current local stills are draft assets, not accepted deliverables.
 
-Keep the shared HeroSceneProps interface unchanged and respect the existing
-page/scene ownership boundary. Page-side integration approval remains pending.
+Keep the shared HeroSceneProps interface unchanged. Page-side integration was
+approved for this Porsche replacement; preserve unrelated page/record work.

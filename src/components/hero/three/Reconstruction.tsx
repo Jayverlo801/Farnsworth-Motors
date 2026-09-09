@@ -7,13 +7,13 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { Environment } from "@react-three/drei/core/Environment";
 import {
   AgXToneMapping, Color, Fog, Group, MathUtils, Matrix4, Mesh, Object3D,
-  Quaternion, RectAreaLight, Scene, Vector3, type OrthographicCamera,
+  Quaternion, RectAreaLight, Vector3, type OrthographicCamera,
 } from "three";
 import { RectAreaLightUniformsLib } from "three/addons/lights/RectAreaLightUniformsLib.js";
 import type { HeroSceneProps } from "../types";
-import { loadCoupe, disposeObject, type Palette } from "./model";
+import { loadGT3RS, disposeObject, type Palette } from "./model";
 import { PARTS } from "./parts";
-import { CAMERA_DIRECTION, CAMERA_RIGHT, CAMERA_UP, COMPOSITION, FINAL_YAW, frameModel, measureModel } from "./composition";
+import { CAMERA_DIRECTION, CAMERA_RIGHT, CAMERA_UP, frameModel, measureModel } from "./composition";
 import { completionProgress, partProgress, pushProgress, smoothstep, FrameHealth,
   FULL_ASSEMBLED, SHORT_ASSEMBLED, FULL_END, SHORT_END } from "./timeline";
 
@@ -30,8 +30,7 @@ export function Reconstruction({ mode, quality, paused, scrollProgress, onReady,
   const vehicle = useRef<Group>(null);
   const sweep = useRef<RectAreaLight>(null);
   const callbacks = useRef({ onReady, onAssembled, fail });
-  const firstFrame = useRef<(() => void) | null>(null);
-  const played = useRef({ time: 0, ready: false, assembled: false, resume: true, lastModel: null as Object3D | null });
+  const played = useRef({ time: 0, ready: false, assembled: false, resume: true, warmupFrames: 3, lastModel: null as Object3D | null });
   const assembledNotified = useRef(false);
   const health = useRef(new FrameHealth());
   const dpr = useRef(1);
@@ -39,17 +38,20 @@ export function Reconstruction({ mode, quality, paused, scrollProgress, onReady,
   const currentPointer = useRef({ x: 0, y: 0 });
   const target = useMemo(() => new Vector3(), []);
   const position = useMemo(() => new Vector3(), []);
-  const rotation = useMemo(() => new Quaternion(), []);
   const fog = useMemo(() => new Fog(palette.bg, 15, 32), [palette.bg]);
   const background = useMemo(() => new Color(palette.bg), [palette.bg]);
   const bounds = useMemo(() => model ? measureModel(model) : null, [model]);
+  const explodedBounds = useMemo(() => model ? measureModel(model, true) : null, [model]);
   const framing = useMemo(() => bounds ? frameModel(size.width, size.height, bounds) : null, [bounds, size.width, size.height]);
+  const explodedFraming = useMemo(() => explodedBounds ? frameModel(size.width, size.height, explodedBounds) : null, [explodedBounds, size.width, size.height]);
 
   useEffect(() => { callbacks.current = { onReady, onAssembled, fail }; }, [onReady, onAssembled, fail]);
 
   useEffect(() => {
     RectAreaLightUniformsLib.init();
     gl.toneMapping = AgXToneMapping;
+    gl.transmissionResolutionScale = .5;
+    gl.autoClear = false;
     gl.setClearColor(background, 1);
     scene.background = background;
     scene.fog = fog;
@@ -99,40 +101,28 @@ export function Reconstruction({ mode, quality, paused, scrollProgress, onReady,
     const controller = new AbortController();
     const owned = new Set<Object3D>();
     queueMicrotask(() => { if (!controller.signal.aborted) setModel(null); });
-    firstFrame.current = null;
     async function load() {
-      const low = await loadCoupe("/3d/coupe-low.glb", controller.signal, palette);
-      if (controller.signal.aborted) { disposeObject(low); return; }
-      owned.add(low);
-      const drawn = new Promise<void>((resolve) => { firstFrame.current = resolve; });
-      setModel(low);
-      // Wait for the low LOD to draw before fetching and warming the upgrade.
-      await drawn;
-      if (quality === "low" || controller.signal.aborted) return;
-      const upgraded = await loadCoupe(`/3d/coupe-${quality}.glb`, controller.signal, palette);
-      if (controller.signal.aborted) { disposeObject(upgraded); return; }
-      owned.add(upgraded);
-      const warmup = new Scene(); warmup.environment = scene.environment;
-      warmup.add(upgraded);
-      await gl.compileAsync(warmup, camera);
-      warmup.remove(upgraded);
-      if (!controller.signal.aborted) setModel(upgraded);
+      // The draft low LOD has surface damage; never flash it as a bootstrap.
+      // High is only 780 KB, so load the selected quality directly.
+      if (quality === "low") { callbacks.current.fail("low-quality-poster"); return; }
+      const loaded = await loadGT3RS(`/3d/gt3rs-study/${quality}.glb`, controller.signal);
+      if (controller.signal.aborted) { disposeObject(loaded); return; }
+      owned.add(loaded);
+      setModel(loaded);
     }
     void load().catch((error: unknown) => {
       if (!controller.signal.aborted) callbacks.current.fail(error instanceof Error && error.message === "model-parts-missing" ? error.message : "model-fetch-failed");
     });
     return () => {
       controller.abort();
-      firstFrame.current?.(); firstFrame.current = null;
       owned.forEach(disposeObject);
     };
-  }, [camera, gl, palette, quality, scene]);
+  }, [quality]);
 
   // A primitive's resources are intentionally not disposed by R3F. We own them above.
   const parts = useMemo(() => model ? PARTS.map((part) => {
     const object = model.getObjectByName(part.name)!;
-    return { object, home: object.position.clone(), rotation: object.quaternion.clone(),
-      tilt: new Quaternion().setFromAxisAngle(new Vector3(0, 0, 1), MathUtils.degToRad(part.referenceRotation)),
+    return { object, home: object.position.clone(),
       offset: new Vector3(...part.offset) };
   }) : [], [model]);
 
@@ -141,7 +131,7 @@ export function Reconstruction({ mode, quality, paused, scrollProgress, onReady,
   }, [gl]);
 
   useFrame((_, rawDelta) => {
-    if (paused || !model || !vehicle.current || !framing) return;
+    if (paused || !model || !vehicle.current || !framing || !explodedFraming) return;
     const state = played.current;
     const newModel = state.lastModel !== model;
     const resumed = state.resume;
@@ -150,6 +140,7 @@ export function Reconstruction({ mode, quality, paused, scrollProgress, onReady,
     const end = mode === "full" ? FULL_END : mode === "short" ? SHORT_END : 0;
     state.time = Math.min(end, state.time + delta);
     state.lastModel = model;
+    if (newModel) state.warmupFrames = 3;
     if (newModel || resumed) health.current.reset();
     const completion = completionProgress(state.time, mode);
     const assembleAt = mode === "full" ? FULL_ASSEMBLED : mode === "short" ? SHORT_ASSEMBLED : 0;
@@ -157,20 +148,18 @@ export function Reconstruction({ mode, quality, paused, scrollProgress, onReady,
       const part = parts[i];
       const p = partProgress(i, state.time, mode);
       const remaining = 1 - p;
-      // Quadratic bezier: exploded -> gentle elevated control point -> home.
-      part.object.position.copy(part.home).addScaledVector(part.offset, remaining * remaining + remaining * p);
-      part.object.position.y += .13 * 2 * remaining * p;
-      part.object.quaternion.copy(part.rotation).multiply(rotation.identity().slerp(part.tilt, remaining));
+      part.object.position.copy(part.home).addScaledVector(part.offset, remaining);
     }
     vehicle.current.position.y = 0;
-    // Choose the vehicle's seven-degree yaw; no simultaneous camera orbit.
-    vehicle.current.rotation.y = FINAL_YAW * smoothstep(completion);
+    vehicle.current.rotation.y = 0;
     if (state.time >= assembleAt && !state.assembled) {
       state.assembled = true;
       // Notify after this assembled frame is rendered, below.
     }
     const p = pushProgress(scrollProgress.get());
-    target.copy(CAMERA_RIGHT).multiplyScalar(framing.centerX).addScaledVector(CAMERA_UP, framing.centerY);
+    const frameProgress = mode === "full" ? smoothstep(state.time / FULL_ASSEMBLED) : 1;
+    target.copy(CAMERA_RIGHT).multiplyScalar(MathUtils.lerp(explodedFraming.centerX, framing.centerX, frameProgress))
+      .addScaledVector(CAMERA_UP, MathUtils.lerp(explodedFraming.centerY, framing.centerY, frameProgress));
     position.copy(target).addScaledVector(CAMERA_DIRECTION, 12).lerp(paintCamera, p);
     target.lerp(paintTarget, p);
     if (state.assembled && mode !== "static") {
@@ -185,15 +174,14 @@ export function Reconstruction({ mode, quality, paused, scrollProgress, onReady,
     }
     camera.position.copy(position); camera.lookAt(target);
     const ortho = camera as OrthographicCamera;
-    const viewHeight = MathUtils.lerp(framing.viewHeight, .32, p);
+    const viewHeight = MathUtils.lerp(MathUtils.lerp(explodedFraming.viewHeight, framing.viewHeight, frameProgress), .32, p);
     ortho.top = viewHeight / 2; ortho.bottom = -viewHeight / 2;
     ortho.right = viewHeight * size.width / Math.max(size.height, 1) / 2; ortho.left = -ortho.right;
     ortho.updateProjectionMatrix();
-    gl.toneMappingExposure = 1.10 - .16 * smoothstep(completion) - .15 * p;
+    gl.toneMappingExposure = 1.1 - .15 * p;
     // Fog softens the final silhouette; it is the same token as the page background.
-    const fogStart = Math.max(.025, position.length() + 1.5 - 8 * smoothstep(completion));
-    fog.near = MathUtils.lerp(fogStart, .025, p);
-    fog.far = MathUtils.lerp(fogStart + 22 - 12 * smoothstep(completion), .65, p);
+    fog.near = MathUtils.lerp(20, .025, p);
+    fog.far = MathUtils.lerp(40, .65, p);
     if (sweep.current) {
       sweep.current.position.set(-4 + completion * 8, 3.3, 1.5);
       sweep.current.lookAt(0, .8, 0);
@@ -202,13 +190,16 @@ export function Reconstruction({ mode, quality, paused, scrollProgress, onReady,
     // Priority 1 takes over rendering. onReady is strictly AFTER the first real draw.
     // Reserve the wordmark band even during exploded parts / the paint push.
     gl.setScissorTest(false); gl.setClearColor(background, 1); gl.clear();
-    gl.setScissor(0, 0, size.width, size.height * (1 - COMPOSITION.wordmarkBand.y1));
+    gl.setScissor(0, 0, size.width, size.height * (size.width < 768 ? .62 : .60));
     gl.setScissorTest(true); gl.render(scene, camera); gl.setScissorTest(false);
     if (!state.ready) { state.ready = true; callbacks.current.onReady(); }
-    firstFrame.current?.(); firstFrame.current = null;
     if (state.assembled && !assembledNotified.current) {
       assembledNotified.current = true; callbacks.current.onAssembled();
     }
+    // Initial paint/transmission shader compilation and GPU uploads are not
+    // steady-state frame rate. Exclude their first three presented frames;
+    // the unchanged two-second guard still handles genuinely slow animation.
+    if (state.warmupFrames > 0) { state.warmupFrames--; health.current.reset(); return; }
     if (newModel || resumed || mode === "static") return;
     const sample = health.current.sample(rawDelta);
     if (!sample) return;
@@ -220,10 +211,10 @@ export function Reconstruction({ mode, quality, paused, scrollProgress, onReady,
   }, 1);
 
   return <>
-    <Environment files="/3d/studio-neutral.hdr" background={false} environmentIntensity={.45} />
-    <rectAreaLight color={palette.text} intensity={5} width={5} height={2.4} position={[1.6, 4.5, 3]} rotation={[-1.02, .2, 0]} />
-    <rectAreaLight color={palette.accent} intensity={3} width={4} height={.7} position={[-3, 2.8, -2.6]} rotation={[-.6, -2.3, 0]} />
-    <rectAreaLight ref={sweep} color={palette.warm} intensity={0} width={.5} height={4} />
+    <Environment files="/3d/studio-neutral.hdr" background={false} environmentIntensity={.8} />
+    <rectAreaLight color={palette.surface} intensity={6} width={5} height={2.4} position={[1.6, 4.5, 3]} rotation={[-1.02, .2, 0]} />
+    <rectAreaLight color={palette.surface} intensity={4} width={4} height={.7} position={[-3, 2.8, -2.6]} rotation={[-.6, -2.3, 0]} />
+    <rectAreaLight ref={sweep} color={palette.surface} intensity={0} width={.5} height={4} />
     <group ref={vehicle}>{model && <primitive object={model} dispose={null} />}</group>
     <ContactShadow color={palette.bg2} />
     {bounds && framing && <GroundLine color={palette.lineStrong} low={bounds.minY} width={(bounds.maxX-bounds.minX)*1.15} pixelSize={1/framing.pixelsPerUnit} />}

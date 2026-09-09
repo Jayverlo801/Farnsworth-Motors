@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import {
   motion,
   useInView,
@@ -10,16 +9,16 @@ import {
 } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { HeroCopy } from "./HeroCopy";
-import { HeroFallback, type HeroFallbackHandle } from "./HeroFallback";
+import { HeroFallback } from "./HeroFallback";
+import { HeroPoster } from "./HeroPoster";
 import type { HeroMode, HeroQuality } from "./types";
 
 const HeroScene3D = dynamic(() => import("./three/HeroScene3D"), {
   ssr: false,
 });
 
-const SEEN_KEY = "fm:hero-seen";
-const READY_TIMEOUT_MS = 4000;
-const POSTER_SRC = "/3d/hero-poster.webp";
+const SEEN_KEY = "fm:hero-seen:gt3rs-v1";
+const READY_TIMEOUT_MS = 12000;
 
 type SceneState = "loading" | "ready" | "unavailable";
 
@@ -39,11 +38,8 @@ function decideQuality(): HeroQuality {
 }
 
 /**
- * Hero orchestrator. v3 composition: the drawing owns the lower band of the
- * viewport (ground line at ~82svh), the wordmark owns the upper band —
- * separate territory, no collision (see public/3d/reference/
- * hero-composition.json for the exact boxes the 3D scene must match).
- * The 3D scene itself is owned by the 3D build — docs/HERO-CONTRACT.md.
+ * The Porsche owns the lower viewport; the wordmark keeps its upper band.
+ * Visit/device/accessibility policy stays here, not inside the 3D scene.
  */
 export default function Hero() {
   const [mode, setMode] = useState<HeroMode | null>(null);
@@ -53,7 +49,6 @@ export default function Hero() {
   const [frozen, setFrozen] = useState(false);
   const [assembled, setAssembled] = useState(false);
   const [posterOk, setPosterOk] = useState(true);
-  const fallbackRef = useRef<HeroFallbackHandle>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const pinRef = useRef<HTMLElement>(null);
 
@@ -109,10 +104,11 @@ export default function Hero() {
       if (disable3D || (quality === "low" && !force3D)) {
         setForce3DOff(true);
         setScene("unavailable");
+        if (q !== "exploded") m = "static";
       }
       if (q === "exploded") setFrozen(true);
       setMode(m);
-      setQuality(quality);
+      setQuality(force3D && quality === "low" ? "medium" : quality);
     });
     return () => { cancelled = true; };
   }, []);
@@ -143,7 +139,7 @@ export default function Hero() {
   /* Usability: scroll intent or keys complete the cinematic instantly */
   useEffect(() => {
     if (mode !== "full" || assembled) return;
-    const skip = () => fallbackRef.current?.finish();
+    const skip = () => setMode("static");
     const onKey = (e: KeyboardEvent) => {
       if (["ArrowDown", "PageDown", "End", " "].includes(e.key)) skip();
     };
@@ -168,22 +164,19 @@ export default function Hero() {
       <section
         ref={pinRef}
         className="hero-pin"
-        aria-label="Farnsworth Motors — a vehicle rebuilding itself from engineered parts"
+        aria-label="Farnsworth Motors — Porsche 911 GT3 RS assembly"
+        data-hero-model="gt3rs-reference-build"
+        data-hero-state={scene}
+        data-hero-mode={mode ?? "loading"}
+        data-hero-quality={quality}
       >
         <motion.div className="hero-inner" style={{ opacity: heroOpacity }}>
           {/* ---- lower band: the vehicle ---- */}
           <div className={`hero-visual${mode ? " is-mounted" : ""}${assembled ? " is-brand" : ""}`}>
             {/* Poster — LCP element; produced by the 3D build. Hidden if absent. */}
             {showPoster && (
-              <Image
-                src={POSTER_SRC}
-                alt=""
-                width={2400}
-                height={1350}
-                priority
-                unoptimized
-                className="hero-poster"
-                style={{ opacity: scene === "ready" ? 0 : 1 }}
+              <HeroPoster
+                hidden={scene === "ready"}
                 onError={() => setPosterOk(false)}
               />
             )}
@@ -205,10 +198,8 @@ export default function Hero() {
 
             {/* Designed non-WebGL experience, anchored to the ground line */}
             {mode && showFallback && (
-              <motion.div className="hero-car-slot" style={{ scale: carScale, y: carY }}>
+              <motion.div className="hero-fallback" style={mode === "static" ? undefined : { scale: carScale, y: carY }}>
                 <HeroFallback
-                  ref={fallbackRef}
-                  mode={mode}
                   frozen={frozen}
                   onAssembled={handleAssembled}
                 />
@@ -221,11 +212,11 @@ export default function Hero() {
             <HeroCopy visible={assembled} fast={mode !== "full"} />
           </motion.div>
 
-          {mode === "full" && !assembled && showFallback && (
+          {mode === "full" && !assembled && (
             <button
               type="button"
               className="hero-skip"
-              onClick={() => fallbackRef.current?.finish()}
+              onClick={() => setMode("static")}
             >
               Skip
             </button>

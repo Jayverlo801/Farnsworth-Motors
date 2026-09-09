@@ -3,10 +3,13 @@ import { test } from "node:test";
 import { PARTS, PART_NAMES } from "../parts";
 import { physicalEase, partProgress, completionProgress, pushProgress, FrameHealth } from "../timeline";
 
-test("all 44 contract names are unique and each is choreographed", () => {
-  assert.equal(PART_NAMES.length, 44);
-  assert.equal(new Set(PART_NAMES).size, 44);
-  assert.equal(PARTS.length, 44);
+test("all 58 Porsche parent names are unique and each is choreographed", () => {
+  assert.equal(PART_NAMES.length, 58);
+  assert.equal(new Set(PART_NAMES).size, 58);
+  assert.equal(PARTS.length, 58);
+  assert.ok(PART_NAMES.includes("wing_main"));
+  assert.ok(PART_NAMES.includes("roll_cage"));
+  assert.ok(!PART_NAMES.includes("door_RL"));
 });
 
 test("the full reveal holds, assembles in staggered stages, and is home before the callback", () => {
@@ -14,7 +17,7 @@ test("the full reveal holds, assembles in staggered stages, and is home before t
     assert.equal(partProgress(i,.75,"full"),0);
     assert.equal(partProgress(i,7,"full"),1,PARTS[i].name);
   }
-  assert.ok(partProgress(1,1.8,"full")>0);
+  assert.ok(partProgress(PART_NAMES.indexOf("subframe_F"),1.8,"full")>0);
   assert.equal(partProgress(PART_NAMES.indexOf("hood"),1.8,"full"),0);
   assert.equal(completionProgress(7,"full"),0);
   assert.equal(completionProgress(9,"full"),1);
@@ -59,4 +62,13 @@ test("FPS guard trips after sustained slowness but resets after healthy frames o
   for(let i=0;i<20;i++) assert.notEqual(monitor.sample(1/25)?.unavailable,true);
   for(let i=0;i<60;i++) assert.notEqual(monitor.sample(1/60)?.unavailable,true);
   for(let i=0;i<20;i++) assert.notEqual(monitor.sample(1/25)?.unavailable,true);
+});
+
+test("one long graphics stall does not masquerade as sustained low FPS", () => {
+  const monitor = new FrameHealth();
+  assert.notEqual(monitor.sample(3)?.unavailable, true);
+  for (let i=0;i<120;i++) assert.notEqual(monitor.sample(1/60)?.unavailable,true);
+  let unavailable = false;
+  for (let i=0;i<30;i++) unavailable ||= monitor.sample(.5)?.unavailable ?? false;
+  assert.equal(unavailable, true, "Repeated very slow frames must still fall back");
 });

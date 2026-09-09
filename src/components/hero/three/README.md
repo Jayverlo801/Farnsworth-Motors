@@ -27,13 +27,55 @@ modeling, not factory CAD. Web assets and their manifest are in
 
 All 58 part names survive compression as stable-pivot parent groups; each LOD
 has 155 material draw meshes. Native geometry/animation, packaged asset checks,
-and actual Three.js/meshopt decoding pass. **The homepage has not switched to these assets yet.** Its
-current GLBs/poster and older v3 draft stills remain the fictional coupe. New
-model binding, web lighting/AO, fallback/poster parity, and runtime/device tests
-are separate integration work. The generic-coupe alignment task remains paused.
+and actual Three.js/meshopt decoding pass. **The homepage now loads these Porsche
+assets**, following Jay's explicit page-integration approval on 2026-09-09.
+The original studio materials are retained, the 58 stable-pivot parent groups
+drive assembly from the Blender manifest, and high/medium load directly without
+flashing the old coupe or a degraded low LOD. The generic-coupe alignment task
+remains paused; process stills/record diagrams are unchanged by this integration.
 The low LOD visibly loses paint/wheel surface quality under studio reflections
 and needs selective retopology before hero use; it is explicitly marked as a
 draft in the public manifest. Decoder/byte-budget success is not visual approval.
+
+### Local homepage integration (2026-09-09)
+
+Run `npm run dev -- --hostname 127.0.0.1 --port 3000`, then open
+`http://127.0.0.1:3000/`. Use `?hero=full` to replay the full assembly even after
+the versioned visit flag has been saved; `?hero=static` shows the completed
+WebGL pose and `?3d=off` exercises the matching still. The page keeps the public
+`HeroSceneProps` interface unchanged.
+
+The active still is `public/3d/gt3rs-study/hero-poster.webp`, captured from this
+scene by `qa/capture-gt3rs-poster.mjs`. It is cropped to the actual Porsche
+envelope; shared aspect-preserving framing keeps the still and live car aligned
+on desktop and mobile. The old generic SVG is no longer a homepage fallback.
+Low-power/mobile visitors get the high-detail Porsche still without booting
+WebGL. `?3d=on` explicitly selects medium for small-viewport QA.
+
+An inner Suspense boundary keeps HDR loading from disconnecting Canvas and
+triggering delayed R3F context destruction in development. The first three
+presented frames are excluded from steady-state FPS sampling; a single long
+graphics stall cannot count as two seconds of sustained slowness. Repeated
+low FPS still unmounts WebGL. The visit flag is versioned so an old coupe visit
+does not skip a visitor's first Porsche assembly.
+
+`node qa/gt3rs-local.mjs` exercises the actual Next homepage in an isolated
+Edge profile. Captures and its report are saved under ignored `qa/shots/gt3rs/`.
+Source, timing and budget checks remain in `pipeline/`. The existing production
+build succeeds; the full-repository lint command also sees pre-existing CommonJS
+import errors in `assets/inventory/us-bestsellers-2018-2024/package-assets.cjs`.
+The changed hero and QA files are checked separately.
+
+Verified locally: first/repeat visits, static WebGL, mobile still, forced mobile
+medium WebGL, forced fallback, reduced motion, missing WebGL, failed model fetch,
+offscreen pause/resume, forced context loss, and induced low FPS. Seven timeline/
+health tests and the model budgets pass. Scene code is 84,445 bytes gzip with
+Three.js externalized. The actual Codex preview was refreshed and checked as
+`data-hero-state="ready"`, `data-hero-model="gt3rs-reference-build"`, with one
+live canvas after assembly. GPU-backed Edge checks had no runtime errors;
+upstream Clock/ANGLE warnings remain. An isolated agent-browser session hit a
+graphics-context failure; the actual preview and the separate Edge suite were
+verified independently. Physical Safari/iPhone/M1 testing is still outstanding.
 
 The refinement pass reshapes the body and greenhouse, lowers and narrows the
 wing, adds forged-section Y-spoke wheels and molded tire detail, and replaces
@@ -45,8 +87,8 @@ a matte infinity cove. The motion preview is 1280 × 800 at 30 fps. These visual
 changes are inspected in actual Blender renders; automated checks are not
 treated as proof of photorealism.
 
-The measurements and implementation notes below describe the committed **v2
-checkpoint**, not completed Porsche work or acceptance of the local v3 changes.
+The measurements and implementation notes below describe the historical **v2
+checkpoint**, not the current Porsche integration or its visual acceptance.
 
 ## V2 checkpoint
 

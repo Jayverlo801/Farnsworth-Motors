@@ -51,7 +51,10 @@ export class FrameHealth {
   reset() { this.elapsed = 0; this.frames = 0; this.slowTime = 0; }
   sample(delta: number): { fps: number; unavailable: boolean } | undefined {
     if (!Number.isFinite(delta) || delta <= 0) return;
-    this.elapsed += delta;
+    // One driver/shader/main-thread hitch is not two seconds of sustained
+    // low FPS. Limit its contribution while continuing to count genuinely
+    // repeated slow frames (including severely limited GPUs).
+    this.elapsed += Math.min(delta, .25);
     this.frames++;
     if (this.elapsed < .5) return;
     const fps = this.frames / this.elapsed;

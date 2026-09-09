@@ -73,7 +73,7 @@ export async function Available() {
 
           <Reveal delay={150}>
             <StudioCar idPrefix="featured" />
-            <div className="mt-4 flex items-baseline justify-between gap-6">
+            <div className="mt-4 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
               <p className="t-data text-[10.5px] text-muted">
                 Illustration — studio photography of this car is in progress.
               </p>

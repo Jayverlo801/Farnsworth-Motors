@@ -62,11 +62,11 @@ function instrument(){
     await page.setViewportSize({width:2400,height:1350});
     await page.waitForTimeout(500);
     const png=await page.locator('canvas').screenshot();
-    await sharp(png).webp({quality:94,effort:6}).toFile('public/3d/hero-poster.webp');
+    await sharp(png).webp({quality:94,effort:6}).toFile(path.join(output,'gt3rs-static-full-frame.webp'));
     // Validate poster dimensions and capture a reference for visual matching.
-    const metadata=await sharp('public/3d/hero-poster.webp').metadata();
+    const metadata=await sharp(path.join(output,'gt3rs-static-full-frame.webp')).metadata();
     assert.equal(metadata.width,2400);assert.equal(metadata.height,1350);
-    report.poster={width:metadata.width,height:metadata.height,bytes:fs.statSync('public/3d/hero-poster.webp').size};
+    report.poster={width:metadata.width,height:metadata.height,bytes:fs.statSync(path.join(output,'gt3rs-static-full-frame.webp')).size};
     await page.evaluate(()=>window.heroTest.dispose());
     await page.waitForTimeout(650);
     assert.equal(await page.locator('canvas').count(),0);
@@ -110,7 +110,7 @@ function instrument(){
     report.shortMobile={assemblyMs:duration,events:e,errors};await page.close();
   }
   {
-    const {page}=await open('static','low',undefined,async p=>p.route('**/3d/coupe-low.glb',route=>route.abort()));
+    const {page}=await open('static','medium',undefined,async p=>p.route('**/3d/gt3rs-study/medium.glb',route=>route.abort()));
     await expectFail(page,'model-fetch-failed');report.failedFetch='passed';await page.close();
   }
   {
@@ -121,7 +121,7 @@ function instrument(){
     await expectFail(page,'no-webgl');report.noWebgl='passed';await page.close();
   }
   {
-    const {page}=await open('full','low');
+    const {page}=await open('full','medium');
     await page.waitForTimeout(600);
     await page.evaluate(()=>{window.heroGpu.delay=55});
     await expectFail(page,'low-fps');report.lowFps='passed';await page.close();

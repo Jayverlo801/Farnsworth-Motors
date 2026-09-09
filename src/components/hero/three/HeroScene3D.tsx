@@ -1,6 +1,6 @@
 "use client";
 
-import { Component, useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { Component, Suspense, useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { Canvas } from "@react-three/fiber";
 import type { HeroSceneProps } from "../types";
 import { readPalette, type Palette } from "./model";
@@ -57,7 +57,12 @@ export default function HeroScene3D(props: HeroSceneProps) {
             camera={{ position: [4, 2.4, 10], near: .025, far: 80 }}
             style={{ pointerEvents: "none" }}
           >
-            <Reconstruction {...props} palette={palette} fail={fail} />
+            {/* Keep HDR loading inside the existing canvas. Suspending Canvas
+                itself disconnects its effects; R3F's delayed cleanup can then
+                destroy the resumed renderer during development. */}
+            <Suspense fallback={null}>
+              <Reconstruction {...props} palette={palette} fail={fail} />
+            </Suspense>
           </Canvas>
         </SceneBoundary>
       )}

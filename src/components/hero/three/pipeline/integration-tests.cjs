@@ -30,7 +30,7 @@ const base = process.env.FM_PREVIEW_URL || 'http://127.0.0.1:3000';
       await page.locator('.hero-copy.is-visible').waitFor({timeout:15000});
       await page.waitForTimeout(2300);
       const canvas=await page.locator('canvas').count();
-      assert.equal(canvas,test.name==='fallback'?0:1,`${test.name}: incorrect rendering path`);
+      assert.equal(canvas,test.name==='desktop'?1:0,`${test.name}: incorrect rendering path`);
       if(canvas)assert.equal(await page.locator('.hero-canvas.is-ready').count(),1);
       assert.ok(await page.locator('html').evaluate(el=>el.scrollWidth<=innerWidth+1),`${test.name}: horizontal overflow`);
       assert.equal(await page.locator('.hero-copy .hero-cta').evaluate(el=>getComputedStyle(el.parentElement).opacity),'1');

@@ -1,7 +1,7 @@
 {
   "id": "gt3rs-reference-build",
   "description": "Original reference-led Porsche 992 GT3 RS visualization; not factory CAD or a verified exact replica.",
-  "status": "model-built; visual approval and homepage integration pending",
+  "status": "homepage-integrated; final visual approval pending",
   "coordinates": "glTF: X nose, Y up, Z vehicle right",
   "authoredIn": "Blender 4.5",
   "sourceTriangles": 655700,
@@ -958,7 +958,7 @@
       "bytes": 779956,
       "sha256": "fff46710a59dd0699ec9f2a8367bf104c4efec3a7c208f5cfe8cf3facd4e3e21",
       "parts": 58,
-      "visualStatus": "model review pending; web lighting not integrated"
+      "visualStatus": "homepage WebGL integrated; final model review pending"
     },
     "medium": {
       "url": "/3d/gt3rs-study/medium.glb",
@@ -966,7 +966,7 @@
       "bytes": 506164,
       "sha256": "9e46216298d37c97c2e5464e2f5381a00257f84f569e2b4391e7ceb21f6d28c2",
       "parts": 58,
-      "visualStatus": "model review pending; web lighting not integrated"
+      "visualStatus": "homepage WebGL integrated; final model review pending"
     },
     "low": {
       "url": "/3d/gt3rs-study/low.glb",
@@ -978,6 +978,13 @@
     }
   },
   "renders": {
+    "heroPoster": {
+      "url": "/3d/gt3rs-study/hero-poster.webp",
+      "width": 1317,
+      "height": 660,
+      "bytes": 85860,
+      "source": "Actual homepage WebGL high-quality static pose, cropped to the projected vehicle envelope"
+    },
     "hero": {
       "url": "/3d/gt3rs-study/hero.webp",
       "width": 2400,
@@ -1006,6 +1013,6 @@
   "limitations": [
     "Not factory CAD or an exact Porsche replica.",
     "Procedural carbon weave is retained in the Blender source; web materials use the neutral PBR base.",
-    "No baked AO atlas yet. WebGL lighting, fallback parity, and device performance remain integration work."
+    "No baked AO atlas yet. Physical iPhone, Safari, and M1 performance are not verified; mobile viewport checks use desktop GPU hardware."
   ]
 }
