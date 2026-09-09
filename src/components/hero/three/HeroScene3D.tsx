@@ -50,10 +50,11 @@ export default function HeroScene3D(props: HeroSceneProps) {
       {palette && (
         <SceneBoundary onError={sceneError}>
           <Canvas
+            orthographic
             frameloop={props.paused ? "never" : props.mode === "static" ? "demand" : "always"}
             dpr={1}
             gl={{ antialias: true, alpha: false, powerPreference: "high-performance" }}
-            camera={{ position: [6.6, 3.05, 7.8], fov: 32, near: .025, far: 80 }}
+            camera={{ position: [4, 2.4, 10], near: .025, far: 80 }}
             style={{ pointerEvents: "none" }}
           >
             <Reconstruction {...props} palette={palette} fail={fail} />

@@ -22,24 +22,23 @@ export function stageFor(name: PartName): Stage {
 
 /** Offsets are in glTF's Y-up space; the nose points toward +X. */
 export function offsetFor(name: PartName): Vec3 {
-  const side = /(_L|_FL|_RL)$/.test(name) ? -1 : 1;
-  if (name === "chassis") return [0, .10, 0];
-  if (name === "hood") return [1.0, 1.05, .1];
-  if (name === "trunk") return [-.8, .70, 0];
-  if (name === "roof") return [0, 1.3, 0];
-  if (/^door/.test(name)) return [0, .25, side * .92];
-  if (/^quarter/.test(name)) return [name.includes("_F") ? .30 : -.30, .36, side * .70];
-  if (name === "front_bumper" || name === "trim_F") return [1.10, .12, 0];
-  if (name === "rear_bumper" || name === "trim_R") return [-.9, .2, 0];
-  if (/^wheel/.test(name)) return [name.includes("_F") ? .23 : -.2, -.1, side * .85];
-  if (/^glass/.test(name)) return [0, 1.0, /_[LR]$/.test(name) ? side * .50 : 0];
-  if (/^headlight/.test(name)) return [.95, .50, side * .17];
-  if (/^taillight/.test(name)) return [-.8, .42, side * .15];
-  if (/^mirror/.test(name)) return [.18, .55, side * .8];
-  if (/^seat/.test(name)) return [-.1, .8, name === "seat_driver" ? .2 : -.2];
-  if (/^(dashboard|steering)/.test(name)) return [.30, .65, 0];
-  if (/^subframe/.test(name)) return [name.endsWith("F") ? .45 : -.45, .2, 0];
-  return [0, .14, side * .55];
+  const s = 4.68 / 919;
+  const svg = (x: number, y: number): Vec3 => [x * s, -y * s, 0];
+  // Literal translation columns from coupe-side-exploded.svg. Its grouped
+  // vocabulary expands to the unchanged 44-node scene contract.
+  if (name === "chassis" || name === "roof") return svg(0, 0);
+  if (/^(subframe|suspension|brake)/.test(name)) return svg(0, 104);
+  if (/^(seat|dashboard|steering)/.test(name)) return svg(0, -80);
+  if (/^door/.test(name)) return svg(0, 132);
+  if (name === "trunk" || /^quarter_R/.test(name)) return svg(-84, -6);
+  if (name === "hood" || /^quarter_F/.test(name)) return svg(52, -118);
+  if (name === "front_bumper") return svg(110, 6);
+  if (name === "rear_bumper") return svg(-110, 6);
+  if (/^wheel/.test(name)) return svg(0, 120);
+  if (/^headlight/.test(name)) return svg(92, -36);
+  if (/^taillight/.test(name)) return svg(-88, -46);
+  if (/^(glass|mirror)/.test(name)) return svg(0, -140);
+  return svg(0, 52);
 }
 
 const stageStarts = { structure: .90, interior: 2.0, body: 3.15, identity: 4.9 };
@@ -53,5 +52,6 @@ export const PARTS = PART_NAMES.map((name, index, names) => {
     start: stageStarts[stage] + ordinal * (stage === "identity" ? .055 : .065),
     duration: stage === "body" ? 1.45 : 1.10,
     rotation: [(index % 2 ? 1 : -1) * .11, (index % 3 - 1) * .13, .09] as Vec3,
+    referenceRotation: name === "hood" || /^quarter_F/.test(name) ? -4 : name === "front_bumper" ? -2 : name === "rear_bumper" ? 2 : 0,
   };
 });

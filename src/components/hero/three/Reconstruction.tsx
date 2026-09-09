@@ -5,21 +5,19 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Environment } from "@react-three/drei/core/Environment";
-import { Lightformer } from "@react-three/drei/core/Lightformer";
 import {
-  ACESFilmicToneMapping, Color, Fog, Group, MathUtils, Mesh, Object3D,
-  Quaternion, RectAreaLight, Scene, Vector3, type PerspectiveCamera,
+  AgXToneMapping, Color, Fog, Group, MathUtils, Matrix4, Mesh, Object3D,
+  Quaternion, RectAreaLight, Scene, Vector3, type OrthographicCamera,
 } from "three";
 import { RectAreaLightUniformsLib } from "three/addons/lights/RectAreaLightUniformsLib.js";
 import type { HeroSceneProps } from "../types";
 import { loadCoupe, disposeObject, type Palette } from "./model";
 import { PARTS } from "./parts";
+import { CAMERA_DIRECTION, CAMERA_RIGHT, CAMERA_UP, COMPOSITION, FINAL_YAW, frameModel, measureModel } from "./composition";
 import { completionProgress, partProgress, pushProgress, smoothstep, FrameHealth,
   FULL_ASSEMBLED, SHORT_ASSEMBLED, FULL_END, SHORT_END } from "./timeline";
 
 const MAX_DPR = { high: 2, medium: 1.5, low: 1 };
-const homeCamera = new Vector3(6.6, 3.05, 7.8);
-const homeTarget = new Vector3(0, .66, 0);
 // Land above the continuous hood surface, away from door seams and the cabin.
 const paintCamera = new Vector3(1.55, 1.43, .09);
 const paintTarget = new Vector3(1.48, 1.09, -.18);
@@ -44,12 +42,14 @@ export function Reconstruction({ mode, quality, paused, scrollProgress, onReady,
   const rotation = useMemo(() => new Quaternion(), []);
   const fog = useMemo(() => new Fog(palette.bg, 15, 32), [palette.bg]);
   const background = useMemo(() => new Color(palette.bg), [palette.bg]);
+  const bounds = useMemo(() => model ? measureModel(model) : null, [model]);
+  const framing = useMemo(() => bounds ? frameModel(size.width, size.height, bounds) : null, [bounds, size.width, size.height]);
 
   useEffect(() => { callbacks.current = { onReady, onAssembled, fail }; }, [onReady, onAssembled, fail]);
 
   useEffect(() => {
     RectAreaLightUniformsLib.init();
-    gl.toneMapping = ACESFilmicToneMapping;
+    gl.toneMapping = AgXToneMapping;
     gl.setClearColor(background, 1);
     scene.background = background;
     scene.fog = fog;
@@ -132,7 +132,7 @@ export function Reconstruction({ mode, quality, paused, scrollProgress, onReady,
   const parts = useMemo(() => model ? PARTS.map((part) => {
     const object = model.getObjectByName(part.name)!;
     return { object, home: object.position.clone(), rotation: object.quaternion.clone(),
-      tilt: new Quaternion().setFromAxisAngle(new Vector3(...part.rotation).normalize(), .16),
+      tilt: new Quaternion().setFromAxisAngle(new Vector3(0, 0, 1), MathUtils.degToRad(part.referenceRotation)),
       offset: new Vector3(...part.offset) };
   }) : [], [model]);
 
@@ -141,7 +141,7 @@ export function Reconstruction({ mode, quality, paused, scrollProgress, onReady,
   }, [gl]);
 
   useFrame((_, rawDelta) => {
-    if (paused || !model || !vehicle.current) return;
+    if (paused || !model || !vehicle.current || !framing) return;
     const state = played.current;
     const newModel = state.lastModel !== model;
     const resumed = state.resume;
@@ -162,19 +162,17 @@ export function Reconstruction({ mode, quality, paused, scrollProgress, onReady,
       part.object.position.y += .13 * 2 * remaining * p;
       part.object.quaternion.copy(part.rotation).multiply(rotation.identity().slerp(part.tilt, remaining));
     }
-    vehicle.current.position.y = .035 * (1 - smoothstep(completion));
+    vehicle.current.position.y = 0;
     // Choose the vehicle's seven-degree yaw; no simultaneous camera orbit.
-    vehicle.current.rotation.y = MathUtils.degToRad(7) * smoothstep(completion);
+    vehicle.current.rotation.y = FINAL_YAW * smoothstep(completion);
     if (state.time >= assembleAt && !state.assembled) {
       state.assembled = true;
       // Notify after this assembled frame is rendered, below.
     }
     const p = pushProgress(scrollProgress.get());
-    const aspect = size.width / Math.max(size.height, 1);
-    // Narrow viewports use a greater distance solely to fit the same composition.
-    const fit = Math.max(1, 1.48 / aspect);
-    position.copy(homeCamera).multiplyScalar(fit).lerp(paintCamera, p);
-    target.copy(homeTarget).lerp(paintTarget, p);
+    target.copy(CAMERA_RIGHT).multiplyScalar(framing.centerX).addScaledVector(CAMERA_UP, framing.centerY);
+    position.copy(target).addScaledVector(CAMERA_DIRECTION, 12).lerp(paintCamera, p);
+    target.lerp(paintTarget, p);
     if (state.assembled && mode !== "static") {
       const damping = 1 - Math.exp(-delta * 4);
       currentPointer.current.x += (pointer.current.x - currentPointer.current.x) * damping;
@@ -186,7 +184,11 @@ export function Reconstruction({ mode, quality, paused, scrollProgress, onReady,
       position.y += currentPointer.current.y * .10 * (1-p);
     }
     camera.position.copy(position); camera.lookAt(target);
-    (camera as PerspectiveCamera).updateProjectionMatrix();
+    const ortho = camera as OrthographicCamera;
+    const viewHeight = MathUtils.lerp(framing.viewHeight, .32, p);
+    ortho.top = viewHeight / 2; ortho.bottom = -viewHeight / 2;
+    ortho.right = viewHeight * size.width / Math.max(size.height, 1) / 2; ortho.left = -ortho.right;
+    ortho.updateProjectionMatrix();
     gl.toneMappingExposure = 1.10 - .16 * smoothstep(completion) - .15 * p;
     // Fog softens the final silhouette; it is the same token as the page background.
     const fogStart = Math.max(.025, position.length() + 1.5 - 8 * smoothstep(completion));
@@ -195,10 +197,13 @@ export function Reconstruction({ mode, quality, paused, scrollProgress, onReady,
     if (sweep.current) {
       sweep.current.position.set(-4 + completion * 8, 3.3, 1.5);
       sweep.current.lookAt(0, .8, 0);
-      sweep.current.intensity = mode === "static" ? 0 : Math.sin(completion * Math.PI) * 2.1;
+      sweep.current.intensity = mode === "static" ? 0 : Math.sin(completion * Math.PI) * .5;
     }
     // Priority 1 takes over rendering. onReady is strictly AFTER the first real draw.
-    gl.render(scene, camera);
+    // Reserve the wordmark band even during exploded parts / the paint push.
+    gl.setScissorTest(false); gl.setClearColor(background, 1); gl.clear();
+    gl.setScissor(0, 0, size.width, size.height * (1 - COMPOSITION.wordmarkBand.y1));
+    gl.setScissorTest(true); gl.render(scene, camera); gl.setScissorTest(false);
     if (!state.ready) { state.ready = true; callbacks.current.onReady(); }
     firstFrame.current?.(); firstFrame.current = null;
     if (state.assembled && !assembledNotified.current) {
@@ -215,17 +220,27 @@ export function Reconstruction({ mode, quality, paused, scrollProgress, onReady,
   }, 1);
 
   return <>
-    <Environment frames={1} resolution={256} background={false} environmentIntensity={.55}>
-      <Lightformer form="rect" intensity={3} color={palette.text} position={[1, 5, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={[5, 2, 1]} />
-      <Lightformer form="rect" intensity={2.2} color={palette.accent} position={[-3, 2.4, -3]} rotation={[0, Math.PI / 4, 0]} scale={[4, .6, 1]} />
-      <Lightformer form="rect" intensity={.7} color={palette.text} position={[1, 2, 5]} scale={[5, 2, 1]} />
-    </Environment>
+    <Environment files="/3d/studio-neutral.hdr" background={false} environmentIntensity={.45} />
     <rectAreaLight color={palette.text} intensity={5} width={5} height={2.4} position={[1.6, 4.5, 3]} rotation={[-1.02, .2, 0]} />
     <rectAreaLight color={palette.accent} intensity={3} width={4} height={.7} position={[-3, 2.8, -2.6]} rotation={[-.6, -2.3, 0]} />
     <rectAreaLight ref={sweep} color={palette.warm} intensity={0} width={.5} height={4} />
     <group ref={vehicle}>{model && <primitive object={model} dispose={null} />}</group>
     <ContactShadow color={palette.bg2} />
+    {bounds && framing && <GroundLine color={palette.lineStrong} low={bounds.minY} width={(bounds.maxX-bounds.minX)*1.15} pixelSize={1/framing.pixelsPerUnit} />}
   </>;
+}
+
+/** Screen-aligned contact hairline, registered to the tire envelope. */
+function GroundLine({ color, low, width, pixelSize }: { color: string; low: number; width: number; pixelSize: number }) {
+  const uniforms = useMemo(() => ({ shade: { value: new Color(color) } }), [color]);
+  const quaternion = useMemo(() => new Quaternion().setFromRotationMatrix(new Matrix4().makeBasis(CAMERA_RIGHT, CAMERA_UP, CAMERA_DIRECTION)), []);
+  const position = useMemo(() => CAMERA_UP.clone().multiplyScalar(low), [low]);
+  return <mesh position={position} quaternion={quaternion} renderOrder={10}>
+    <planeGeometry args={[width, pixelSize]} />
+    <shaderMaterial transparent depthWrite={false} depthTest={false} uniforms={uniforms}
+      vertexShader="varying vec2 vUv; void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}"
+      fragmentShader={"uniform vec3 shade; varying vec2 vUv; void main(){float a=smoothstep(0.,.3,vUv.x)*smoothstep(0.,.3,1.-vUv.x)*.55;gl_FragColor=vec4(shade,a);\n#include <tonemapping_fragment>\n#include <colorspace_fragment>\n}"} />
+  </mesh>;
 }
 
 /** Analytic soft contact shadow: one draw, no offscreen shadow-camera passes. */
