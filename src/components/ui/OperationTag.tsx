@@ -18,7 +18,7 @@ export function OperationTag({
       <span
         aria-hidden="true"
         className="inline-block h-[6px] w-[6px] shrink-0"
-        style={{ background: "rgba(184, 188, 196, 0.6)" }}
+        style={{ background: "rgba(139, 0, 0, 0.65)" }}
       />
       {divisions.map((k, i) => (
         <span key={k}>

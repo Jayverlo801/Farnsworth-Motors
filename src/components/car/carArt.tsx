@@ -26,15 +26,15 @@ import type { ReactNode } from "react";
 
 export const CAR_VIEWBOX = "0 0 1200 500";
 
-/** --text-2 — outer silhouette and panel edges. */
-const OUTER = "#99999f";
-/** --text-3 — structure, cut lines, detail. */
-const STRUCT = "#5f5f66";
-const FAINT = "rgba(153, 153, 159, 0.16)";
-/** --bg-2 / --bg — body gradient endpoints. */
-const BODY_TOP = "#151517";
-const BODY_BOTTOM = "#0b0b0c";
-const GLASS = "rgba(244, 244, 242, 0.05)";
+/** Engineering ink on parchment — outer silhouette and panel edges. */
+const OUTER = "#3a2412";
+/** Soft ink — structure, cut lines, detail. */
+const STRUCT = "#8a775e";
+const FAINT = "rgba(58, 36, 18, 0.2)";
+/** Body gradient endpoints — warm paper tones. */
+const BODY_TOP = "#f1ebd1";
+const BODY_BOTTOM = "#e7e0be";
+const GLASS = "rgba(32, 14, 1, 0.06)";
 const W = 1.2;
 
 const SILHOUETTE = [
@@ -82,9 +82,9 @@ function Wheel({ cx }: { cx: number }) {
   const cy = 400;
   return (
     <g>
-      <circle cx={cx} cy={cy} r="52" fill="#0e0e10" stroke={OUTER} strokeWidth={W} />
-      <circle cx={cx} cy={cy} r="30" fill="none" stroke={STRUCT} strokeWidth={W} />
-      <circle cx={cx} cy={cy} r="4.5" fill="none" stroke={STRUCT} strokeWidth={W} />
+      <circle cx={cx} cy={cy} r="52" fill="#2e1c0e" stroke={OUTER} strokeWidth={W} />
+      <circle cx={cx} cy={cy} r="30" fill="none" stroke="#c9b98d" strokeWidth={W} />
+      <circle cx={cx} cy={cy} r="4.5" fill="none" stroke="#c9b98d" strokeWidth={W} />
       {[0, 72, 144, 216, 288].map((a) => (
         <line
           key={a}
@@ -92,7 +92,7 @@ function Wheel({ cx }: { cx: number }) {
           y1={cy - 8}
           x2={cx}
           y2={cy - 26}
-          stroke={STRUCT}
+          stroke="#c9b98d"
           strokeWidth={W}
           transform={`rotate(${a} ${cx} ${cy})`}
         />
@@ -380,9 +380,9 @@ export function CarArt({
         </radialGradient>
         {sweep && (
           <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stopColor="#cfc6b8" stopOpacity="0" />
-            <stop offset="0.5" stopColor="#cfc6b8" stopOpacity="0.1" />
-            <stop offset="1" stopColor="#cfc6b8" stopOpacity="0" />
+            <stop offset="0" stopColor="#5b0202" stopOpacity="0" />
+            <stop offset="0.5" stopColor="#5b0202" stopOpacity="0.08" />
+            <stop offset="1" stopColor="#5b0202" stopOpacity="0" />
           </linearGradient>
         )}
       </defs>
@@ -454,7 +454,7 @@ export function CarArt({
                     y1={L.ly - 4}
                     x2={L.tx}
                     y2={L.ty}
-                    stroke="rgba(95, 95, 102, 0.5)"
+                    stroke="rgba(138, 119, 94, 0.55)"
                     strokeWidth="1"
                   />
                   <text x={L.lx} y={L.ly} fill={STRUCT} textAnchor={L.tx > L.lx ? "start" : "end"}>

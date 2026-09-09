@@ -2,11 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { DIVISIONS, DIVISION_ORDER, type DivisionKey } from "@/lib/brand";
+import { UmbrellaBand } from "./UmbrellaBand";
 import { PROCESS_STEPS, type ProcessStep } from "@/lib/process";
 import { OperationTag } from "@/components/ui/OperationTag";
 import { PhotoFrame } from "@/components/ui/PhotoFrame";
 import { Reveal } from "@/components/ui/Reveal";
-import { Wordmark } from "@/components/brand/Lockup";
 
 const STEPS: ProcessStep[] = PROCESS_STEPS;
 
@@ -135,41 +135,7 @@ export function RestorationProcess() {
         </div>
       </div>
 
-      {/* ---- the umbrella band — the ONLY place this is explained ---- */}
-      <div className="umbrella">
-        <div className="wrap flex min-h-[60vh] flex-col items-center justify-center py-24 text-center">
-          <Reveal>
-            <p className="eyebrow mb-7">One Name</p>
-            <h2 className="t-headline">
-              THREE SHOPS.
-              <br />
-              ZERO HANDOFFS.
-            </h2>
-          </Reveal>
-          <Reveal delay={140}>
-            <div className="umbrella-lockups">
-              {DIVISION_ORDER.map((d, i) => (
-                <div key={d} className="umbrella-item">
-                  {i > 0 && <span className="umbrella-dot" aria-hidden="true">·</span>}
-                  <span className="inline-flex flex-col items-center gap-2">
-                    <Wordmark division={d} size={1.125} />
-                    <span className="t-data !text-[0.6875rem] tracking-[0.12em] text-muted uppercase">
-                      {DIVISIONS[d].descriptor}
-                    </span>
-                  </span>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-          <Reveal delay={220}>
-            <p className="t-body mx-auto mt-10 max-w-[52ch] text-muted">
-              The car you buy from Farnsworth Motors was inspected by Farnsworth
-              Service and rebuilt by Farnsworth Collision. Same building. Same
-              people. Same name on the sign.
-            </p>
-          </Reveal>
-        </div>
-      </div>
+      <UmbrellaBand />
     </section>
   );
 }

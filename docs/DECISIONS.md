@@ -116,3 +116,20 @@ performance requirements were not overridden anywhere.
     still exist where their content lives. VehicleRecord.tsx (the
     diagram-prop contract surface from Part 4d) is retained for the
     vehicle pages and the 3D build's top-view diagram.
+
+25. **The umbrella joined the homepage, per Jay** — rewritten from the
+    buyer's side (strangers' hands vs. one door; accountability as the
+    close) and extracted to a shared UmbrellaBand used by the homepage
+    and the /process finale, so the v3 "explained once" rule becomes
+    "explained one way." Sentence case, matching the voice pass.
+
+26. **Golden Luxe palette, per Jay (supersedes graphite).** Parchment
+    ground #EDE7C7, espresso ink #200E01, oxblood accent #8B0000 with
+    #5B0202 as the sweep — from Jay's reference. This overrides the v2/v3
+    "no dealership red" default: the red here is an oxblood accent
+    thread (cue line, tag squares, focus, replaced-parts), never a
+    background or a button. Espresso survives as two punch bands (the
+    umbrella and the footer) via .band-dark scoped-token inversion; the
+    drawing became engineering ink on paper. Fonts stay @theme inline
+    (next/font runtime vars); colors moved to plain @theme so utilities
+    reference var() and bands can invert descendants.

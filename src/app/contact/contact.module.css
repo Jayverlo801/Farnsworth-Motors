@@ -1,0 +1,256 @@
+.page {
+  padding-block: clamp(8rem, 14vw, 11rem) clamp(5rem, 9vw, 8rem);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: 2rem;
+  margin-bottom: 3.5rem;
+}
+
+.eyebrow,
+.division,
+.index,
+.detailLabel {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  margin-bottom: 1.25rem;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+  letter-spacing: 0.2em;
+}
+
+.title {
+  font-size: clamp(3rem, 6.5vw, 6rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.intro {
+  max-width: 26rem;
+  justify-self: end;
+  color: var(--color-silver);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.intro span {
+  display: block;
+  color: var(--color-muted);
+}
+
+.contacts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--color-line-strong);
+  background: var(--color-bg2);
+}
+
+.card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: clamp(1.5rem, 2.5vw, 2.25rem);
+  scroll-margin-top: 6rem;
+}
+
+.card + .card {
+  border-left: 1px solid var(--color-line-strong);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2.75rem;
+}
+
+.division {
+  color: var(--color-silver);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  letter-spacing: 0.1em;
+}
+
+.index {
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.overview {
+  flex: 1;
+}
+
+.cardTitle {
+  font-size: clamp(2rem, 3vw, 2.75rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+.description {
+  margin-top: 1.25rem;
+  color: var(--color-muted);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.topics {
+  display: grid;
+  gap: 0.625rem;
+  margin-block: 1.75rem 2.5rem;
+  color: var(--color-silver);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.topics li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.topics li::before {
+  content: "";
+  position: relative;
+  top: -0.2em;
+  width: 0.3rem;
+  height: 0.3rem;
+  flex-shrink: 0;
+  background: var(--color-muted);
+}
+
+.details {
+  border-top: 1px solid var(--color-line-strong);
+  padding-top: 1.5rem;
+}
+
+.detailLabel {
+  margin-bottom: 0.75rem;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+}
+
+.phone,
+.email,
+.emailButton {
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  overflow-wrap: anywhere;
+}
+
+.phone {
+  font-size: 1.375rem;
+  letter-spacing: -0.02em;
+}
+
+.email {
+  color: var(--color-silver);
+  font-size: 0.875rem;
+}
+
+.phone:hover,
+.email:hover {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.details svg {
+  flex-shrink: 0;
+}
+
+.emailButton {
+  min-height: 3.125rem;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid var(--color-line-strong);
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.emailButton:hover {
+  border-color: var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-bg);
+}
+
+.preparation {
+  margin-top: 1.5rem;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+.location {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+  padding-top: 1.5rem;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.location span[aria-hidden] {
+  margin-inline: 0.625rem;
+  color: var(--color-line-strong);
+}
+
+@media (max-width: 63.99rem) {
+  .header {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .intro {
+    justify-self: start;
+  }
+
+  .contacts {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 2rem;
+  }
+
+  .card + .card {
+    border-top: 1px solid var(--color-line-strong);
+    border-left: 0;
+  }
+
+  .cardHeader {
+    margin-bottom: 1.75rem;
+  }
+}
+
+@media (max-width: 25rem) {
+  .card {
+    padding: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .emailButton {
+    transition: none;
+  }
+}

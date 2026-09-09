@@ -7,6 +7,7 @@ import { FinalCTA } from "@/components/sections/FinalCTA";
 import { Footer } from "@/components/sections/Footer";
 import { ProcessStrip } from "@/components/sections/ProcessStrip";
 import { RecordTeaser } from "@/components/sections/RecordTeaser";
+import { UmbrellaBand } from "@/components/sections/UmbrellaBand";
 
 /**
  * The homepage is the brand story, not the whole site: each chapter is one
@@ -24,6 +25,7 @@ export default function Home() {
         <Hero />
         <BrandStatement />
         <ProcessStrip />
+        <UmbrellaBand />
         <RecordTeaser />
         <Available />
         <FarnsworthPrinciples />

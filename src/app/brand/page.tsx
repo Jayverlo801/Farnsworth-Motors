@@ -23,17 +23,18 @@ export const metadata: Metadata = {
 };
 
 const COLORS: Array<[string, string, string]> = [
-  ["--bg", "#0B0B0C", "Ground. Every page starts here."],
-  ["--bg-2", "#151517", "Raised surfaces, the umbrella band."],
-  ["--surface", "#1D1D20", "Cards and record chrome."],
-  ["--line / --line-strong", "#26262A / #3A3A40", "Hairlines; ghost borders."],
-  ["--text", "#F4F4F2", "Primary text and the wordmark."],
-  ["--text-2", "#99999F", "Secondary text; the division word."],
-  ["--text-3", "#5F5F66", "Structure lines, quiet labels."],
-  ["--accent", "#B8BCC4", "One accent per screen, at most."],
-  ["--accent-warm", "#CFC6B8", "The sweep. Nothing else."],
+  ["--bg", "#EDE7C7", "Parchment ground. Every page starts here."],
+  ["--bg-2", "#E4DCB6", "Raised cream bands."],
+  ["--surface", "#F4EFDA", "Cards and record chrome."],
+  ["--line / --line-strong", "#D3C9A2 / #B3A67A", "Hairlines; ghost borders."],
+  ["--text", "#200E01", "Espresso ink — text and the wordmark."],
+  ["--text-2", "#6F5C46", "Secondary text; the division word."],
+  ["--text-3", "#8A775E", "Structure lines, quiet labels. Decorative only."],
+  ["--accent", "#8B0000", "Oxblood. One accent per screen, at most."],
+  ["--accent-warm", "#5B0202", "The sweep. Nothing else."],
   ["--accent-intact", "#2F6B4F", "Record/diagram only: verified untouched."],
-  ["--accent-replaced", "#8A4A3E", "Record/diagram only: replaced/repaired."],
+  ["--accent-replaced", "#8B0000", "Record/diagram only: replaced/repaired."],
+  ["#200E01 band", "#200E01", "Espresso punch bands: the umbrella and the footer."],
 ];
 
 const TYPE_STYLES: Array<[string, string, string]> = [
@@ -87,7 +88,7 @@ export default function BrandPage() {
               line. Two parts that fit precisely. The gap widens as the mark
               shrinks (16px favicon) and tightens at scale (2m sign).
             </p>
-            <div className="mt-10 flex flex-wrap items-end gap-12 border border-line rounded-2xl bg-[#0e0e10] p-10">
+            <div className="mt-10 flex flex-wrap items-end gap-12 border border-line rounded-2xl bg-[#f4efda] p-10">
               <MarkDemo px={16} optical="small" />
               <MarkDemo px={32} optical="small" />
               <MarkDemo px={64} optical="medium" />
@@ -97,7 +98,7 @@ export default function BrandPage() {
 
           {/* ---- Lockups ---- */}
           <Section label="Lockups" title="ONE NAME, THREE WORDS.">
-            <div className="grid gap-10 rounded-2xl border border-line bg-[#0e0e10] p-10">
+            <div className="grid gap-10 rounded-2xl border border-line bg-[#f4efda] p-10">
               <Lockup size={1.4} />
               <Lockup layout="stacked" size={1.15} className="justify-self-start" />
               <div className="flex flex-wrap gap-x-14 gap-y-6 border-t border-line pt-8">
@@ -114,7 +115,7 @@ export default function BrandPage() {
               {COLORS.map(([token, hex, rule]) => (
                 <div
                   key={token}
-                  className="grid grid-cols-[44px_1fr] items-center gap-5 border-t border-line/60 bg-[#101012] px-6 py-4 first:border-t-0 sm:grid-cols-[44px_220px_140px_1fr]"
+                  className="grid grid-cols-[44px_1fr] items-center gap-5 border-t border-line/60 bg-[#f4efda] px-6 py-4 first:border-t-0 sm:grid-cols-[44px_220px_140px_1fr]"
                 >
                   <span
                     className="h-8 w-11 rounded border border-line"
@@ -133,7 +134,7 @@ export default function BrandPage() {
           <Section label="Type" title="SEVEN STYLES. ONE JOB EACH.">
             <div className="grid gap-0 overflow-hidden rounded-2xl border border-line">
               {TYPE_STYLES.map(([cls, rule, sample]) => (
-                <div key={cls} className="border-t border-line/60 bg-[#101012] px-7 py-7 first:border-t-0">
+                <div key={cls} className="border-t border-line/60 bg-[#f4efda] px-7 py-7 first:border-t-0">
                   <div className="flex flex-wrap items-baseline justify-between gap-3">
                     <span className="t-data text-[0.7rem] text-muted">.{cls}</span>
                     <span className="text-[0.75rem] text-muted/70">{rule}</span>
@@ -153,7 +154,7 @@ export default function BrandPage() {
 
           {/* ---- Voice ---- */}
           <Section label="Voice" title="A PRECISE ENGINEER, PROUD OF THE WORK.">
-            <div className="grid gap-10 rounded-2xl border border-line bg-[#101012] p-9 lg:grid-cols-3">
+            <div className="grid gap-10 rounded-2xl border border-line bg-[#f4efda] p-9 lg:grid-cols-3">
               <div>
                 <p className="t-label mb-5">Rules</p>
                 <ul className="space-y-2.5">
