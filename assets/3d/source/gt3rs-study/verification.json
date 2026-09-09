@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "sourceSha256": "82ca106da974242d048510c69cd1c1aaf702a0a2091cfa948510348bd1f20666",
+  "sourceTriangles": 477834,
+  "separateParts": 58,
+  "assemblyErrorMeters": {
+    "1": 0,
+    "210": 0,
+    "270": 0
+  },
+  "cameraBoundsNormalized": {
+    "1": {
+      "left": 0.20926693081855774,
+      "right": 0.8311198949813843,
+      "bottom": 0.26618659496307373,
+      "top": 0.7753855586051941
+    },
+    "90": {
+      "left": 0.20926693081855774,
+      "right": 0.8311198949813843,
+      "bottom": 0.26618659496307373,
+      "top": 0.7753855586051941
+    },
+    "150": {
+      "left": 0.20926693081855774,
+      "right": 0.7717496156692505,
+      "bottom": 0.26618659496307373,
+      "top": 0.7753855586051941
+    },
+    "210": {
+      "left": 0.1273442953824997,
+      "right": 0.8702533841133118,
+      "bottom": 0.19874390959739685,
+      "top": 0.7541070580482483
+    },
+    "270": {
+      "left": 0.09628964215517044,
+      "right": 0.9011078476905823,
+      "bottom": 0.1736392378807068,
+      "top": 0.7752826809883118
+    }
+  },
+  "renderSize": [
+    2400,
+    1500
+  ],
+  "nativeAnimation": {
+    "fps": 30,
+    "frames": 270,
+    "durationSeconds": 9
+  },
+  "checks": [
+    "finite geometry",
+    "58 unique animated parts",
+    "no invented rear doors",
+    "exact exploded/assembled transforms",
+    "hero camera contains model at sampled frames",
+    "carbon/rubber/lens/lamp material assignments"
+  ],
+  "limitations": [
+    "Artistic similarity, not factory dimensional accuracy.",
+    "No claim of photorealism from automated checks.",
+    "Website integration and physical-device performance are separate acceptance steps."
+  ]
+}

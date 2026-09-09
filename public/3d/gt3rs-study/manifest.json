@@ -1,0 +1,992 @@
+{
+  "id": "gt3rs-inspired-study",
+  "description": "Original GT3 RS-inspired artistic study. Not factory CAD or an exact replica.",
+  "status": "model-ready; homepage integration separate",
+  "coordinates": "glTF: X nose, Y up, Z vehicle right",
+  "authoredIn": "Blender 4.5",
+  "sourceTriangles": 477834,
+  "parts": [
+    {
+      "name": "quarter_RL",
+      "stage": "body",
+      "home": [
+        -1.4688215255737305,
+        0.6026026010513306,
+        -0.8132010698318481
+      ],
+      "offset": [
+        0,
+        0.05999999865889549,
+        -0.550000011920929
+      ],
+      "startSeconds": 3,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "door_FL",
+      "stage": "body",
+      "home": [
+        -0.09749999642372131,
+        0.5371914505958557,
+        -0.7625722885131836
+      ],
+      "offset": [
+        0,
+        0.05999999865889549,
+        -0.550000011920929
+      ],
+      "startSeconds": 3.033333333333333,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "quarter_FL",
+      "stage": "body",
+      "home": [
+        1.3459160327911377,
+        0.6001166105270386,
+        -0.7828409671783447
+      ],
+      "offset": [
+        0,
+        0.05999999865889549,
+        -0.550000011920929
+      ],
+      "startSeconds": 3.066666666666667,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "side_skirt_L",
+      "stage": "body",
+      "home": [
+        -0.07500001788139343,
+        0.17249999940395355,
+        -0.9144999980926514
+      ],
+      "offset": [
+        0,
+        0.05999999865889549,
+        -0.550000011920929
+      ],
+      "startSeconds": 3.1,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "rear_vent_L",
+      "stage": "body",
+      "home": [
+        -0.8799636960029602,
+        0.6924987435340881,
+        -0.9477288722991943
+      ],
+      "offset": [
+        0,
+        0.05999999865889549,
+        -0.550000011920929
+      ],
+      "startSeconds": 3.1333333333333333,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "fender_louver_L",
+      "stage": "body",
+      "home": [
+        1.1100000143051147,
+        0.9887888431549072,
+        -0.7940424680709839
+      ],
+      "offset": [
+        0,
+        0.05999999865889549,
+        -0.550000011920929
+      ],
+      "startSeconds": 3.1666666666666665,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "arch_blade_L",
+      "stage": "body",
+      "home": [
+        0.6500611305236816,
+        0.4147830903530121,
+        -1.0109999179840088
+      ],
+      "offset": [
+        0,
+        0.05999999865889549,
+        -0.550000011920929
+      ],
+      "startSeconds": 3.2333333333333334,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "quarter_RR",
+      "stage": "body",
+      "home": [
+        -1.4688215255737305,
+        0.6026026010513306,
+        0.8132010698318481
+      ],
+      "offset": [
+        0,
+        0.05999999865889549,
+        0.550000011920929
+      ],
+      "startSeconds": 3.2666666666666666,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "door_FR",
+      "stage": "body",
+      "home": [
+        -0.09749999642372131,
+        0.5371914505958557,
+        0.7625722885131836
+      ],
+      "offset": [
+        0,
+        0.05999999865889549,
+        0.550000011920929
+      ],
+      "startSeconds": 3.3,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "quarter_FR",
+      "stage": "body",
+      "home": [
+        1.3459160327911377,
+        0.6001166105270386,
+        0.7828409671783447
+      ],
+      "offset": [
+        0,
+        0.05999999865889549,
+        0.550000011920929
+      ],
+      "startSeconds": 3.3333333333333335,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "side_skirt_R",
+      "stage": "body",
+      "home": [
+        -0.07500001788139343,
+        0.17249999940395355,
+        0.9030956029891968
+      ],
+      "offset": [
+        0,
+        0.05999999865889549,
+        0.550000011920929
+      ],
+      "startSeconds": 3.3666666666666667,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "rear_vent_R",
+      "stage": "body",
+      "home": [
+        -0.8799636960029602,
+        0.6924987435340881,
+        0.9477288722991943
+      ],
+      "offset": [
+        0,
+        0.05999999865889549,
+        0.550000011920929
+      ],
+      "startSeconds": 3.4,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "fender_louver_R",
+      "stage": "body",
+      "home": [
+        1.1098411083221436,
+        0.9911233186721802,
+        0.7938875555992126
+      ],
+      "offset": [
+        0,
+        0.05999999865889549,
+        0.550000011920929
+      ],
+      "startSeconds": 3.433333333333333,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "arch_blade_R",
+      "stage": "body",
+      "home": [
+        0.6500611305236816,
+        0.4147830903530121,
+        0.9989999532699585
+      ],
+      "offset": [
+        0,
+        0.05999999865889549,
+        0.550000011920929
+      ],
+      "startSeconds": 3.466666666666667,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "hood",
+      "stage": "body",
+      "home": [
+        1.3738073110580444,
+        0.7753725647926331,
+        0
+      ],
+      "offset": [
+        0.20000000298023224,
+        0.7799999713897705,
+        0
+      ],
+      "startSeconds": 3.5,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "trunk",
+      "stage": "body",
+      "home": [
+        -1.7975000143051147,
+        0.8701575994491577,
+        0
+      ],
+      "offset": [
+        -0.6000000238418579,
+        0.07999999821186066,
+        0
+      ],
+      "startSeconds": 3.566666666666667,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "roof",
+      "stage": "body",
+      "home": [
+        -0.451366126537323,
+        1.054908037185669,
+        -0.0001990795135498047
+      ],
+      "offset": [
+        0,
+        0.7200000286102295,
+        0
+      ],
+      "startSeconds": 3.6,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "glass_windshield",
+      "stage": "identity",
+      "home": [
+        0.32574662566185,
+        1.0116515159606934,
+        0
+      ],
+      "offset": [
+        0,
+        0.7200000286102295,
+        0
+      ],
+      "startSeconds": 4.8,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "glass_rear",
+      "stage": "identity",
+      "home": [
+        -1.1664687395095825,
+        1.0327308177947998,
+        0
+      ],
+      "offset": [
+        0,
+        0.7200000286102295,
+        0
+      ],
+      "startSeconds": 4.833333333333333,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "glass_L",
+      "stage": "identity",
+      "home": [
+        -0.3903718590736389,
+        1.0414798259735107,
+        -0.7519971132278442
+      ],
+      "offset": [
+        0,
+        0.7200000286102295,
+        0
+      ],
+      "startSeconds": 4.866666666666666,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "mirror_L",
+      "stage": "identity",
+      "home": [
+        0.30000001192092896,
+        0.9317280054092407,
+        -0.9480908513069153
+      ],
+      "offset": [
+        0,
+        0.05999999865889549,
+        -0.550000011920929
+      ],
+      "startSeconds": 4.9,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "glass_R",
+      "stage": "identity",
+      "home": [
+        -0.3894619047641754,
+        1.0401567220687866,
+        0.7494085431098938
+      ],
+      "offset": [
+        0,
+        0.7200000286102295,
+        0
+      ],
+      "startSeconds": 4.933333333333334,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "mirror_R",
+      "stage": "identity",
+      "home": [
+        0.30000001192092896,
+        0.9317280054092407,
+        0.9480907917022705
+      ],
+      "offset": [
+        0,
+        0.05999999865889549,
+        0.550000011920929
+      ],
+      "startSeconds": 4.966666666666667,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "headlight_L",
+      "stage": "identity",
+      "home": [
+        1.7576932907104492,
+        0.8733813762664795,
+        -0.7348974347114563
+      ],
+      "offset": [
+        0.25999999046325684,
+        0.2800000011920929,
+        -0.18000000715255737
+      ],
+      "startSeconds": 5.033333333333333,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "headlight_R",
+      "stage": "identity",
+      "home": [
+        1.7576932907104492,
+        0.8720277547836304,
+        0.7348974347114563
+      ],
+      "offset": [
+        0.25999999046325684,
+        0.2800000011920929,
+        0.18000000715255737
+      ],
+      "startSeconds": 5.066666666666666,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "front_bumper",
+      "stage": "body",
+      "home": [
+        2.1523311138153076,
+        0.4435093104839325,
+        0
+      ],
+      "offset": [
+        0.6000000238418579,
+        0.07999999821186066,
+        0
+      ],
+      "startSeconds": 3.6333333333333333,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "splitter",
+      "stage": "body",
+      "home": [
+        2.160024642944336,
+        0.2801547348499298,
+        -0.003962129354476929
+      ],
+      "offset": [
+        0.6000000238418579,
+        0.07999999821186066,
+        0
+      ],
+      "startSeconds": 3.6666666666666665,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "rear_bumper",
+      "stage": "body",
+      "home": [
+        -2.117624282836914,
+        0.48293206095695496,
+        0
+      ],
+      "offset": [
+        -0.6000000238418579,
+        0.07999999821186066,
+        0
+      ],
+      "startSeconds": 3.7,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "diffuser",
+      "stage": "body",
+      "home": [
+        -2.1105237007141113,
+        0.2258801907300949,
+        0
+      ],
+      "offset": [
+        -0.6000000238418579,
+        0.07999999821186066,
+        0
+      ],
+      "startSeconds": 3.7333333333333334,
+      "durationSeconds": 1.4
+    },
+    {
+      "name": "taillight_L",
+      "stage": "identity",
+      "home": [
+        -2.2179431915283203,
+        0.7149999737739563,
+        -0.4276888072490692
+      ],
+      "offset": [
+        -0.33000001311302185,
+        0.1599999964237213,
+        -0.18000000715255737
+      ],
+      "startSeconds": 5.1,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "exhaust",
+      "stage": "identity",
+      "home": [
+        -2.257000207901001,
+        0.23499999940395355,
+        0
+      ],
+      "offset": [
+        -0.6000000238418579,
+        0.07999999821186066,
+        0
+      ],
+      "startSeconds": 5.133333333333334,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "taillight_R",
+      "stage": "identity",
+      "home": [
+        -2.2179431915283203,
+        0.7149999737739563,
+        0.4276888072490692
+      ],
+      "offset": [
+        -0.33000001311302185,
+        0.1599999964237213,
+        0.18000000715255737
+      ],
+      "startSeconds": 5.166666666666667,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "wing_main",
+      "stage": "identity",
+      "home": [
+        -2.0625,
+        1.4395729303359985,
+        0
+      ],
+      "offset": [
+        -0.3199999928474426,
+        0.6200000047683716,
+        0
+      ],
+      "startSeconds": 5.2,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "wing_flap",
+      "stage": "identity",
+      "home": [
+        -2.317500114440918,
+        1.4928202629089355,
+        0
+      ],
+      "offset": [
+        -0.3199999928474426,
+        0.6200000047683716,
+        0
+      ],
+      "startSeconds": 5.233333333333333,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "wing_endplate_L",
+      "stage": "identity",
+      "home": [
+        -2.1251134872436523,
+        1.500999927520752,
+        -1.0575001239776611
+      ],
+      "offset": [
+        -0.3199999928474426,
+        0.6200000047683716,
+        0
+      ],
+      "startSeconds": 5.266666666666667,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "wing_endplate_R",
+      "stage": "identity",
+      "home": [
+        -2.1251134872436523,
+        1.500999927520752,
+        1.0724999904632568
+      ],
+      "offset": [
+        -0.3199999928474426,
+        0.6200000047683716,
+        0
+      ],
+      "startSeconds": 5.3,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "wing_supports",
+      "stage": "identity",
+      "home": [
+        -1.9100192785263062,
+        1.2504748106002808,
+        -0.013500005006790161
+      ],
+      "offset": [
+        -0.3199999928474426,
+        0.6200000047683716,
+        0
+      ],
+      "startSeconds": 5.366666666666666,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "wheel_RL",
+      "stage": "identity",
+      "home": [
+        -1.309999942779541,
+        0.37700000405311584,
+        -0.871999979019165
+      ],
+      "offset": [
+        0,
+        0,
+        -0.6800000071525574
+      ],
+      "startSeconds": 5.4,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "brake_RL",
+      "stage": "structure",
+      "home": [
+        -1.3114999532699585,
+        0.37700000405311584,
+        -0.9445000290870667
+      ],
+      "offset": [
+        0,
+        -0.17000000178813934,
+        -0.11999999731779099
+      ],
+      "startSeconds": 0.8666666666666667,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "suspension_RL",
+      "stage": "structure",
+      "home": [
+        -1.3100000619888306,
+        0.5608782768249512,
+        -0.5849999785423279
+      ],
+      "offset": [
+        0,
+        -0.17000000178813934,
+        -0.11999999731779099
+      ],
+      "startSeconds": 0.9,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "wheel_RR",
+      "stage": "identity",
+      "home": [
+        -1.309999942779541,
+        0.37700000405311584,
+        0.871999979019165
+      ],
+      "offset": [
+        0,
+        0,
+        0.6800000071525574
+      ],
+      "startSeconds": 5.433333333333334,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "brake_RR",
+      "stage": "structure",
+      "home": [
+        -1.3114999532699585,
+        0.37700000405311584,
+        0.9444999694824219
+      ],
+      "offset": [
+        0,
+        -0.17000000178813934,
+        0.11999999731779099
+      ],
+      "startSeconds": 0.9333333333333333,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "suspension_RR",
+      "stage": "structure",
+      "home": [
+        -1.3100000619888306,
+        0.5608782768249512,
+        0.5849999785423279
+      ],
+      "offset": [
+        0,
+        -0.17000000178813934,
+        0.11999999731779099
+      ],
+      "startSeconds": 0.9666666666666667,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "wheel_FL",
+      "stage": "identity",
+      "home": [
+        1.159999966621399,
+        0.3649999797344208,
+        -0.8489999771118164
+      ],
+      "offset": [
+        0,
+        0,
+        -0.6800000071525574
+      ],
+      "startSeconds": 5.466666666666667,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "brake_FL",
+      "stage": "structure",
+      "home": [
+        1.1584999561309814,
+        0.36500000953674316,
+        -0.9053400158882141
+      ],
+      "offset": [
+        0,
+        -0.17000000178813934,
+        -0.11999999731779099
+      ],
+      "startSeconds": 1,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "suspension_FL",
+      "stage": "structure",
+      "home": [
+        1.159999966621399,
+        0.5607514381408691,
+        -0.5849999189376831
+      ],
+      "offset": [
+        0,
+        -0.17000000178813934,
+        -0.11999999731779099
+      ],
+      "startSeconds": 1.0333333333333334,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "wheel_FR",
+      "stage": "identity",
+      "home": [
+        1.159999966621399,
+        0.3649999797344208,
+        0.8489999771118164
+      ],
+      "offset": [
+        0,
+        0,
+        0.6800000071525574
+      ],
+      "startSeconds": 5.5,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "brake_FR",
+      "stage": "structure",
+      "home": [
+        1.1584999561309814,
+        0.36500000953674316,
+        0.9053399562835693
+      ],
+      "offset": [
+        0,
+        -0.17000000178813934,
+        0.11999999731779099
+      ],
+      "startSeconds": 1.1,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "suspension_FR",
+      "stage": "structure",
+      "home": [
+        1.159999966621399,
+        0.5607515573501587,
+        0.5849999785423279
+      ],
+      "offset": [
+        0,
+        -0.17000000178813934,
+        0.11999999731779099
+      ],
+      "startSeconds": 1.1333333333333333,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "chassis",
+      "stage": "structure",
+      "home": [
+        0,
+        0.29625001549720764,
+        0
+      ],
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "startSeconds": 1.1666666666666667,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "subframe_F",
+      "stage": "structure",
+      "home": [
+        1.159999966621399,
+        0.32175004482269287,
+        0
+      ],
+      "offset": [
+        0,
+        -0.17000000178813934,
+        0.11999999731779099
+      ],
+      "startSeconds": 1.2,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "subframe_R",
+      "stage": "structure",
+      "home": [
+        -1.309999942779541,
+        0.32175004482269287,
+        0
+      ],
+      "offset": [
+        0,
+        -0.17000000178813934,
+        0.11999999731779099
+      ],
+      "startSeconds": 1.2333333333333334,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "seat_driver",
+      "stage": "interior",
+      "home": [
+        -0.23250000178813934,
+        0.7662500143051147,
+        0.38999998569488525
+      ],
+      "offset": [
+        0,
+        0.5,
+        0
+      ],
+      "startSeconds": 1.9,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "seat_passenger",
+      "stage": "interior",
+      "home": [
+        -0.23250000178813934,
+        0.7662500143051147,
+        -0.38999998569488525
+      ],
+      "offset": [
+        0,
+        0.5,
+        0
+      ],
+      "startSeconds": 1.9333333333333333,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "dashboard",
+      "stage": "interior",
+      "home": [
+        0.46000000834465027,
+        0.7950000166893005,
+        0
+      ],
+      "offset": [
+        0,
+        0.5,
+        0
+      ],
+      "startSeconds": 1.9666666666666666,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "center_console",
+      "stage": "interior",
+      "home": [
+        0.05999999865889549,
+        0.5099999904632568,
+        0
+      ],
+      "offset": [
+        0,
+        0.5,
+        0
+      ],
+      "startSeconds": 2,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "steering_wheel",
+      "stage": "interior",
+      "home": [
+        0.2026383876800537,
+        0.8249218463897705,
+        0.38999998569488525
+      ],
+      "offset": [
+        0,
+        0.5,
+        0
+      ],
+      "startSeconds": 2.033333333333333,
+      "durationSeconds": 1.0666666666666667
+    },
+    {
+      "name": "roll_cage",
+      "stage": "interior",
+      "home": [
+        -0.7534918785095215,
+        0.734499990940094,
+        0
+      ],
+      "offset": [
+        0,
+        0.5,
+        0
+      ],
+      "startSeconds": 2.1,
+      "durationSeconds": 1.0666666666666667
+    }
+  ],
+  "lods": {
+    "high": {
+      "url": "/3d/gt3rs-study/high.glb",
+      "triangles": 117072,
+      "bytes": 728348,
+      "sha256": "eebef51a0af3d92cd649de45242c60bf477a9e919f05550fa4d8d4c290a71dd0",
+      "parts": 58
+    },
+    "medium": {
+      "url": "/3d/gt3rs-study/medium.glb",
+      "triangles": 57574,
+      "bytes": 460908,
+      "sha256": "c5d56bf81df3b11e9899ee98fa9a0e3e078f95c4acdf68c936d582e63a07b53f",
+      "parts": 58
+    },
+    "low": {
+      "url": "/3d/gt3rs-study/low.glb",
+      "triangles": 27580,
+      "bytes": 313504,
+      "sha256": "4353e2ddcf39c4af0a14f13aec9a20120018e2fb540bbccf2776b6c65de5e715",
+      "parts": 58
+    }
+  },
+  "renders": {
+    "hero": {
+      "url": "/3d/gt3rs-study/hero.webp",
+      "width": 2400,
+      "height": 1500,
+      "bytes": 141676
+    },
+    "rear": {
+      "url": "/3d/gt3rs-study/rear.webp",
+      "width": 2400,
+      "height": 1500,
+      "bytes": 130126
+    },
+    "side": {
+      "url": "/3d/gt3rs-study/side.webp",
+      "width": 2400,
+      "height": 1500,
+      "bytes": 102704
+    },
+    "exploded": {
+      "url": "/3d/gt3rs-study/exploded.webp",
+      "width": 2400,
+      "height": 1500,
+      "bytes": 127014
+    }
+  },
+  "limitations": [
+    "Not factory CAD or an exact Porsche replica.",
+    "Procedural carbon weave is retained in the Blender source; web materials use the neutral PBR base.",
+    "No baked AO atlas yet. WebGL lighting, fallback parity, and device performance remain integration work."
+  ]
+}

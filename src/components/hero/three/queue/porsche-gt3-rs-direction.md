@@ -11,9 +11,16 @@ Working assumption, awaiting confirmation: 992-generation GT3 RS, restrained
 silver/graphite bodywork with carbon details. No specific model year, factory
 paint name, Weissach package, or ownership/inventory claim has been approved.
 
-Status: **awaiting an appropriate licensed 3D model**. There is no Porsche model
-in the repository. Do not relabel the generic GLBs, poster, diagrams, or stills.
-No model has been purchased, downloaded, integrated, or visually approved.
+Updated instruction: Jay explicitly chose **original Blender modeling**, asking
+for a similar, high-quality car. The purchasing dependency is removed. A custom
+GT3 RS-inspired model is now authored at
+`assets/3d/source/gt3rs-study/gt3rs-study.blend`, with 58 animated components,
+studio renders, and verified web LODs. This is an artistic interpretation, not
+factory CAD or an exact replica. No third-party mesh was purchased or imported.
+
+Homepage integration and user visual acceptance are still pending. Do not
+relabel the old generic GLBs, poster, diagrams, or stills. The sourcing notes
+below are historical research, not a remaining requirement to buy an asset.
 
 ## Visual thesis
 
@@ -55,7 +62,7 @@ This is artistic assembly, not a representation of Porsche manufacturing or a
 particular vehicle's repair history. Do not invent hidden mechanical systems
 or inspection evidence to make the sequence seem technically authentic.
 
-## Model intake — required before replacing runtime assets
+## Model intake — historical purchase-path notes
 
 - Prefer an editable .blend, .fbx, or .glb, with all referenced textures.
 - Confirm it is the selected GT3 **RS**, not a GT3, GT3 R, older generation, or
@@ -98,7 +105,7 @@ Checked 2026-09-08. Prices, availability, and terms may change.
   listed CC Attribution-NonCommercial-ShareAlike. Do not use for this commercial
   site without separate permission from the rights holder.
 
-## Integration and acceptance after intake
+## Integration and acceptance after original modeling
 
 Keep docs/HERO-CONTRACT.md and HeroSceneProps unchanged. The model's animation
 groups are internal to the scene; they may extend the old 44-name vocabulary

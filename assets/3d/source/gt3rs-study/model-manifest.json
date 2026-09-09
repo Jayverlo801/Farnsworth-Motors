@@ -1,15 +1,15 @@
 {
   "description": "Original GT3 RS-inspired artistic study. Not factory CAD or an exact replica.",
-  "sourceTriangles": 445484,
+  "sourceTriangles": 477834,
   "parts": [
     {
       "name": "quarter_RL",
       "stage": "body",
-      "triangles": 20928,
+      "triangles": 23216,
       "assembled": [
-        -1.4684362411499023,
-        0.8159198760986328,
-        0.6006312966346741
+        -1.4688215255737305,
+        0.8132010698318481,
+        0.6026026010513306
       ],
       "explodedOffset": [
         0.0,
@@ -22,11 +22,11 @@
     {
       "name": "door_FL",
       "stage": "body",
-      "triangles": 21116,
+      "triangles": 23592,
       "assembled": [
-        -0.09758520126342773,
-        0.762572169303894,
-        0.5359717607498169
+        -0.09749999642372131,
+        0.7625722885131836,
+        0.5371914505958557
       ],
       "explodedOffset": [
         0.0,
@@ -39,11 +39,11 @@
     {
       "name": "quarter_FL",
       "stage": "body",
-      "triangles": 20928,
+      "triangles": 23216,
       "assembled": [
-        1.3458731174468994,
-        0.7858399152755737,
-        0.6276081204414368
+        1.3459160327911377,
+        0.7828409671783447,
+        0.6001166105270386
       ],
       "explodedOffset": [
         0.0,
@@ -73,11 +73,11 @@
     {
       "name": "rear_vent_L",
       "stage": "body",
-      "triangles": 928,
+      "triangles": 4424,
       "assembled": [
-        -0.9417718052864075,
-        0.9609515070915222,
-        0.6775000095367432
+        -0.8799636960029602,
+        0.9477288722991943,
+        0.6924987435340881
       ],
       "explodedOffset": [
         0.0,
@@ -90,11 +90,11 @@
     {
       "name": "fender_louver_L",
       "stage": "body",
-      "triangles": 1128,
+      "triangles": 3080,
       "assembled": [
-        1.0775437355041504,
-        0.7993121147155762,
-        0.9930688142776489
+        1.1100000143051147,
+        0.7940424680709839,
+        0.9887888431549072
       ],
       "explodedOffset": [
         0.0,
@@ -124,11 +124,11 @@
     {
       "name": "quarter_RR",
       "stage": "body",
-      "triangles": 20928,
+      "triangles": 23216,
       "assembled": [
-        -1.4690529108047485,
+        -1.4688215255737305,
         -0.8132010698318481,
-        0.6051217317581177
+        0.6026026010513306
       ],
       "explodedOffset": [
         0.0,
@@ -141,11 +141,11 @@
     {
       "name": "door_FR",
       "stage": "body",
-      "triangles": 21116,
+      "triangles": 23592,
       "assembled": [
-        -0.09763330221176147,
-        -0.7622658014297485,
-        0.5396589040756226
+        -0.09749999642372131,
+        -0.7625722885131836,
+        0.5371914505958557
       ],
       "explodedOffset": [
         0.0,
@@ -158,11 +158,11 @@
     {
       "name": "quarter_FR",
       "stage": "body",
-      "triangles": 20928,
+      "triangles": 23216,
       "assembled": [
-        1.3456628322601318,
-        -0.7825661897659302,
-        0.6317006349563599
+        1.3459160327911377,
+        -0.7828409671783447,
+        0.6001166105270386
       ],
       "explodedOffset": [
         0.0,
@@ -192,11 +192,11 @@
     {
       "name": "rear_vent_R",
       "stage": "body",
-      "triangles": 928,
+      "triangles": 4426,
       "assembled": [
-        -0.9429594874382019,
-        -0.9565801620483398,
-        0.6774998903274536
+        -0.8799636960029602,
+        -0.9477288722991943,
+        0.6924987435340881
       ],
       "explodedOffset": [
         0.0,
@@ -209,11 +209,11 @@
     {
       "name": "fender_louver_R",
       "stage": "body",
-      "triangles": 1128,
+      "triangles": 3080,
       "assembled": [
-        1.0770151615142822,
-        -0.7991830706596375,
-        0.9961980581283569
+        1.1098411083221436,
+        -0.7938875555992126,
+        0.9911233186721802
       ],
       "explodedOffset": [
         0.0,
@@ -243,11 +243,11 @@
     {
       "name": "hood",
       "stage": "body",
-      "triangles": 18128,
+      "triangles": 19040,
       "assembled": [
-        1.3737540245056152,
-        2.9802322387695312e-08,
-        0.8158696889877319
+        1.3738073110580444,
+        0.0,
+        0.7753725647926331
       ],
       "explodedOffset": [
         0.20000000298023224,
@@ -260,11 +260,11 @@
     {
       "name": "trunk",
       "stage": "body",
-      "triangles": 14000,
+      "triangles": 18256,
       "assembled": [
         -1.7975000143051147,
         0.0,
-        0.8587601184844971
+        0.8701575994491577
       ],
       "explodedOffset": [
         -0.6000000238418579,
@@ -345,7 +345,7 @@
     {
       "name": "mirror_L",
       "stage": "identity",
-      "triangles": 1864,
+      "triangles": 1752,
       "assembled": [
         0.30000001192092896,
         0.9480908513069153,
@@ -379,7 +379,7 @@
     {
       "name": "mirror_R",
       "stage": "identity",
-      "triangles": 1864,
+      "triangles": 1752,
       "assembled": [
         0.30000001192092896,
         -0.9480907917022705,
@@ -396,11 +396,11 @@
     {
       "name": "headlight_L",
       "stage": "identity",
-      "triangles": 22712,
+      "triangles": 21774,
       "assembled": [
-        1.757711410522461,
-        0.7349611520767212,
-        0.912531852722168
+        1.7576932907104492,
+        0.7348974347114563,
+        0.8733813762664795
       ],
       "explodedOffset": [
         0.25999999046325684,
@@ -413,11 +413,11 @@
     {
       "name": "headlight_R",
       "stage": "identity",
-      "triangles": 22712,
+      "triangles": 21774,
       "assembled": [
-        1.757711410522461,
-        -0.7349611520767212,
-        0.911644697189331
+        1.7576932907104492,
+        -0.7348974347114563,
+        0.8720277547836304
       ],
       "explodedOffset": [
         0.25999999046325684,
@@ -430,11 +430,11 @@
     {
       "name": "front_bumper",
       "stage": "body",
-      "triangles": 17948,
+      "triangles": 22788,
       "assembled": [
-        2.1519393920898438,
+        2.1523311138153076,
         0.0,
-        0.4285587966442108
+        0.4435093104839325
       ],
       "explodedOffset": [
         0.6000000238418579,
@@ -468,7 +468,7 @@
       "assembled": [
         -2.117624282836914,
         0.0,
-        0.4932103157043457
+        0.48293206095695496
       ],
       "explodedOffset": [
         -0.6000000238418579,
@@ -500,8 +500,8 @@
       "stage": "identity",
       "triangles": 1920,
       "assembled": [
-        -2.1933188438415527,
-        0.43739965558052063,
+        -2.2179431915283203,
+        0.4276888072490692,
         0.7149999737739563
       ],
       "explodedOffset": [
@@ -534,8 +534,8 @@
       "stage": "identity",
       "triangles": 1920,
       "assembled": [
-        -2.1933188438415527,
-        -0.43739965558052063,
+        -2.2179431915283203,
+        -0.4276888072490692,
         0.7149999737739563
       ],
       "explodedOffset": [
@@ -634,7 +634,7 @@
     {
       "name": "wheel_RL",
       "stage": "identity",
-      "triangles": 22980,
+      "triangles": 22880,
       "assembled": [
         -1.309999942779541,
         0.871999979019165,
@@ -651,7 +651,7 @@
     {
       "name": "brake_RL",
       "stage": "structure",
-      "triangles": 6968,
+      "triangles": 6936,
       "assembled": [
         -1.3114999532699585,
         0.9445000290870667,
@@ -685,7 +685,7 @@
     {
       "name": "wheel_RR",
       "stage": "identity",
-      "triangles": 22980,
+      "triangles": 22880,
       "assembled": [
         -1.309999942779541,
         -0.871999979019165,
@@ -702,7 +702,7 @@
     {
       "name": "brake_RR",
       "stage": "structure",
-      "triangles": 6968,
+      "triangles": 6936,
       "assembled": [
         -1.3114999532699585,
         -0.9444999694824219,
@@ -736,7 +736,7 @@
     {
       "name": "wheel_FL",
       "stage": "identity",
-      "triangles": 22980,
+      "triangles": 22880,
       "assembled": [
         1.159999966621399,
         0.8489999771118164,
@@ -753,7 +753,7 @@
     {
       "name": "brake_FL",
       "stage": "structure",
-      "triangles": 6968,
+      "triangles": 6936,
       "assembled": [
         1.1584999561309814,
         0.9053400158882141,
@@ -787,7 +787,7 @@
     {
       "name": "wheel_FR",
       "stage": "identity",
-      "triangles": 22980,
+      "triangles": 22880,
       "assembled": [
         1.159999966621399,
         -0.8489999771118164,
@@ -804,7 +804,7 @@
     {
       "name": "brake_FR",
       "stage": "structure",
-      "triangles": 6968,
+      "triangles": 6936,
       "assembled": [
         1.1584999561309814,
         -0.9053399562835693,
@@ -838,7 +838,7 @@
     {
       "name": "chassis",
       "stage": "structure",
-      "triangles": 564,
+      "triangles": 532,
       "assembled": [
         0.0,
         0.0,
@@ -991,13 +991,13 @@
   ],
   "lods": {
     "high": {
-      "triangles": 117928
+      "triangles": 117941
     },
     "medium": {
-      "triangles": 57955
+      "triangles": 57937
     },
     "low": {
-      "triangles": 28227
+      "triangles": 27964
     }
   },
   "animation": {

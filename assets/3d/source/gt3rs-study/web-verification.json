@@ -1,0 +1,93 @@
+{
+  "passed": true,
+  "decoder": "Three.js GLTFLoader + MeshoptDecoder",
+  "lods": {
+    "high": {
+      "sha256": "eebef51a0af3d92cd649de45242c60bf477a9e919f05550fa4d8d4c290a71dd0",
+      "parts": 58,
+      "drawMeshes": 130,
+      "triangles": 117072,
+      "maxHomeErrorMeters": 0,
+      "compressionBoundsErrorMeters": 0.00007693908128148387,
+      "maxPartBoundsErrorMeters": 0.00007668683588609883,
+      "sizeMeters": [
+        4.814347636890403,
+        1.587271037451016,
+        2.173938145426221
+      ],
+      "materials": [
+        "aluminum",
+        "caliper",
+        "carbon",
+        "glass",
+        "headlamp lens",
+        "intake shadow",
+        "interior",
+        "lamp reflector",
+        "light",
+        "paint",
+        "polished alloy",
+        "rear lamp",
+        "rubber"
+      ]
+    },
+    "medium": {
+      "sha256": "c5d56bf81df3b11e9899ee98fa9a0e3e078f95c4acdf68c936d582e63a07b53f",
+      "parts": 58,
+      "drawMeshes": 130,
+      "triangles": 57574,
+      "maxHomeErrorMeters": 0,
+      "compressionBoundsErrorMeters": 0.000053628483624749754,
+      "maxPartBoundsErrorMeters": 0.00008414531117760255,
+      "sizeMeters": [
+        4.814492297605888,
+        1.5872791522889478,
+        2.1746705642420423
+      ],
+      "materials": [
+        "aluminum",
+        "caliper",
+        "carbon",
+        "glass",
+        "headlamp lens",
+        "intake shadow",
+        "interior",
+        "lamp reflector",
+        "light",
+        "paint",
+        "polished alloy",
+        "rear lamp",
+        "rubber"
+      ]
+    },
+    "low": {
+      "sha256": "4353e2ddcf39c4af0a14f13aec9a20120018e2fb540bbccf2776b6c65de5e715",
+      "parts": 58,
+      "drawMeshes": 130,
+      "triangles": 27580,
+      "maxHomeErrorMeters": 0,
+      "compressionBoundsErrorMeters": 0.00003714998800670968,
+      "maxPartBoundsErrorMeters": 0.000060240966773072383,
+      "sizeMeters": [
+        4.817635459079986,
+        1.593725774512793,
+        2.173866677423443
+      ],
+      "materials": [
+        "aluminum",
+        "caliper",
+        "carbon",
+        "glass",
+        "headlamp lens",
+        "intake shadow",
+        "interior",
+        "lamp reflector",
+        "light",
+        "paint",
+        "polished alloy",
+        "rear lamp",
+        "rubber"
+      ]
+    }
+  }
+}
