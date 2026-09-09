@@ -1,5 +1,5 @@
 {
-  "sourceSha256": "caec407dcbb85951c9c92ba35d24762b07514f9101853fb0192e75224305f1f1",
+  "sourceSha256": "12d6939babd3290c3ad5c719526d14d46d6d90494cd3dca53a629f3c74a3ec6c",
   "width": 1280,
   "height": 800,
   "fps": 30,
@@ -9,12 +9,12 @@
   "denoiser": "OpenImageDenoise",
   "renderedPoses": 214,
   "identicalHoldFrames": 56,
-  "resumedFrames": 64,
+  "resumedFrames": 0,
   "passed": true,
   "encoded": {
     "codec": "h264",
-    "bytes": 1463459,
-    "sha256": "a965791d10c47ae69d9841bbf05e88506aa130f39fbc1b0d8c9cedbc9a7a4621",
+    "bytes": 1428916,
+    "sha256": "327801545755154eacc84df52807b843764a8e059722ad3c2cd91aa8e390f4bd",
     "decodedAllFrames": true
   }
 }

@@ -2,34 +2,48 @@
 
 ## Current direction — Porsche 911 GT3 RS
 
-The hero direction is now a **Porsche 911 GT3 RS-inspired model**, with a larger,
-cinematic luxury presentation. See [the active brief](queue/porsche-gt3-rs-direction.md).
-Jay chose original Blender modeling instead of acquiring a marketplace model.
+The active requirement is now an **accurate replica of the real Porsche 911
+GT3 RS**, with a larger, cinematic luxury presentation. See
+[the active brief](queue/porsche-gt3-rs-direction.md). Jay's latest instruction
+supersedes the inspired interpretation. The subsequent instruction, "Build
+something equivalent to that," authorizes original reference-led Blender
+modeling. There is no purchase dependency. Reuse the existing pipeline and
+studio work while rebuilding the geometry; visual acceptance and homepage
+integration remain separate.
 
-The new editable source is at `assets/3d/source/gt3rs-study/gt3rs-study.blend`:
-58 separate animated components, 514,368 source triangles, a nine-second native
-assembly, and 3000 × 1875 studio renders. Geometry is an artistic interpretation,
-not factory CAD. New web assets and their manifest are in `public/3d/gt3rs-study/`.
+The revised model is at `assets/3d/source/gt3rs-study/gt3rs-study.blend`:
+58 separate animated components, 655,700 source triangles, a nine-second native
+assembly, and 3000 × 1875 studio renders. Length, body width, wheelbase, track,
+and nominal tire diameters are calibrated to Porsche's published 992 GT3 RS
+data and verified on the mesh. The individual surfaces remain original reference
+modeling, not factory CAD. Web assets and their manifest are in
+`public/3d/gt3rs-study/`.
 
-| New study LOD | Triangles | Bytes |
+| Reference build LOD | Triangles | Bytes |
 | --- | ---: | ---: |
-| High | 117,126 | 744,324 |
-| Medium | 57,584 | 473,052 |
-| Low | 27,563 | 321,856 |
+| High | 116,550 | 779,956 |
+| Medium | 57,032 | 506,164 |
+| Low (draft) | 27,645 | 353,960 |
 
 All 58 part names survive compression as stable-pivot parent groups; each LOD
-has 134 material draw meshes. Native geometry/animation, packaged asset checks,
+has 155 material draw meshes. Native geometry/animation, packaged asset checks,
 and actual Three.js/meshopt decoding pass. **The homepage has not switched to these assets yet.** Its
 current GLBs/poster and older v3 draft stills remain the fictional coupe. New
 model binding, web lighting/AO, fallback/poster parity, and runtime/device tests
 are separate integration work. The generic-coupe alignment task remains paused.
+The low LOD visibly loses paint/wheel surface quality under studio reflections
+and needs selective retopology before hero use; it is explicitly marked as a
+draft in the public manifest. Decoder/byte-budget success is not visual approval.
 
-The refinement pass reshapes the hood/fender relationship, tapers the hood,
-curves the door seams, cuts real air openings with recessed duct geometry,
-slims the wing/diffuser, and adds transmissive glazing and seals. The studio
-now has a curved infinity cove. The higher-resolution motion preview is
-1280 × 800 at 30 fps. These visual changes are inspected in the actual Blender
-renders; automated checks are not treated as proof of photorealism.
+The refinement pass reshapes the body and greenhouse, lowers and narrows the
+wing, adds forged-section Y-spoke wheels and molded tire detail, and replaces
+the lamps with recessed projector assemblies. Surface-conforming GT3 RS
+graphics, rear lettering, fuel-flap detail, shaped bucket seats, cabin cards,
+and a headliner are modeled. Painted skins have independent thickness so trim
+and decals do not inflate. The studio uses controlled narrow light cards and
+a matte infinity cove. The motion preview is 1280 × 800 at 30 fps. These visual
+changes are inspected in actual Blender renders; automated checks are not
+treated as proof of photorealism.
 
 The measurements and implementation notes below describe the committed **v2
 checkpoint**, not completed Porsche work or acceptance of the local v3 changes.

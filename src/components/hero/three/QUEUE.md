@@ -12,15 +12,21 @@ and makes the hero substantially larger, cinematic, sleek, and luxurious.
 
 Active direction: [queue/porsche-gt3-rs-direction.md](queue/porsche-gt3-rs-direction.md).
 
-Status: Jay chose original Blender modeling. A custom GT3 RS-inspired model now
-exists at `assets/3d/source/gt3rs-study/gt3rs-study.blend`, with 58 animated
-components, 3000 × 1875 inspection renders, and three verified web LODs under
-`public/3d/gt3rs-study/`. See that source folder's README and verification report.
+Status, 2026-09-08: Jay now requests **"Build something equivalent to that"**
+after reviewing a detailed GT3 RS model candidate. Proceed with original
+reference-led Blender modeling, not a purchase dependency. The revision is now
+built for review, using published Porsche dimensions and visual references.
+The editable source retains the 58-part animation structure and studio
+pipeline. Its source, renders, animation, and optimized web models are checked
+together. Numeric checks are not user visual acceptance.
+The full-detail source and native movie are ready for review. The smallest web
+LOD remains a draft because of visible surface degradation; selective retopology
+is required before homepage use.
 
-The active homepage still loads the earlier coupe. Next is hero integration:
-bind the new 58-part manifest, match lighting/poster/fallback, map record IDs,
-and retest runtime behavior. Do not describe the model deliverable as a finished
-homepage replacement. The new geometry is an artistic interpretation, not CAD.
+The active homepage still loads the earlier coupe. Hero integration follows
+model review: bind its actual part manifest, match lighting/poster/
+fallback, map record IDs, and retest runtime behavior. Neither the prototype nor
+the existing homepage is an exact Porsche replica or completed replacement.
 
 ## Paused: v3 generic-coupe alignment and stills
 

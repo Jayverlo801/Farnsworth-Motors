@@ -12,9 +12,10 @@ const checked=JSON.parse(fs.readFileSync(path.join(source,'verification.json'),'
 assert.equal(checked.passed,true);
 assert.equal(checked.sourceTriangles,native.sourceTriangles,'Stale native verification');
 assert.equal(checked.sourceSha256,createHash('sha256').update(fs.readFileSync(path.join(source,'gt3rs-study.blend'))).digest('hex'),'Native source changed since verification');
-const manifest={id:'gt3rs-inspired-study',description:native.description,
-  status:'model-ready; homepage integration separate',coordinates:'glTF: X nose, Y up, Z vehicle right',
+const manifest={id:'gt3rs-reference-build',description:native.description,
+  status:'model-built; visual approval and homepage integration pending',coordinates:'glTF: X nose, Y up, Z vehicle right',
   authoredIn:'Blender 4.5',sourceTriangles:native.sourceTriangles,
+  reference:native.reference,
   parts:native.parts.map(p=>({name:p.name,stage:p.stage,
     home:[p.assembled[0],p.assembled[2],-p.assembled[1]],
     offset:[p.explodedOffset[0],p.explodedOffset[2],-p.explodedOffset[1]],
@@ -32,7 +33,8 @@ for(const [lod,trisMax,bytesMax]of [['high',120000,2500000],['medium',60000,1500
   assert.ok(tris<=trisMax,`${lod} triangles: ${tris}`);
   assert.ok(data.length<=bytesMax,`${lod} bytes: ${data.length}`);
   assert.ok(gltf.extensionsRequired.includes('EXT_meshopt_compression'));
-  manifest.lods[lod]={url:`/3d/gt3rs-study/${lod}.glb`,triangles:tris,bytes:data.length,sha256:createHash('sha256').update(data).digest('hex'),parts:native.parts.length};
+  manifest.lods[lod]={url:`/3d/gt3rs-study/${lod}.glb`,triangles:tris,bytes:data.length,sha256:createHash('sha256').update(data).digest('hex'),parts:native.parts.length,
+    visualStatus:lod==='low'?'draft; surface degradation needs retopology before hero use':'model review pending; web lighting not integrated'};
 }
 (async()=>{
   for(const name of ['hero','rear','side','exploded']){

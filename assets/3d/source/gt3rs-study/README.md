@@ -1,8 +1,18 @@
-# GT3 RS-inspired Blender model
+# Porsche 992 GT3 RS — reference-led Blender model
 
-Original, editable automotive study made for Farnsworth Motors. The user chose
-original Blender modeling rather than purchasing a third-party vehicle asset.
-This is a visual interpretation, not factory CAD, a scan, or an exact replica.
+Original, editable model made for Farnsworth Motors under Jay's instruction
+to build something equivalent to the detailed GT3 RS reference. No purchased
+or downloaded vehicle mesh is incorporated. Visual approval and homepage
+integration remain pending. See the
+[active direction](../../../../src/components/hero/three/queue/porsche-gt3-rs-direction.md)
+for the current scope.
+
+Primary dimensions are calibrated to Porsche's published 992 GT3 RS data:
+4.572 m length, 1.900 m body width, 2.457 m wheelbase, 1.630/1.582 m front/rear
+tracks, and nominal 275/35 ZR20 and 335/30 ZR21 tires. Verification measures the
+actual mesh, excluding raised tire lettering when finding track centerlines.
+Individual body surfaces, trim and hidden mechanics remain original reference
+modeling, not factory CAD, a scan, or a metrology-verified exact replica.
 
 ![Blender hero render](hero.png)
 
@@ -18,6 +28,19 @@ higher-resolution 3000 × 1875 inspection renders (160 Cycles samples).
 
 ## Refinement pass
 
+The latest reconstruction lowers and narrows the wing, corrects the greenhouse
+and wheel stance, replaces the wheels with forged-section Y-spokes and center
+locks, and adds molded tire detail. The lamps have real recesses, projector
+bowls, optical lenses, four-point light details and transmissive covers. The
+front opening is wider; the rear wraps farther around the body, with shorter
+exhaust tips. GT3 RS side graphics, rear lettering, a fine fuel flap seam,
+shaped bucket seats with harness slots, cabin cards, and a headliner are modeled.
+
+Only the painted skin is thickened; trim and decals retain their own authored
+sections. That avoids inflated lettering, handles and shut lines. The matte
+studio floor has an explicit single material, and narrow light cards control
+the reflection bands. All changes are actual 3D geometry/material work.
+
 The hood/fender height difference is reduced, the hood tapers toward the nose,
 and the door seams curve into the sill and line up with the B-pillars. The hood,
 fender, rear-quarter, and front-fascia openings are cut through the actual panel
@@ -30,10 +53,17 @@ with modeled perimeter seals and wipers. Broader wheel spokes, revised paint,
 and a curved studio cove replace the previous pipe-like wing and hard horizon.
 These are geometry/material changes, not a postprocessed image treatment.
 
-The model has 58 semantic components, including two doors, body panels, glazing,
+The source has 655,700 triangles across 58 semantic components, including two
+doors, body panels, glazing,
 headlamps with clear covers and inner optics, individual wheels/brakes/suspension,
 interior and simplified structure, splitter/diffuser, and separate wing elements.
 The underlying source uses dense surfaces; web LODs are separate exports.
+They preserve source shading normals and allocate extra geometry to glazing.
+The web glass is a double-sided exterior sheet, avoiding collapse between the
+native glass's inner and outer surfaces. The exporter temporarily disconnects
+the procedural carbon color so glTF receives a dark constant PBR fallback,
+then restores the native weave. The decoded-color regression test catches the
+previous erroneous white carbon export.
 
 Materials distinguish metallic paint, carbon, rubber, glass, machined metal,
 lamp lenses, and cabin trim. The carbon weave is procedural in Blender. The
@@ -69,12 +99,24 @@ node src/components/hero/three/pipeline/verify_gt3rs_web.mjs
 Pivot normalization preserves the source's named assembly origins while
 retaining quantization transforms on child geometry. Animate the named parent
 group; do not reset the child's position or scale. Every LOD has 58 semantic
-groups and 134 material draw meshes. The default exported pose is assembled.
+groups. The current draw-mesh counts are in `web-verification.json`; the default
+exported pose is assembled.
 
 For a source-only revision, `export_gt3rs_web.py` re-exports the three raw LODs
 without rebuilding the geometry or rendering. It intentionally does not save
 the temporary decimated scene. `refresh_gt3rs_studio.py` refreshes stills;
 append `-- side` (or other camera names) to refresh selected views.
+
+To promote an inspected preview without rebuilding its Boolean geometry, first
+run `verify_gt3rs_study.py -- --preview`, then `promote_gt3rs_preview.py`.
+Promotion requires a matching source hash and renders all four full-resolution
+views. Next run the production verification and `export_gt3rs_web.py`, followed
+by compression/packaging. `refresh_gt3rs_studio.py -- --preview hero side rear`
+refreshes only ignored previews; `inspect_gt3rs_surfaces.py` is an isolated glass
+occlusion diagnostic and never saves over the source.
+`inspect_gt3rs_lods.py` reimports the three raw web exports and renders each
+under the saved studio lighting for geometry review. Those ignored inspection
+PNGs are not browser or device-performance evidence.
 
 `model-manifest.json` records the source meshes and native animation. The
 packaged public manifest converts the transforms to glTF coordinates. The
@@ -112,8 +154,15 @@ kept separate so an incomplete model/fallback transition is not shipped.
 The new 58-component layout does not invent rear doors to match the old
 44-component vocabulary. Hero binding, matching poster/fallback, record mapping,
 web lighting, baked AO, and actual-device performance need an integration pass.
-The 134 draw meshes also need profiling on those devices; small file size alone
+The draw meshes also need profiling on those devices; small file size alone
 does not establish smooth runtime performance.
+
+The low LOD meets structural and transfer budgets but has visible paint, wheel,
+and silhouette degradation in the studio inspection. It remains a **draft**,
+not accepted large-hero quality. Selective retopology is needed before using it
+as the homepage's initial or persistent low model. The public manifest records
+this explicitly. The full-detail Blender model and review movie do not use
+these decimated meshes.
 
 The finished PNGs are actual Cycles renders of this model, not generated concept
 images. Source and rendered likeness are artistic approximations; hidden
@@ -126,6 +175,7 @@ Porsche CAD was incorporated. Visual references were inspected to understand
 the requested silhouette and aero character:
 
 - [Porsche's GT3 RS announcement](https://newsroom.porsche.com/en/2022/products/porsche-911-gt3-rs-world-premiere-29177.html)
+- [Porsche's 992 GT3 RS technical data](https://newsroom.porsche.com/dam/jcr%3A1d390f77-93c3-49c0-89c7-634f5f02b26a/S22_3515_en.pdf)
 - [The marketplace example discussed with the user](https://www.turbosquid.com/FullPreview/2170013)
 
 Those reference photographs/renders are not distributed in this repository.

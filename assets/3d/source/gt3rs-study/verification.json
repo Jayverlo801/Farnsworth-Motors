@@ -1,7 +1,7 @@
 {
   "passed": true,
-  "sourceSha256": "caec407dcbb85951c9c92ba35d24762b07514f9101853fb0192e75224305f1f1",
-  "sourceTriangles": 514368,
+  "sourceSha256": "12d6939babd3290c3ad5c719526d14d46d6d90494cd3dca53a629f3c74a3ec6c",
+  "sourceTriangles": 655700,
   "separateParts": 58,
   "assemblyErrorMeters": {
     "1": 0,
@@ -10,34 +10,34 @@
   },
   "cameraBoundsNormalized": {
     "1": {
-      "left": 0.21709254384040833,
-      "right": 0.8253555297851562,
-      "bottom": 0.25335392355918884,
-      "top": 0.7766068577766418
+      "left": 0.23630309104919434,
+      "right": 0.8144832849502563,
+      "bottom": 0.2549159824848175,
+      "top": 0.7454581260681152
     },
     "90": {
-      "left": 0.21709254384040833,
-      "right": 0.8253555297851562,
-      "bottom": 0.25335392355918884,
-      "top": 0.7766068577766418
+      "left": 0.23630309104919434,
+      "right": 0.8144832849502563,
+      "bottom": 0.2549159824848175,
+      "top": 0.7454581260681152
     },
     "150": {
-      "left": 0.21709254384040833,
-      "right": 0.7688935995101929,
-      "bottom": 0.25335392355918884,
-      "top": 0.7766068577766418
+      "left": 0.23630309104919434,
+      "right": 0.7671952843666077,
+      "bottom": 0.2549159824848175,
+      "top": 0.7454581260681152
     },
     "210": {
-      "left": 0.13901126384735107,
-      "right": 0.8636890053749084,
-      "bottom": 0.17897029221057892,
-      "top": 0.754723072052002
+      "left": 0.16589359939098358,
+      "right": 0.8495139479637146,
+      "bottom": 0.18265283107757568,
+      "top": 0.7100246548652649
     },
     "270": {
-      "left": 0.1089288517832756,
-      "right": 0.8939964771270752,
-      "bottom": 0.152217835187912,
-      "top": 0.775950014591217
+      "left": 0.13805139064788818,
+      "right": 0.8786401748657227,
+      "bottom": 0.15620724856853485,
+      "top": 0.7275267243385315
     }
   },
   "renderSize": [
@@ -45,9 +45,22 @@
     1875
   ],
   "hoodDuctDepthMeters": [
-    0.04576826095581055,
-    0.04879462718963623
+    0.04377424716949463,
+    0.04679381847381592
   ],
+  "referenceDimensions": {
+    "lengthMeters": 4.572000026702881,
+    "bodyWidthMeters": 1.899999976158142,
+    "wheelbaseMeters": 2.4569999277591705,
+    "frontTrackMeters": 1.6299999952316284,
+    "rearTrackMeters": 1.5819998979568481,
+    "tireDiametersMeters": {
+      "wheel_RL": 0.7343999743461609,
+      "wheel_RR": 0.7343999743461609,
+      "wheel_FL": 0.7005000114440918,
+      "wheel_FR": 0.7005000114440918
+    }
+  },
   "nativeAnimation": {
     "fps": 30,
     "frames": 270,
@@ -62,10 +75,12 @@
     "carbon/rubber/lens/lamp material assignments",
     "transmissive glazing",
     "ray-verified recessed hood ducts",
-    "seamless studio cove"
+    "seamless studio cove",
+    "reference length, body width, wheelbase and tracks",
+    "unstretched nominal 20/21 inch rolling assemblies"
   ],
   "limitations": [
-    "Artistic similarity, not factory dimensional accuracy.",
+    "Primary packaging matches the documented reference; individual surfaces and mechanical details are original reference modeling, not factory CAD.",
     "No claim of photorealism from automated checks.",
     "Website integration and physical-device performance are separate acceptance steps."
   ]

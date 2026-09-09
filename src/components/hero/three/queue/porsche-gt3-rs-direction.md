@@ -11,16 +11,32 @@ Working assumption, awaiting confirmation: 992-generation GT3 RS, restrained
 silver/graphite bodywork with carbon details. No specific model year, factory
 paint name, Weissach package, or ownership/inventory claim has been approved.
 
-Updated instruction: Jay explicitly chose **original Blender modeling**, asking
-for a similar, high-quality car. The purchasing dependency is removed. A custom
-GT3 RS-inspired model is now authored at
-`assets/3d/source/gt3rs-study/gt3rs-study.blend`, with 58 animated components,
-studio renders, and verified web LODs. This is an artistic interpretation, not
-factory CAD or an exact replica. No third-party mesh was purchased or imported.
+Latest instruction, 2026-09-08: after reviewing the detailed model candidate,
+Jay requests **"Build something equivalent to that."** This authorizes an
+original, reference-led Blender build; acquiring a third-party mesh is no
+longer the blocking next step. The target is a faithful visualization of the
+real Porsche 992 GT3 RS, not a fictional coupe or an intentionally generic car.
+Jay reports Porsche repair authorization and an existing working relationship.
+Do not invent an endorsement claim or change the site's copy.
 
-Homepage integration and user visual acceptance are still pending. Do not
-relabel the old generic GLBs, poster, diagrams, or stills. The sourcing notes
-below are historical research, not a remaining requirement to buy an asset.
+The reference-led Blender revision at
+`assets/3d/source/gt3rs-study/gt3rs-study.blend` has been built for review. It
+retains 58 animated components and replaces the earlier body proportions,
+greenhouse, wing, wheels, lighting, lamps, and interior details. Primary mesh
+dimensions are verified against Porsche's technical data. The earlier model
+remains recoverable in Git history. No third-party mesh is purchased or imported.
+
+Use Porsche's published dimensions and real-car/reference views to guide the
+body, greenhouse, wing, wheel stance, lamps and fascia. Primary packaging can
+be calibrated and tested, but this remains original reference modeling, not
+factory CAD or a metrology-verified exact replica. Visual acceptance remains
+separate from numeric and animation checks. Source acquisition notes below are
+historical alternatives, not a requirement to pause the current build.
+
+Homepage integration and user visual acceptance are still pending. Preserve
+the existing scene lifecycle, assembly direction, and API; keep animation bound
+to the actual modeled parts. Do not
+relabel the old generic GLBs, poster, diagrams, or stills.
 
 ## Visual thesis
 
@@ -62,7 +78,7 @@ This is artistic assembly, not a representation of Porsche manufacturing or a
 particular vehicle's repair history. Do not invent hidden mechanical systems
 or inspection evidence to make the sequence seem technically authentic.
 
-## Model intake — historical purchase-path notes
+## Model intake — historical acquisition alternative
 
 - Prefer an editable .blend, .fbx, or .glb, with all referenced textures.
 - Confirm it is the selected GT3 **RS**, not a GT3, GT3 R, older generation, or
@@ -92,20 +108,34 @@ Checked 2026-09-08. Prices, availability, and terms may change.
   photography reuse license.
 - [YONEEKA's 992 GT3 RS](https://www.turbosquid.com/FullPreview/2170013):
   listing describes detailed interior/exterior, opening doors, material labels,
-  and a Blender version. Candidate for inspection; price, exact license,
-  independently separable aero, and delivered topology need verification.
+  and a Blender version. The current listing is **Editorial Uses Only**.
+  [TurboSquid's guidance](https://www.turbosquid.com/help/en/articles/9937424-editorial-use-information)
+  allows an official licensee exception when the necessary explicit written
+  IP permission exists; repair authorization alone has not established the
+  scope of that exception here. Web delivery of an extractable GLB and public
+  source redistribution must also be checked. The delivered topology and
+  independently separable aero remain unverified. Nothing was purchased.
 - [patriccars3d's 992 GT3 RS](https://www.cgtrader.com/3d-models/car/sport-car/porsche-911-gt3-rs-992-63149c23-df47-4af5-9eea-8a70c2e9b37a):
   listed at $19.99 with BLEND/FBX/OBJ and textures, labeled royalty free.
   Separate assembly groups and suitable web distribution rights are unverified.
 - [Black Snow's GT3 RS](https://sketchfab.com/3d-models/porsche-gt3-rs-e738eae819c34d19a31dd066c45e0f3d):
-  listing advertises a free CC Attribution download. Actual file, provenance,
-  component separation, and license details have not been inspected. Not an
-  approved production asset.
+  public API confirms downloadable CC BY 4.0, 368,817 triangles. The viewer was
+  visually inspected. Comments raise unverified concerns about game/mod asset
+  provenance; these are not findings of infringement, but authorship is not
+  established. Do not treat the CC label alone as cleared provenance. No mesh
+  was downloaded or approved for production.
 - [vecarz's 992 GT3 RS](https://sketchfab.com/3d-models/porsche-992-gt3-rs-2024-wwwvecarzcom-68672d105f2c4e3b8550a741e8836b0c):
   listed CC Attribution-NonCommercial-ShareAlike. Do not use for this commercial
   site without separate permission from the rights holder.
 
-## Integration and acceptance after original modeling
+Porsche's [official model media page](https://newsroom.porsche.com/en_US/model-range/911/911-GT3-RS.html)
+offers photography, video, and PDF specifications; no usable 3D source was found
+there during this check. A supplied digital model or partner asset portal was
+previously discussed; the latest instruction authorizes original modeling
+without waiting for one. No purchase, account creation, license
+acceptance, or third-party source upload has been performed.
+
+## Integration and acceptance after model review
 
 Keep docs/HERO-CONTRACT.md and HeroSceneProps unchanged. The model's animation
 groups are internal to the scene; they may extend the old 44-name vocabulary

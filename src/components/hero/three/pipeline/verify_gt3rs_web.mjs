@@ -55,9 +55,14 @@ for (const [lod, expected] of Object.entries(manifest.lods)) {
     triangles += index.count / 3;
     for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
       assert.ok(material.isMeshStandardMaterial || material.isMeshPhysicalMaterial);
+      if (material.name === 'carbon') {
+        assert.ok(Math.max(material.color.r, material.color.g, material.color.b) < 0.02,
+          `${lod}: procedural carbon exported white instead of its dark PBR fallback`);
+      }
       materials.add(material.name);
     }
   });
+  assert.ok(materials.has('carbon'), `${lod}: missing carbon material`);
   assert.equal(triangles, expected.triangles, `${lod}: decoded triangle count mismatch`);
   assert.equal(bytes.byteLength, expected.bytes, `${lod}: stale manifest byte count`);
   const bounds = new Box3().setFromObject(scene);
@@ -77,7 +82,7 @@ for (const [lod, expected] of Object.entries(manifest.lods)) {
   }
   const size = bounds.getSize(new Vector3());
   assert.ok(size.x > 4 && size.x < 5.5 && size.y > 1 && size.y < 2.5 && size.z > 1.5 && size.z < 3, `${lod}: bad dimensions or axis conversion`);
-  report.lods[lod] = { sha256: expected.sha256, parts: manifest.parts.length, drawMeshes, triangles, maxHomeErrorMeters: maxHomeError, compressionBoundsErrorMeters: boundsError, maxPartBoundsErrorMeters: maxPartBoundsError, sizeMeters: size.toArray(), materials: [...materials].sort() };
+  report.lods[lod] = { sha256: expected.sha256, parts: manifest.parts.length, drawMeshes, triangles, maxHomeErrorMeters: maxHomeError, compressionBoundsErrorMeters: boundsError, maxPartBoundsErrorMeters: maxPartBoundsError, sizeMeters: size.toArray(), carbonFallbackVerified: true, materials: [...materials].sort() };
 }
 await fs.writeFile(path.join(root, 'assets/3d/source/gt3rs-study/web-verification.json'), JSON.stringify(report, null, 2));
 console.log(JSON.stringify(report, null, 2));

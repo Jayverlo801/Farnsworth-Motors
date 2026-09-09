@@ -3,18 +3,19 @@
   "decoder": "Three.js GLTFLoader + MeshoptDecoder",
   "lods": {
     "high": {
-      "sha256": "82179678069f5c170af7176fc2496cd9f420a068523068a737af10f6622d4d2a",
+      "sha256": "fff46710a59dd0699ec9f2a8367bf104c4efec3a7c208f5cfe8cf3facd4e3e21",
       "parts": 58,
-      "drawMeshes": 134,
-      "triangles": 117126,
+      "drawMeshes": 155,
+      "triangles": 116550,
       "maxHomeErrorMeters": 0,
-      "compressionBoundsErrorMeters": 0.00004020566240624956,
-      "maxPartBoundsErrorMeters": 0.00007844992531055614,
+      "compressionBoundsErrorMeters": 0.00003174839960593155,
+      "maxPartBoundsErrorMeters": 0.0001075172638294686,
       "sizeMeters": [
-        4.789357014308743,
-        1.5062873227293885,
-        2.173938145426221
+        4.571823154405502,
+        1.3160545400804253,
+        2.026062015475646
       ],
+      "carbonFallbackVerified": true,
       "materials": [
         "aluminum",
         "caliper",
@@ -27,23 +28,26 @@
         "light",
         "paint",
         "polished alloy",
+        "projector optic",
         "rear lamp",
-        "rubber"
+        "rubber",
+        "tinted side glazing"
       ]
     },
     "medium": {
-      "sha256": "3d9de43b7fc007b910ad7c1047ed1ab9d894af728e4a0121acf0e1d4b3a4cdd2",
+      "sha256": "9e46216298d37c97c2e5464e2f5381a00257f84f569e2b4391e7ceb21f6d28c2",
       "parts": 58,
-      "drawMeshes": 134,
-      "triangles": 57584,
+      "drawMeshes": 155,
+      "triangles": 57032,
       "maxHomeErrorMeters": 0,
-      "compressionBoundsErrorMeters": 0.000012974939202114675,
-      "maxPartBoundsErrorMeters": 0.00007492088711265988,
+      "compressionBoundsErrorMeters": 0.00003641579844081912,
+      "maxPartBoundsErrorMeters": 0.00016508516187409487,
       "sizeMeters": [
-        4.7895666890019815,
-        1.5063169676277637,
-        2.1746705642420423
+        4.573534139799488,
+        1.3229831193290142,
+        2.0277846768773777
       ],
+      "carbonFallbackVerified": true,
       "materials": [
         "aluminum",
         "caliper",
@@ -56,23 +60,26 @@
         "light",
         "paint",
         "polished alloy",
+        "projector optic",
         "rear lamp",
-        "rubber"
+        "rubber",
+        "tinted side glazing"
       ]
     },
     "low": {
-      "sha256": "40a309a5f13356329d2e869ac742dc3355463e5134a46f56b1a62bb53ec525b4",
+      "sha256": "376599363f6d159754fe977383cc8de96a261cb7d2b2bc79bbe1514f37413733",
       "parts": 58,
-      "drawMeshes": 134,
-      "triangles": 27563,
+      "drawMeshes": 155,
+      "triangles": 27645,
       "maxHomeErrorMeters": 0,
-      "compressionBoundsErrorMeters": 0.00002044638789368273,
-      "maxPartBoundsErrorMeters": 0.0000753635430680701,
+      "compressionBoundsErrorMeters": 0.000014397634586529867,
+      "maxPartBoundsErrorMeters": 0.00013905600236127513,
       "sizeMeters": [
-        4.791357413212845,
-        1.511446811323028,
-        2.1738569245343133
+        4.570704588932878,
+        1.3413871891511682,
+        2.0271238334967863
       ],
+      "carbonFallbackVerified": true,
       "materials": [
         "aluminum",
         "caliper",
@@ -85,8 +92,10 @@
         "light",
         "paint",
         "polished alloy",
+        "projector optic",
         "rear lamp",
-        "rubber"
+        "rubber",
+        "tinted side glazing"
       ]
     }
   }
