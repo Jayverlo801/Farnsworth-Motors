@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { WhyRebuilt } from "@/components/sections/WhyRebuilt";
 import { PageShell } from "@/components/ui/PageShell";
 import { Reveal } from "@/components/ui/Reveal";
 import { site } from "@/lib/site";
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <PageShell
+      afterWrap={<WhyRebuilt />}
       eyebrow="About"
       title={
         <>

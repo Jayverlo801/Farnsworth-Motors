@@ -16,12 +16,9 @@ const OUT = process.argv[3] ?? "qa/shots";
 const CHROME = "C:/Program Files/Google/Chrome/Application/chrome.exe";
 const SECTIONS = [
   "statement",
-  "featured",
   "process",
   "records",
-  "before-after",
   "available",
-  "why-rebuilt",
   "principles",
   "contact",
 ];

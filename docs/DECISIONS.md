@@ -105,3 +105,14 @@ performance requirements were not overridden anywhere.
     last-updated line rather than a DRAFT banner.
 23. **The build briefs moved to docs/briefs/.** Working prompts don't
     belong at the root of a company repository.
+
+24. **Homepage restructured as the story, per Jay.** Each chapter is one
+    beat that routes deeper: the process is a six-name strip linking
+    /process (which keeps the sticky sequence and the umbrella), the
+    record is a diagram + four facts linking the full record page (which
+    now carries the before/after slider), the product is one featured car
+    plus a quiet row linking /inventory, and the economics argument moved
+    to /about. The v2 nine-section homepage is superseded; the sections
+    still exist where their content lives. VehicleRecord.tsx (the
+    diagram-prop contract surface from Part 4d) is retained for the
+    vehicle pages and the 3D build's top-view diagram.

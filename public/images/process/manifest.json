@@ -1,0 +1,236 @@
+[
+  {
+    "id": "01",
+    "illustrative": true,
+    "alt": "Illustrative body-reference tag on a coupe door jamb; not an actual VIN.",
+    "variants": [
+      {
+        "src": "/images/process/01.webp",
+        "width": 800,
+        "height": 600,
+        "bytes": 7046,
+        "type": "image/webp",
+        "scale": 1
+      },
+      {
+        "src": "/images/process/01.avif",
+        "width": 800,
+        "height": 600,
+        "bytes": 4435,
+        "type": "image/avif",
+        "scale": 1
+      },
+      {
+        "src": "/images/process/01@2x.webp",
+        "width": 1600,
+        "height": 1200,
+        "bytes": 17074,
+        "type": "image/webp",
+        "scale": 2
+      },
+      {
+        "src": "/images/process/01@2x.avif",
+        "width": 1600,
+        "height": 1200,
+        "bytes": 8556,
+        "type": "image/avif",
+        "scale": 2
+      }
+    ]
+  },
+  {
+    "id": "02",
+    "illustrative": true,
+    "alt": "Illustrative subframe measurement datum and demonstration readout.",
+    "variants": [
+      {
+        "src": "/images/process/02.webp",
+        "width": 800,
+        "height": 600,
+        "bytes": 24974,
+        "type": "image/webp",
+        "scale": 1
+      },
+      {
+        "src": "/images/process/02.avif",
+        "width": 800,
+        "height": 600,
+        "bytes": 13095,
+        "type": "image/avif",
+        "scale": 1
+      },
+      {
+        "src": "/images/process/02@2x.webp",
+        "width": 1600,
+        "height": 1200,
+        "bytes": 53890,
+        "type": "image/webp",
+        "scale": 2
+      },
+      {
+        "src": "/images/process/02@2x.avif",
+        "width": 1600,
+        "height": 1200,
+        "bytes": 25839,
+        "type": "image/avif",
+        "scale": 2
+      }
+    ]
+  },
+  {
+    "id": "03",
+    "illustrative": true,
+    "alt": "A model quarter panel transitioning from matte primer to satin paint.",
+    "variants": [
+      {
+        "src": "/images/process/03.webp",
+        "width": 800,
+        "height": 600,
+        "bytes": 3948,
+        "type": "image/webp",
+        "scale": 1
+      },
+      {
+        "src": "/images/process/03.avif",
+        "width": 800,
+        "height": 600,
+        "bytes": 1985,
+        "type": "image/avif",
+        "scale": 1
+      },
+      {
+        "src": "/images/process/03@2x.webp",
+        "width": 1600,
+        "height": 1200,
+        "bytes": 12396,
+        "type": "image/webp",
+        "scale": 2
+      },
+      {
+        "src": "/images/process/03@2x.avif",
+        "width": 1600,
+        "height": 1200,
+        "bytes": 4079,
+        "type": "image/avif",
+        "scale": 2
+      }
+    ]
+  },
+  {
+    "id": "04",
+    "illustrative": true,
+    "alt": "An illustrative lift pad positioned beneath the coupe sill.",
+    "variants": [
+      {
+        "src": "/images/process/04.webp",
+        "width": 800,
+        "height": 600,
+        "bytes": 7048,
+        "type": "image/webp",
+        "scale": 1
+      },
+      {
+        "src": "/images/process/04.avif",
+        "width": 800,
+        "height": 600,
+        "bytes": 3920,
+        "type": "image/avif",
+        "scale": 1
+      },
+      {
+        "src": "/images/process/04@2x.webp",
+        "width": 1600,
+        "height": 1200,
+        "bytes": 16616,
+        "type": "image/webp",
+        "scale": 2
+      },
+      {
+        "src": "/images/process/04@2x.avif",
+        "width": 1600,
+        "height": 1200,
+        "bytes": 7279,
+        "type": "image/avif",
+        "scale": 2
+      }
+    ]
+  },
+  {
+    "id": "05",
+    "illustrative": true,
+    "alt": "An illustrative vehicle-record sheet on a brushed-steel bench; not an inventory record.",
+    "variants": [
+      {
+        "src": "/images/process/05.webp",
+        "width": 800,
+        "height": 600,
+        "bytes": 12456,
+        "type": "image/webp",
+        "scale": 1
+      },
+      {
+        "src": "/images/process/05.avif",
+        "width": 800,
+        "height": 600,
+        "bytes": 7609,
+        "type": "image/avif",
+        "scale": 1
+      },
+      {
+        "src": "/images/process/05@2x.webp",
+        "width": 1600,
+        "height": 1200,
+        "bytes": 31746,
+        "type": "image/webp",
+        "scale": 2
+      },
+      {
+        "src": "/images/process/05@2x.avif",
+        "width": 1600,
+        "height": 1200,
+        "bytes": 17834,
+        "type": "image/avif",
+        "scale": 2
+      }
+    ]
+  },
+  {
+    "id": "06",
+    "illustrative": true,
+    "alt": "The fictional finished coupe viewed from the rear in a dark studio.",
+    "variants": [
+      {
+        "src": "/images/process/06.webp",
+        "width": 800,
+        "height": 600,
+        "bytes": 8770,
+        "type": "image/webp",
+        "scale": 1
+      },
+      {
+        "src": "/images/process/06.avif",
+        "width": 800,
+        "height": 600,
+        "bytes": 5660,
+        "type": "image/avif",
+        "scale": 1
+      },
+      {
+        "src": "/images/process/06@2x.webp",
+        "width": 1600,
+        "height": 1200,
+        "bytes": 20818,
+        "type": "image/webp",
+        "scale": 2
+      },
+      {
+        "src": "/images/process/06@2x.avif",
+        "width": 1600,
+        "height": 1200,
+        "bytes": 11711,
+        "type": "image/avif",
+        "scale": 2
+      }
+    ]
+  }
+]

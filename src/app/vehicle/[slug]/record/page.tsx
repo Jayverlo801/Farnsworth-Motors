@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Navigation } from "@/components/navigation/Navigation";
 import { Footer } from "@/components/sections/Footer";
-import { PhotoFrame } from "@/components/ui/PhotoFrame";
+import { BeforeAfterSlider } from "@/components/sections/BeforeAfterSlider";
 import { RecordCard } from "@/components/ui/RecordCard";
 import { RecordDiagram } from "@/components/ui/RecordDiagram";
 import { Reveal } from "@/components/ui/Reveal";
@@ -67,27 +67,13 @@ export default async function VehicleRecordPage({
           </Reveal>
 
           <Reveal delay={180}>
-            <div className="mt-16 grid gap-8 sm:grid-cols-2">
-              <div>
-                <p className="eyebrow mb-5">Intake</p>
-                <PhotoFrame
-                  slot={`RECORD-${v.id}-BEFORE`}
-                  ratio="4 / 3"
-                  src={v.media.before[0]}
-                  alt={`${vehicleName(v)} at intake`}
-                  sizes="(max-width: 640px) 92vw, 45vw"
-                />
-              </div>
-              <div>
-                <p className="eyebrow mb-5">Delivery</p>
-                <PhotoFrame
-                  slot={`RECORD-${v.id}-AFTER`}
-                  ratio="4 / 3"
-                  src={v.media.after[0]}
-                  alt={`${vehicleName(v)} at delivery`}
-                  sizes="(max-width: 640px) 92vw, 45vw"
-                />
-              </div>
+            <h2 className="t-title mt-16 text-ink">SAME CAR. DIFFERENT CHAPTER.</h2>
+            <p className="t-body mt-3 max-w-md text-muted">
+              Drag to compare intake against delivery. Photo sets replace the
+              drawing as they are digitized for this record.
+            </p>
+            <div className="mt-8">
+              <BeforeAfterSlider />
             </div>
           </Reveal>
         </div>

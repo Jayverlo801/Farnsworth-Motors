@@ -11,7 +11,7 @@ export function FinalCTA() {
       </div>
       <div className="wrap relative py-32 text-center">
         <Reveal>
-          <p className="eyebrow mb-8">09 / Next</p>
+          <p className="eyebrow mb-8">06 / Next</p>
           <h2 className="display">
             FIND YOUR
             <br />

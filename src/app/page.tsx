@@ -1,16 +1,21 @@
 import Hero from "@/components/hero/Hero";
 import { Navigation } from "@/components/navigation/Navigation";
-import { BeforeAfter } from "@/components/sections/BeforeAfter";
+import { Available } from "@/components/sections/Available";
 import { BrandStatement } from "@/components/sections/BrandStatement";
 import { FarnsworthPrinciples } from "@/components/sections/FarnsworthPrinciples";
-import { FeaturedVehicle } from "@/components/sections/FeaturedVehicle";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 import { Footer } from "@/components/sections/Footer";
-import { InventoryPreview } from "@/components/sections/InventoryPreview";
-import { RestorationProcess } from "@/components/sections/RestorationProcess";
-import { VehicleRecord } from "@/components/sections/VehicleRecord";
-import { WhyRebuilt } from "@/components/sections/WhyRebuilt";
+import { ProcessStrip } from "@/components/sections/ProcessStrip";
+import { RecordTeaser } from "@/components/sections/RecordTeaser";
 
+/**
+ * The homepage is the brand story, not the whole site: each chapter is one
+ * beat that routes deeper — /process carries the full sequence and the
+ * umbrella, the vehicle pages carry the full record and the before/after,
+ * /about carries the economics argument.
+ *
+ * Arc: identity → philosophy → how → proof → product → standard → action.
+ */
 export default function Home() {
   return (
     <>
@@ -18,12 +23,9 @@ export default function Home() {
       <main id="main">
         <Hero />
         <BrandStatement />
-        <FeaturedVehicle />
-        <RestorationProcess />
-        <VehicleRecord />
-        <BeforeAfter />
-        <InventoryPreview />
-        <WhyRebuilt />
+        <ProcessStrip />
+        <RecordTeaser />
+        <Available />
         <FarnsworthPrinciples />
         <FinalCTA />
       </main>

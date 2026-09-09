@@ -8,10 +8,12 @@ interface PageShellProps {
   title: ReactNode;
   intro?: string;
   children?: ReactNode;
+  /** Full-bleed content rendered after the wrapped column (own sections). */
+  afterWrap?: ReactNode;
 }
 
 /** Consistent shell for secondary routes so the site expands cleanly. */
-export function PageShell({ eyebrow, title, intro, children }: PageShellProps) {
+export function PageShell({ eyebrow, title, intro, children, afterWrap }: PageShellProps) {
   return (
     <>
       <Navigation />
@@ -26,6 +28,7 @@ export function PageShell({ eyebrow, title, intro, children }: PageShellProps) {
           </Reveal>
           {children}
         </div>
+        {afterWrap}
       </main>
       <Footer />
     </>

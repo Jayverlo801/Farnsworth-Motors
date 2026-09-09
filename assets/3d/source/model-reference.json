@@ -1,0 +1,25 @@
+{
+  "scale": 0.005092491838955386,
+  "svgCenterX": 646.5,
+  "svgGroundY": 452,
+  "wheelCentersSvg": [
+    300,
+    920
+  ],
+  "wheelRadiusSvg": 52,
+  "bodyLengthSvg": 919,
+  "lods": {
+    "high": {
+      "triangles": 85560,
+      "parts": 44
+    },
+    "medium": {
+      "triangles": 44441,
+      "parts": 44
+    },
+    "low": {
+      "triangles": 20486,
+      "parts": 44
+    }
+  }
+}

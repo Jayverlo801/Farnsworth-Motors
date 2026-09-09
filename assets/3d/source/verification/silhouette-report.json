@@ -1,0 +1,27 @@
+{
+  "bodyLengthPixels": 919,
+  "tolerancePixels": 18.38,
+  "maxRooflineErrorPixels": 5,
+  "rooflineErrorPercent": 0.544069640914037,
+  "wheelbase": {
+    "reference": 620,
+    "model": 620,
+    "errorPercent": 0
+  },
+  "frontOverhang": {
+    "reference": 186,
+    "model": 186,
+    "errorPercent": 0
+  },
+  "rearOverhang": {
+    "reference": 113,
+    "model": 113,
+    "errorPercent": 0
+  },
+  "hoodStart": {
+    "reference": 818,
+    "model": 818,
+    "errorPercent": 0
+  },
+  "note": "Roofline measured from orthographic alpha render vs supplied SVG; wheel and hood anchors are generated directly from the SVG coordinates. No best-fit registration is applied."
+}

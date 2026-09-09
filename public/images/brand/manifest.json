@@ -1,0 +1,353 @@
+[
+  {
+    "id": "S1",
+    "illustrative": true,
+    "alt": "Farnsworth fictional coupe brand study S1; not actual inventory photography.",
+    "variants": [
+      {
+        "src": "/images/brand/S1.webp",
+        "width": 800,
+        "height": 500,
+        "bytes": 8768,
+        "type": "image/webp",
+        "scale": 1
+      },
+      {
+        "src": "/images/brand/S1.avif",
+        "width": 800,
+        "height": 500,
+        "bytes": 5694,
+        "type": "image/avif",
+        "scale": 1
+      },
+      {
+        "src": "/images/brand/S1@2x.webp",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 20340,
+        "type": "image/webp",
+        "scale": 2
+      },
+      {
+        "src": "/images/brand/S1@2x.avif",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 11608,
+        "type": "image/avif",
+        "scale": 2
+      }
+    ]
+  },
+  {
+    "id": "S2",
+    "illustrative": true,
+    "alt": "Farnsworth fictional coupe brand study S2; not actual inventory photography.",
+    "variants": [
+      {
+        "src": "/images/brand/S2.webp",
+        "width": 800,
+        "height": 500,
+        "bytes": 10366,
+        "type": "image/webp",
+        "scale": 1
+      },
+      {
+        "src": "/images/brand/S2.avif",
+        "width": 800,
+        "height": 500,
+        "bytes": 6656,
+        "type": "image/avif",
+        "scale": 1
+      },
+      {
+        "src": "/images/brand/S2@2x.webp",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 23386,
+        "type": "image/webp",
+        "scale": 2
+      },
+      {
+        "src": "/images/brand/S2@2x.avif",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 13521,
+        "type": "image/avif",
+        "scale": 2
+      }
+    ]
+  },
+  {
+    "id": "S3",
+    "illustrative": true,
+    "alt": "Farnsworth fictional coupe brand study S3; not actual inventory photography.",
+    "variants": [
+      {
+        "src": "/images/brand/S3.webp",
+        "width": 800,
+        "height": 500,
+        "bytes": 12536,
+        "type": "image/webp",
+        "scale": 1
+      },
+      {
+        "src": "/images/brand/S3.avif",
+        "width": 800,
+        "height": 500,
+        "bytes": 7479,
+        "type": "image/avif",
+        "scale": 1
+      },
+      {
+        "src": "/images/brand/S3@2x.webp",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 28744,
+        "type": "image/webp",
+        "scale": 2
+      },
+      {
+        "src": "/images/brand/S3@2x.avif",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 15814,
+        "type": "image/avif",
+        "scale": 2
+      }
+    ]
+  },
+  {
+    "id": "S4",
+    "illustrative": true,
+    "alt": "Farnsworth fictional coupe brand study S4; not actual inventory photography.",
+    "variants": [
+      {
+        "src": "/images/brand/S4.webp",
+        "width": 800,
+        "height": 500,
+        "bytes": 7530,
+        "type": "image/webp",
+        "scale": 1
+      },
+      {
+        "src": "/images/brand/S4.avif",
+        "width": 800,
+        "height": 500,
+        "bytes": 5084,
+        "type": "image/avif",
+        "scale": 1
+      },
+      {
+        "src": "/images/brand/S4@2x.webp",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 17478,
+        "type": "image/webp",
+        "scale": 2
+      },
+      {
+        "src": "/images/brand/S4@2x.avif",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 10347,
+        "type": "image/avif",
+        "scale": 2
+      }
+    ]
+  },
+  {
+    "id": "S5",
+    "illustrative": true,
+    "alt": "Farnsworth fictional coupe brand study S5; not actual inventory photography.",
+    "variants": [
+      {
+        "src": "/images/brand/S5.webp",
+        "width": 800,
+        "height": 500,
+        "bytes": 11202,
+        "type": "image/webp",
+        "scale": 1
+      },
+      {
+        "src": "/images/brand/S5.avif",
+        "width": 800,
+        "height": 500,
+        "bytes": 7019,
+        "type": "image/avif",
+        "scale": 1
+      },
+      {
+        "src": "/images/brand/S5@2x.webp",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 29006,
+        "type": "image/webp",
+        "scale": 2
+      },
+      {
+        "src": "/images/brand/S5@2x.avif",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 16739,
+        "type": "image/avif",
+        "scale": 2
+      }
+    ]
+  },
+  {
+    "id": "S6",
+    "illustrative": true,
+    "alt": "Farnsworth fictional coupe brand study S6; not actual inventory photography.",
+    "variants": [
+      {
+        "src": "/images/brand/S6.webp",
+        "width": 800,
+        "height": 500,
+        "bytes": 6116,
+        "type": "image/webp",
+        "scale": 1
+      },
+      {
+        "src": "/images/brand/S6.avif",
+        "width": 800,
+        "height": 500,
+        "bytes": 4250,
+        "type": "image/avif",
+        "scale": 1
+      },
+      {
+        "src": "/images/brand/S6@2x.webp",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 14216,
+        "type": "image/webp",
+        "scale": 2
+      },
+      {
+        "src": "/images/brand/S6@2x.avif",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 8358,
+        "type": "image/avif",
+        "scale": 2
+      }
+    ]
+  },
+  {
+    "id": "S7",
+    "illustrative": true,
+    "alt": "Farnsworth fictional coupe brand study S7; not actual inventory photography.",
+    "variants": [
+      {
+        "src": "/images/brand/S7.webp",
+        "width": 800,
+        "height": 500,
+        "bytes": 10492,
+        "type": "image/webp",
+        "scale": 1
+      },
+      {
+        "src": "/images/brand/S7.avif",
+        "width": 800,
+        "height": 500,
+        "bytes": 6659,
+        "type": "image/avif",
+        "scale": 1
+      },
+      {
+        "src": "/images/brand/S7@2x.webp",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 23524,
+        "type": "image/webp",
+        "scale": 2
+      },
+      {
+        "src": "/images/brand/S7@2x.avif",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 13591,
+        "type": "image/avif",
+        "scale": 2
+      }
+    ]
+  },
+  {
+    "id": "S8",
+    "illustrative": true,
+    "alt": "Farnsworth fictional coupe brand study S8; not actual inventory photography.",
+    "variants": [
+      {
+        "src": "/images/brand/S8.webp",
+        "width": 800,
+        "height": 500,
+        "bytes": 10380,
+        "type": "image/webp",
+        "scale": 1
+      },
+      {
+        "src": "/images/brand/S8.avif",
+        "width": 800,
+        "height": 500,
+        "bytes": 6654,
+        "type": "image/avif",
+        "scale": 1
+      },
+      {
+        "src": "/images/brand/S8@2x.webp",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 23390,
+        "type": "image/webp",
+        "scale": 2
+      },
+      {
+        "src": "/images/brand/S8@2x.avif",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 13513,
+        "type": "image/avif",
+        "scale": 2
+      }
+    ]
+  },
+  {
+    "id": "S9",
+    "illustrative": true,
+    "alt": "Farnsworth fictional coupe brand study S9; not actual inventory photography.",
+    "variants": [
+      {
+        "src": "/images/brand/S9.webp",
+        "width": 800,
+        "height": 500,
+        "bytes": 10334,
+        "type": "image/webp",
+        "scale": 1
+      },
+      {
+        "src": "/images/brand/S9.avif",
+        "width": 800,
+        "height": 500,
+        "bytes": 6621,
+        "type": "image/avif",
+        "scale": 1
+      },
+      {
+        "src": "/images/brand/S9@2x.webp",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 23428,
+        "type": "image/webp",
+        "scale": 2
+      },
+      {
+        "src": "/images/brand/S9@2x.avif",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 13456,
+        "type": "image/avif",
+        "scale": 2
+      }
+    ]
+  }
+]

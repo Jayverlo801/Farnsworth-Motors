@@ -1,0 +1,323 @@
+{
+  "model": "farnsworth-v3.blend",
+  "environment": "../../../public/3d/studio-neutral.hdr",
+  "colorPipeline": "AgX / Medium High Contrast / exposure -0.4",
+  "process1x": [
+    800,
+    600
+  ],
+  "process2x": [
+    1600,
+    1200
+  ],
+  "brand1x": [
+    800,
+    500
+  ],
+  "brand2x": [
+    1600,
+    1000
+  ],
+  "shots": [
+    {
+      "id": "process/01",
+      "camera": [
+        0.25,
+        -2.3,
+        1.12
+      ],
+      "target": [
+        -0.56,
+        -0.94,
+        0.86
+      ],
+      "lens": 85,
+      "shift": [
+        -0.22,
+        0
+      ],
+      "fstop": 4,
+      "kind": "tag"
+    },
+    {
+      "id": "process/02",
+      "camera": [
+        2.25,
+        -2.25,
+        1.23
+      ],
+      "target": [
+        1.55,
+        -0.55,
+        0.48
+      ],
+      "lens": 65,
+      "shift": [
+        -0.13,
+        0
+      ],
+      "fstop": 6,
+      "kind": "gauge"
+    },
+    {
+      "id": "process/03",
+      "camera": [
+        -1.7,
+        -2.27,
+        1.02
+      ],
+      "target": [
+        -1.18,
+        -0.9,
+        0.68
+      ],
+      "lens": 80,
+      "shift": [
+        0.05,
+        0
+      ],
+      "fstop": 2.8,
+      "kind": "primer"
+    },
+    {
+      "id": "process/04",
+      "camera": [
+        -1.35,
+        -2.22,
+        -0.03
+      ],
+      "target": [
+        -0.46,
+        -0.69,
+        0.24
+      ],
+      "lens": 65,
+      "shift": [
+        -0.13,
+        0
+      ],
+      "fstop": 5.6,
+      "kind": "lift"
+    },
+    {
+      "id": "process/05",
+      "camera": [
+        0.25,
+        -1.28,
+        1.7
+      ],
+      "target": [
+        0,
+        0,
+        0
+      ],
+      "lens": 48,
+      "shift": [
+        0,
+        0.02
+      ],
+      "fstop": 9,
+      "kind": "record"
+    },
+    {
+      "id": "process/06",
+      "camera": [
+        -6.5,
+        -7.5,
+        2.8
+      ],
+      "target": [
+        0,
+        0,
+        0.65
+      ],
+      "lens": 45,
+      "shift": [
+        0,
+        0.2
+      ],
+      "fstop": 8,
+      "kind": "road"
+    },
+    {
+      "id": "brand/S1",
+      "camera": [
+        7,
+        -8,
+        3.4
+      ],
+      "target": [
+        0,
+        0,
+        0.66
+      ],
+      "lens": 52,
+      "shift": [
+        -0.13,
+        0.06
+      ],
+      "fstop": 8,
+      "kind": "finished"
+    },
+    {
+      "id": "brand/S2",
+      "camera": [
+        -6.5,
+        -7.5,
+        2.8
+      ],
+      "target": [
+        0,
+        0,
+        0.65
+      ],
+      "lens": 52,
+      "shift": [
+        0,
+        0.06
+      ],
+      "fstop": 8,
+      "kind": "primed-car"
+    },
+    {
+      "id": "brand/S3",
+      "camera": [
+        5,
+        -6,
+        4.3
+      ],
+      "target": [
+        0,
+        0,
+        0.25
+      ],
+      "lens": 52,
+      "shift": [
+        0,
+        0.08
+      ],
+      "fstop": 8,
+      "kind": "structure"
+    },
+    {
+      "id": "brand/S4",
+      "camera": [
+        3,
+        -4,
+        2.6
+      ],
+      "target": [
+        0,
+        0,
+        0.5
+      ],
+      "lens": 57,
+      "shift": [
+        0,
+        0.05
+      ],
+      "fstop": 8,
+      "kind": "panel"
+    },
+    {
+      "id": "brand/S5",
+      "camera": [
+        0.25,
+        -1.28,
+        1.7
+      ],
+      "target": [
+        0,
+        0,
+        0
+      ],
+      "lens": 48,
+      "shift": [
+        0,
+        0.02
+      ],
+      "fstop": 9,
+      "kind": "record"
+    },
+    {
+      "id": "brand/S6",
+      "camera": [
+        8,
+        0,
+        1.6
+      ],
+      "target": [
+        0,
+        0,
+        0.58
+      ],
+      "lens": 58,
+      "shift": [
+        0,
+        0.16
+      ],
+      "fstop": 8,
+      "kind": "finished"
+    },
+    {
+      "id": "brand/S7",
+      "camera": [
+        -6.5,
+        -7.5,
+        2.8
+      ],
+      "target": [
+        0,
+        0,
+        0.65
+      ],
+      "lens": 52,
+      "shift": [
+        0,
+        0.06
+      ],
+      "fstop": 8,
+      "kind": "received"
+    },
+    {
+      "id": "brand/S8",
+      "camera": [
+        -6.5,
+        -7.5,
+        2.8
+      ],
+      "target": [
+        0,
+        0,
+        0.65
+      ],
+      "lens": 52,
+      "shift": [
+        0,
+        0.06
+      ],
+      "fstop": 8,
+      "kind": "primed-car"
+    },
+    {
+      "id": "brand/S9",
+      "camera": [
+        -6.5,
+        -7.5,
+        2.8
+      ],
+      "target": [
+        0,
+        0,
+        0.65
+      ],
+      "lens": 52,
+      "shift": [
+        0,
+        0.06
+      ],
+      "fstop": 8,
+      "kind": "finished"
+    }
+  ]
+}
