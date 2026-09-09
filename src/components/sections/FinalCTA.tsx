@@ -1,34 +1,35 @@
-import { CarSvg } from "@/components/car/CarSvg";
+import { getAvailableVehicles } from "@/lib/vehicles/source";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { site } from "@/lib/site";
 
-export function FinalCTA() {
+const WORDS = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
+
+export async function FinalCTA() {
+  const count = (await getAvailableVehicles()).length;
+  const n = count < WORDS.length ? WORDS[count] : String(count);
+
   return (
-    <section id="contact" className="cta">
-      <div className="cta-car" aria-hidden="true">
-        <CarSvg idPrefix="cta" shadow={false} />
-      </div>
-      <div className="wrap relative py-32 text-center">
+    <section id="contact" className="cta !min-h-[70vh]">
+      <div className="wrap relative py-28 text-center">
         <Reveal>
-          <p className="eyebrow mb-8">06 / Next</p>
-          <h2 className="display">
-            FIND YOUR
+          <h2 className="t-headline">
+            {n} car{count === 1 ? "" : "s"} on the
             <br />
-            NEXT CAR.
+            lot right now.
           </h2>
+          <p className="t-lede mx-auto mt-6 max-w-md">
+            Each one rebuilt here, inspected here, and sold with its record.
+          </p>
         </Reveal>
         <Reveal delay={150}>
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
-            <Button href="/inventory">Explore Inventory</Button>
-            <Button
-              href="/sell"
-              variant="ghost"
-            >
-              Sell / Trade a Vehicle
+          <div className="mt-11 flex flex-wrap items-center justify-center gap-4">
+            <Button href="/inventory">Browse the inventory</Button>
+            <Button href="/sell" variant="ghost">
+              Sell us your car
             </Button>
           </div>
-          <p className="mt-10 font-mono text-[11px] tracking-[0.3em] text-muted uppercase">
+          <p className="t-data mt-10 text-[11px] tracking-[0.18em] text-muted uppercase">
             {site.location} · {site.languages}
           </p>
         </Reveal>

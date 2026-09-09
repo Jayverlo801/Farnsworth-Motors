@@ -67,7 +67,7 @@ export default async function VehicleRecordPage({
           </Reveal>
 
           <Reveal delay={180}>
-            <h2 className="t-title mt-16 text-ink">SAME CAR. DIFFERENT CHAPTER.</h2>
+            <h2 className="t-title mt-16 text-ink">Same car, different chapter.</h2>
             <p className="t-body mt-3 max-w-md text-muted">
               Drag to compare intake against delivery. Photo sets replace the
               drawing as they are digitized for this record.

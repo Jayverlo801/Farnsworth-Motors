@@ -13,17 +13,16 @@ export function ProcessStrip() {
       <div className="wrap">
         <div className="flex flex-wrap items-end justify-between gap-8">
           <Reveal>
-            <p className="eyebrow mb-7">02 / Our Process</p>
+            <p className="eyebrow mb-6">Our process</p>
             <h2 className="t-headline">
-              FROM ARRIVAL
-              <br />
-              TO ROAD.
+              How a wreck becomes
+              <br />a Farnsworth car.
             </h2>
           </Reveal>
           <Reveal delay={120}>
             <p className="t-lede max-w-sm pb-2">
-              Six steps. One name on every one of them — sourcing, body, paint,
-              and mechanical, all in-house.
+              Sourcing, body, paint, mechanical, and the state inspection —
+              every step under one roof in Salt Lake City.
             </p>
           </Reveal>
         </div>
@@ -44,7 +43,7 @@ export function ProcessStrip() {
 
         <Reveal delay={200}>
           <Link href="/process" className="hero-cta !mt-14">
-            The full process<span aria-hidden="true">→</span>
+            Walk through it<span aria-hidden="true">→</span>
           </Link>
         </Reveal>
       </div>

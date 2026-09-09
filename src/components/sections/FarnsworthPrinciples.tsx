@@ -17,7 +17,7 @@ export function FarnsworthPrinciples() {
     <section id="principles" className="sect">
       <div className="wrap">
         <Reveal>
-          <p className="eyebrow mb-12">05 / The Farnsworth Standard</p>
+          <p className="eyebrow mb-12">The standard</p>
         </Reveal>
         <div>
           {STATEMENTS.map((s, i) => (

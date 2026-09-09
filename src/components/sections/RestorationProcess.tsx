@@ -59,9 +59,14 @@ export function RestorationProcess() {
     <section id="process" className="sect bg-bg2/40 !pb-0">
       <div className="wrap">
         <Reveal>
-          <p className="eyebrow mb-7">Our Process</p>
-          <h2 className="t-headline">FROM ARRIVAL TO ROAD.</h2>
-          <p className="t-lede mt-6">Six steps. One name on every one of them.</p>
+          <p className="eyebrow mb-7">Our process</p>
+          <h2 className="t-headline">
+            How a wreck becomes
+            <br />a Farnsworth car.
+          </h2>
+          <p className="t-lede mt-6 max-w-xl">
+            Six steps, every one of them in our building. Follow a car through.
+          </p>
         </Reveal>
       </div>
 

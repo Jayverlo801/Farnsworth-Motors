@@ -5,7 +5,7 @@ import { Reveal } from "@/components/ui/Reveal";
 
 /**
  * Homepage chapter: the credibility idea in one glance — the diagram, four
- * facts, one link. The full Vehicle Record lives on the vehicle pages.
+ * facts, one link into a real record.
  */
 export async function RecordTeaser() {
   const v = await getFeaturedVehicle();
@@ -23,23 +23,23 @@ export async function RecordTeaser() {
       <div className="wrap grid items-center gap-14 lg:grid-cols-[5fr_6fr] lg:gap-24">
         <div>
           <Reveal>
-            <p className="eyebrow mb-7">03 / The Vehicle Record</p>
+            <p className="eyebrow mb-6">The record</p>
             <h2 className="t-headline">
-              KNOW WHAT
+              The history comes
               <br />
-              HAPPENED
+              with the car.
               <br />
-              TO THE CAR.
+              In writing.
             </h2>
           </Reveal>
           <Reveal delay={130}>
             <p className="t-lede mt-9 max-w-md">
-              Every car we sell carries a record: where it came from, what was
-              damaged, what was replaced, and who signed off. We would rather
-              show it than hide it.
+              Where it came from, what was damaged, which parts were replaced,
+              who signed off. Ask for the record on any car we sell — the full
+              file sits at the desk, not in a drawer.
             </p>
             <Link href={`/vehicle/${v.slug}/record`} className="hero-cta !mt-9">
-              See a full record<span aria-hidden="true">→</span>
+              Read the {v.model}&rsquo;s record<span aria-hidden="true">→</span>
             </Link>
           </Reveal>
         </div>

@@ -24,7 +24,7 @@ export function HeroCopy({ visible, fast = false }: HeroCopyProps) {
       </p>
       <div className="hero-rise" style={{ transitionDelay: d(600) }}>
         <a className="hero-cta" href="#statement">
-          Explore Vehicles<span aria-hidden="true">↓</span>
+          Explore vehicles<span aria-hidden="true">↓</span>
         </a>
         <span className="hero-cta-line" aria-hidden="true" />
       </div>

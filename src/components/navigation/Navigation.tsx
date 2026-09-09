@@ -57,7 +57,7 @@ export function Navigation() {
             href="/#available"
             className="btn nav-cta !h-9 !px-5 !text-[11px]"
           >
-            View Vehicles
+            View vehicles
           </Link>
         </nav>
 

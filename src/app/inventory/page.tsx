@@ -21,7 +21,7 @@ export default async function InventoryPage() {
         <div className="wrap">
           <Reveal>
             <p className="eyebrow mb-7">Inventory</p>
-            <h1 className="display">AVAILABLE</h1>
+            <h1 className="t-headline">On the lot now.</h1>
             <p className="mt-6 font-mono text-[12px] tracking-[0.3em] text-muted uppercase">
               {inventory.length} vehicle{inventory.length === 1 ? "" : "s"} ·
               Salt Lake City, Utah
